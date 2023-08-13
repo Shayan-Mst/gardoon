@@ -1,0 +1,67 @@
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('./Font/Vazir.eot');
+  src: url('./Font/Vazir.eot?#iefix') format('embedded-opentype'),
+      url('./Font/Vazir.woff2') format('woff2'),
+      url('./Font/Vazir.woff') format('woff'),
+      url('./Font/Vazir.ttf') format('truetype');
+
+  font-style:normal;
+  font-display: swap;
+  
+}
+
+@font-face {
+  font-family: 'Sans a4fran3';
+  src: url('./Font/Sans a4fran3.eot');
+  src: url('./Font/Sans a4fran3.eot?#iefix') format('embedded-opentype'),
+      url('./Font/Sans a4fran3.svg') format('svg'),
+      url('./Font/Sans a4fran3.woff') format('woff'),
+      url('./Font/Sans a4fran3.ttf') format('truetype');
+
+ font-style: normal;
+ font-weight: 900;
+}
+
+
+
+:root {
+  font-family:'Vazir' ,'Sans a4fran3', 'Arial', 'Helvetica','Times New Roman' , 'Georgia' ;
+  line-height: 1.5;
+  font-weight: 400;
+  overflow-x: hidden;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: whitesmoke;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+}
+
+
+
+html,body {
+
+  
+  margin: 0;
+ padding: 0;
+ height: 100%;
+ background-color: whitesmoke;
+ 
+
+}
+
+
+
+
+.App{
+
+  background-color: whitesmoke;
+}
+
+
+
