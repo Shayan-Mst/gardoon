@@ -69,7 +69,7 @@ const EventUpdate = () => {
 <p className="card-text my-2">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه شتشتتشتششششششششششششششششششششششششششششششششششششششششششششششششششششششششش.</p>
 <div className="group mt-4 mx-4 d-flex justify-content-center">
 
-<Link className="btn btn-warning mx-3">ویرایش</Link>
+<Link to='/page/admin/event-manage/edit' className="btn btn-warning mx-3">ویرایش</Link>
 
 <button onClick={handleShow} className="btn btn-danger mx-3">حذف</button>
 

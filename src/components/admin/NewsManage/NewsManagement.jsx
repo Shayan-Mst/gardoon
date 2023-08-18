@@ -1,6 +1,5 @@
 import { useEffect,useRef,useState } from "react";
 import sem from './../../../assets/semnan.jpg'
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
@@ -32,9 +31,6 @@ const NewsManagement = () => {
         if(side == false) page.style.marginRight='5%'
         
         else page.style.marginRight = '15%'
-
-
-        
         })
 
 
@@ -127,34 +123,34 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="d-flex">
 
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label class="form-check-label" for="flexRadioDefault1">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault1">
     دانشجویی
   </label>
 </div>
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-  <label class="form-check-label" for="flexRadioDefault2">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault2">
     فرهنگی و اجتماعی
   </label>
 </div>
 
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label class="form-check-label" for="flexRadioDefault1">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault1">
     ریاستی
   </label>
 </div>
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-  <label class="form-check-label" for="flexRadioDefault2">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault2">
     ورزشی
   </label>
 </div>
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label class="form-check-label" for="flexRadioDefault1">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault1">
    سایر موضوعات
   </label>
 </div>

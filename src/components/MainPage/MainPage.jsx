@@ -1,5 +1,4 @@
 import React from "react"
-
 import TopImageSlider from "./mainpageItems/TopImageSlider";
 import ImageGallery from './mainpageItems/ImageGallery'
 import InfoSlider from "./mainpageItems/InfoSlider";
@@ -19,11 +18,6 @@ const MainPage = () => {
   const [isVisible, setIsVisible] = useState(false);
 
  
-
-    
-
-  
-
     const handleBeforeUnload = () => {
       Cookies.set('visited','false')
     };

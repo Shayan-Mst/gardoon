@@ -26,6 +26,8 @@ import New from './components/other pages/New'
 import Event from './components/other pages/Event'
 import Galler from './components/other pages/Galler'
 import Anounce from './components/other pages/Anounce'
+import NewsEdit from './components/admin/NewsManage/NewsEdit'
+import EventEdit from './components/admin/EventManage/EventEdit'
 
 
 
@@ -54,19 +56,20 @@ function App() {
 
 
 {/*admin page*/}
-<Route path='/page/admin/news-manage'element={<NewsManagement/>}/>
-<Route path='/page/admin/event-manage'element={<EventManagement/>}/>
-<Route path='/page/admin/gallery-manage' element={<GalleryManagement/>}/>
-<Route path='/page/admin/slide-manage' element = {<SlideManagement/>}/>
-<Route path='/page/admin/anounce-manage' element={<AnounceManagement/>}/>
+<Route path = '/page/admin/news-manage'element={<NewsManagement/>}/>
+<Route path = '/page/admin/event-manage'element={<EventManagement/>}/>
+<Route path = '/page/admin/gallery-manage' element={<GalleryManagement/>}/>
+<Route path = '/page/admin/slide-manage' element = {<SlideManagement/>}/>
+<Route path = '/page/admin/anounce-manage' element={<AnounceManagement/>}/>
 <Route path = '/page/admin/info-manage' element={<InfoManagement/>}/>
-<Route path='/page/admin/educal-manage' element={<EduCalendarManagement/>}/>
-<Route path ='/page/admin/news-manage/update' element={<NewsUpdate/>}/>
-<Route path='/page/admin/event-manage/update' element={<EventUpdate/>}/>
-<Route path='/page/admin/gallery-manage/update' element={<GalleryUpdate/>}/>
-<Route path='/page/admin/slide-manage/update' element = {<SlideUpdate/>}/>
-<Route path='/page/admin/anounce-manage/update' element={<AnounceUpdate/>}/>
-
+<Route path = '/page/admin/educal-manage' element={<EduCalendarManagement/>}/>
+<Route path = '/page/admin/news-manage/update' element={<NewsUpdate/>}/>
+<Route path = '/page/admin/event-manage/update' element={<EventUpdate/>}/>
+<Route path = '/page/admin/gallery-manage/update' element={<GalleryUpdate/>}/>
+<Route path = '/page/admin/slide-manage/update' element = {<SlideUpdate/>}/>
+<Route path = '/page/admin/anounce-manage/update' element={<AnounceUpdate/>}/>
+<Route path = '/page/admin/news-manage/edit' element={<NewsEdit/>}/>
+<Route path = '/page/admin/event-manage/edit' element={<EventEdit/>}/>
 </Routes>
 
 <Footer/>

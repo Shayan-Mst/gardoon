@@ -127,22 +127,22 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <ReactQuill  style={{direction:"rtl"}} theme="snow" value={dsc} onChange={dscHandle} placeholder="اینجا بنویسید..."/>
 
 <div className="d-flex">
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label class="form-check-label" for="flexRadioDefault1">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault1">
     دانشجویی
   </label>
 </div>
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-  <label class="form-check-label" for="flexRadioDefault2">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+  <label className="form-check-label" htmlFor="flexRadioDefault2">
     فرهنگی و اجتماعی
   </label>
 </div>
 
-<div class="form-check m-4">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label class="form-check-label" for="flexRadioDefault1">
+<div className="form-check m-4">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault3">
     ریاستی
   </label>
 </div>
