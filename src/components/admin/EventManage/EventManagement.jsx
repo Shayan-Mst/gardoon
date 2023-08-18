@@ -126,6 +126,27 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <ReactQuill  style={{direction:"rtl"}} theme="snow" value={dsc} onChange={dscHandle} placeholder="اینجا بنویسید..."/>
 
+<div className="d-flex">
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label class="form-check-label" for="flexRadioDefault1">
+    دانشجویی
+  </label>
+</div>
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+  <label class="form-check-label" for="flexRadioDefault2">
+    فرهنگی و اجتماعی
+  </label>
+</div>
+
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label class="form-check-label" for="flexRadioDefault1">
+    ریاستی
+  </label>
+</div>
+</div>
 </div>
 
 <div className="btn-g">

@@ -124,6 +124,42 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-1" style={{color:"rgb(0,177,106)"}}>توضیحات</span>خبر</span>
 
 <textarea value={dsc} onChange={handleChangeDsc}  className="input-admin" placeholder="اینجا بنویسید..."/>
+
+<div className="d-flex">
+
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label class="form-check-label" for="flexRadioDefault1">
+    دانشجویی
+  </label>
+</div>
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+  <label class="form-check-label" for="flexRadioDefault2">
+    فرهنگی و اجتماعی
+  </label>
+</div>
+
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label class="form-check-label" for="flexRadioDefault1">
+    ریاستی
+  </label>
+</div>
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+  <label class="form-check-label" for="flexRadioDefault2">
+    ورزشی
+  </label>
+</div>
+<div class="form-check m-4">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label class="form-check-label" for="flexRadioDefault1">
+   سایر موضوعات
+  </label>
+</div>
+</div>
+
 </div>
 
 <div className="btn-g">

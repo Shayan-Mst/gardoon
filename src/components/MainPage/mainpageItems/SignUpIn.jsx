@@ -14,8 +14,7 @@ const [emailActive, setEmailActive] = useState(false);
   const [passwordValidActive , setpasswordValidActive] = useState(false);
   const [type, setType] = useState('password');
 const [icon, setIcon] = useState('eye-on');
-
-
+const [cookies, setCookie] = useCookies([]);
 
 
 const tokenAccess = '';
@@ -157,11 +156,8 @@ function handleLoginSubmit(event) {
 
 }
 
-const [cookies, setCookie] = useCookies([]);
 
-  const saveValueToCookie = () => {
-   
-  };
+  
  
 
 const handleShowPass = () => {
