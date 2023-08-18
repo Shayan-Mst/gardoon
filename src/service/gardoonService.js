@@ -23,7 +23,7 @@ export const getNews = (newsId) =>{
 export const getAllEvents = () =>{
 
 
-    const url = `${SERVER_URL}/events/`;
+    const url = `${SERVER_URL}/events`;
 
     return axios.get(url);
 }
@@ -41,7 +41,7 @@ export const getEvent = (eventsId) =>{
 export const getAllAnounce = () =>{
 
 
-    const url = `${SERVER_URL}/anounce/`;
+    const url = `${SERVER_URL}/anounce`;
 
     return axios.get(url);
 }
@@ -58,7 +58,7 @@ export const getAnounce = (anounceId) =>{
 export const getAllGallery = () =>{
 
 
-    const url = `${SERVER_URL}/gallery/`;
+    const url = `${SERVER_URL}/gallery`;
 
     return axios.get(url);
 }

@@ -212,10 +212,35 @@
           }
           .form form .form-group {
             margin-bottom: 5px;
-            position: relative;
+            
+          }
+
+          .form form .form-group .fa-eye{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            color: black;
+            font-size: 10px;
+          
+          }
+
+          .form form .form-group .fa-eye.eye-off{
+           
+            color: gray;
+          
+          }
+
+          .form form .form-group input {
+            direction: ltr;
           }
           
-          
+          .form form .form-group span{
+
+            display:none;
+            font-size: 10px;
+            color: #f95959;
+            justify-content: end;
+          }
           .form form .form-group.hasError input {
             border-color: #f95959 ;
           }
@@ -275,7 +300,7 @@
             margin-top: 30px;
           
           }
-          .form form .CTA input {
+          .form form .CTA button {
             font-size: 15px;
             text-transform: uppercase;
             padding: 5px 30px;
@@ -3005,8 +3030,6 @@ cursor: pointer;
 
 
 
-
-
 @media  (max-width: 768px) {
 
    
@@ -4876,7 +4899,7 @@ width: 100% ;
   }
   
   
-@media  (max-width :1024px) {
+@media (max-width :1024px) {
 
   .navbar a{
 
