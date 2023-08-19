@@ -1,5 +1,8 @@
-import {  useRef, useState } from "react";
+import {  useEffect, useRef, useState  } from "react";
+import { Navigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import axios from "axios";
+
 
 
 const SignUpIn = () => {
@@ -15,9 +18,14 @@ const [emailActive, setEmailActive] = useState(false);
   const [type, setType] = useState('password');
 const [icon, setIcon] = useState('eye-on');
 const [cookies, setCookie] = useCookies([]);
+const [navigate,setNavigate] = useState(false)
+
+//states for inputs 
+
+const [user,setUser] = useState('');;
+const [password,setPassword] = useState('');
 
 
-const tokenAccess = '';
 
 
   //useRef for refrence to a DOM on state change
@@ -136,7 +144,7 @@ loginRef.current.classList.remove('switched')
    
  }
 
-function handleLoginSubmit(event) {
+function handleLoginClick(event) {
    event.preventDefault();
 
 
@@ -145,16 +153,44 @@ function handleLoginSubmit(event) {
    if(inputRef.current['loginuser'].value.length == 0)  errorRef.current['usererror'].style.display = 'flex'
 
 
-   if(true){
+
+
   
-      const value = 'your_value_here';
-      setCookie('tokenAccess', value, { path: '/signin' });
+     
    
    
-   }
+   
  
 
 }
+
+const handleLoginSubmit = async (e) => {
+
+   e.preventDefault();
+
+   try {
+     const {response} = await axios.post('http://127.0.0.1:8000/auth/jwt/login',{
+
+     user , password
+
+     },{withCredentials:true})
+ 
+     const accessToken = response.data.access_token;
+     const tokenBearer = `Bearer ${accessToken};`
+     // Do something with the access token (e.g., store it in state, local storage, or a cookie)
+     console.log('Access Token:', tokenBearer);
+     setCookie('accessToken', tokenBearer, { path: '/' });
+     setNavigate(true);
+   } catch (error) {
+     console.error('Error logging in:', error);
+   }
+
+
+   if(navigate){
+
+      return <Navigate to='/page/admin/news-manage'/>
+   }
+ };
 
 
   
@@ -207,7 +243,7 @@ return(
                <form onSubmit={handleLoginSubmit} className="login-form" action="#" method="post">
                   <div className="form-group">
                      <label className={emailActive ? 'active' : null}  htmlFor="loginuser">نام کاربری</label>
-                     <input disabled ={loginForm ? false : true} ref={el => inputRef. current['loginuser'] = el} onFocus={handleUserFocus} onBlur={handleUserBlur}  type="text" name="loginuser" id="loginuser" />
+                     <input onChange={e => setUser(e.target.value)} disabled ={loginForm ? false : true} ref={el => inputRef. current['loginuser'] = el} onFocus={handleUserFocus} onBlur={handleUserBlur}  type="text" name="loginuser" id="loginuser" />
                  <span ref={el => errorRef.current['usererror'] = el} className="mt-2">لطفا نام کاربری را پر کنید</span>
                  <span ref={el => errorRef.current['usererror1'] = el} className="mt-2">نام کاربری نمیتواند کمتر از 4 کاراکتر باشد</span>
               
@@ -215,14 +251,14 @@ return(
 
                   <div className="form-group">
                      <label className={passwordActive ? 'active' : null} htmlFor="loginPassword">رمزعبور</label>
-                     <input disabled ={loginForm ? false : true} ref={el => inputRef.current['loginpassword'] = el} onFocus={handlePasswordFocus} onBlur={handlePasswordBlur} type={type} name="loginPassword" id="loginPassword" />
+                     <input onChange={e => setPassword(e.target.value)} disabled ={loginForm ? false : true} ref={el => inputRef.current['loginpassword'] = el} onFocus={handlePasswordFocus} onBlur={handlePasswordBlur} type={type} name="loginPassword" id="loginPassword" />
                      <span ref={el => errorRef.current['passerror1'] = el} className="mt-2">نام کاربری نمیتواند کمتر از 8 کاراکتر باشد</span>
                      <span ref={el => errorRef.current['passerror'] = el} className="mt-2">لطفا رمزعبور را پر کنید</span>
                      <i ref={iconRef} onClick={handleShowPass} className="fa-solid fa-eye"/>
                   </div>
       
                   <div className="CTA">
-                     <button type="submit">ورود</button>
+                     <button onClick={handleLoginClick} type="submit">ورود</button>
                      <small  onClick={switchForms} style={{cursor:"pointer"}} className={`switch ${loginForm ? 'active' : null}`}>حساب کاربری ندارم!</small>
                   </div>
                </form>

@@ -79,7 +79,7 @@ const EventEdit = () => {
 return(<>
 
 <Sidebar setSide={setSide}/>
-   x``
+   
 <form className="event-edit">
 
 <span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> رویداد</span>
