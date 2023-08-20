@@ -4,6 +4,7 @@ import './App.css'
 import MainPage from './components/mainpage/MainPage'
 import Navbar from './components/MainPage/mainpageItems/Navbar'
 import SignUpIn from './components/mainpage/mainpageItems/SignUpIn'
+import NotFound from './components/NotFound'
 import TopBar from './components/MainPage/mainpageItems/TopBar'
 import Footer from './components/MainPage/mainpageItems/Footer'
 import Events from './components/other pages/Events'
@@ -52,7 +53,7 @@ function App() {
 <Route path='/events/:eventId' element={<Event/>}/>
 <Route path = '/gallery/:galleryId' element = {<Galler/>}/>
 <Route path='/anounce/:anounceId' element = {<Anounce/>}/>
-
+<Route path='*' element={<NotFound />}/>
 
 
 {/*admin page*/}
