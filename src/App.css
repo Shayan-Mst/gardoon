@@ -156,7 +156,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -95%);
             margin-top: 60px;
           }
           .brand .success-msg p {
@@ -167,7 +167,7 @@
           
           .brand .success-msg p {
             transition: all 0.9s;
-            transform: translateY(20px);
+            transform: translateY(100px);
             opacity: 0;
           }
           .brand .success-msg p.active {
@@ -325,6 +325,7 @@
           }
           
 
+          
 
 
 /*nav style */

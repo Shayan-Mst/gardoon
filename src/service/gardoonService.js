@@ -4,6 +4,14 @@ import axios from "axios";
 const SERVER_URL = "http://127.0.0.1:8000"
 
 
+export const getAccess = (user) =>{
+
+
+    const url = `${SERVER_URL}/auth/jwt/login`;
+
+    return axios.post(url,user,{withCredentials:true});
+}
+
 export const getAllNews = () =>{
 
 
