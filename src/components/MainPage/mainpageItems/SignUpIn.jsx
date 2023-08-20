@@ -22,7 +22,7 @@ const [navigate,setNavigate] = useState(false)
 
 //states for inputs 
 
-const [user,setUser] = useState('');;
+const [username,setUser] = useState('');;
 const [password,setPassword] = useState('');
 
 
@@ -171,7 +171,7 @@ const handleLoginSubmit = async (e) => {
    try {
      const {response} = await axios.post('http://127.0.0.1:8000/auth/jwt/login',{
 
-     user , password
+     username , password
 
      },{withCredentials:true})
  
