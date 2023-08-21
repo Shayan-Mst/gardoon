@@ -29,6 +29,8 @@ import Galler from './components/other pages/Galler'
 import Anounce from './components/other pages/Anounce'
 import NewsEdit from './components/admin/NewsManage/NewsEdit'
 import EventEdit from './components/admin/EventManage/EventEdit'
+import GalleryEdit from './components/admin/GalleryManage/GalleryEdit'
+import SlideEdit from './components/admin/SlideManage/SlideEdit'
 
 
 
@@ -71,6 +73,8 @@ function App() {
 <Route path = '/page/admin/anounce-manage/update' element={<AnounceUpdate/>}/>
 <Route path = '/page/admin/news-manage/edit' element={<NewsEdit/>}/>
 <Route path = '/page/admin/event-manage/edit' element={<EventEdit/>}/>
+<Route path='/page/admin/gallery-manage/edit' element={<GalleryEdit/>}/>
+<Route path='/page/admin/slide-manage/edit' element = {<SlideEdit/>}/>
 </Routes>
 
 <Footer/>

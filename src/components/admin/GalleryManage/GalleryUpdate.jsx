@@ -13,7 +13,7 @@ import Sidebar from "../Sidebar";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import semnan1 from './../../../assets/semnan.jpg'
-
+import { Link } from "react-router-dom";
 
 
 
@@ -71,7 +71,7 @@ return(<>
     <div className="col-lg-4">
         <div className="cnt">
         <i onClick={handleShow} className="fa-solid fa-trash"></i>
-        <i className="fa-solid fa-pen"></i>
+       <Link to='/page/admin/gallery-manage/edit'> <i className="fa-solid fa-pen"></i></Link>
 <img className="img-fluid" src={semnan1}/>
 
 <span className="g-date">12 اردیبهشت 1402</span>

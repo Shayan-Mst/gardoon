@@ -128,7 +128,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 
 <div className="btn-g">
-<button className="btn btn-success"  type="submit">ویرایش</button>
+<button className="btn btn-warning"  type="submit">ویرایش</button>
 <Dropdown>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
         انتخاب کنید

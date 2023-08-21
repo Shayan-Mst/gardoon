@@ -1,28 +1,23 @@
 import Sidebar from "../Sidebar";
-import sem from './../../../assets/semnan.jpg'
+import { useState ,useEffect} from "react";
+import semnan1 from './../../../assets/semnan.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useState,useEffect } from "react";
-import ReactQuill from 'react-quill';
-
 import { Link } from "react-router-dom";
 
 
 
 
-const EventEdit = () => {
+
+const GalleryEdit = () => {
+
 
     const [side,setSide] = useState(true);
-
     const [titr, setTitr] = useState('');
-  
-    const [dsc,setDsc] = useState('')
-  
-    const [isDragActive, setIsDragActive] = useState(false);
-  
 
+    
     useEffect(()=>{
 
-        const page = document.querySelector('.event-edit')
+        const page = document.querySelector('.gallery-edit')
             
         if(side == false) page.style.marginRight='5%'
         
@@ -30,32 +25,8 @@ const EventEdit = () => {
     
     
       })
+
     
-    
-      const titrHandle = (event) => {
-        const inputValue = event.target.value;
-        if (inputValue.length <= 100) {
-          setTitr(inputValue);
-         
-        }
-      }
-    
-    
-      const dscHandle = (event) => {
-    
-       
-          setDsc(event.target.value);
-         
-        
-      }
-    
-
-
-
-
-
-
-
     function handleDragOver(event) {
         event.preventDefault();
       }
@@ -76,18 +47,27 @@ const EventEdit = () => {
       }
 
 
-return(<>
+      const titrHandle = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue.length <= 100) {
+          setTitr(inputValue);
+         
+        }
+      }
+    
 
-<Sidebar setSide={setSide}/>
-   
-<form className="event-edit">
-
-<span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> رویداد</span>
 
 
-<div className="picture-container mb-3 d-flex">
+    return (
+     <>
+    <Sidebar setSide={setSide}/>
 
-<div className="col-lg-6">
+<form className="gallery-edit">
+<span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> گالری</span>
+
+
+<div className="picture-container m-3">
+
 
 
 <label onDragOver={handleDragOver}
@@ -100,32 +80,24 @@ htmlFor="images" className="drop-container" id="dropcontainer">
   <input type="file" id="images" accept="image/*" required/>
 </label>
 
-</div>
 
-<div className="col-lg-6">
-
-<img className="img-fluid" src={sem} alt="mamad"/>
-
-</div>
+<img className="img-fluid mx-0 mt-4" src={semnan1} alt="mamad"/>
 
 
 </div>
-
 
 <div className="text">
-<span className="d-flex tit mb-4">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> متن</span> رویداد</span>
+<span className="d-flex tit mb-4">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> متن</span> عکس</span>
 
 
-<span className="d-flex mb-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر </span>رویداد</span>
 <span style={{fontSize:"10px"}} className="d-flex justify-content-end">100 / {titr.length}</span>
 
 <textarea  className="input-admin" type="text" value={titr} onChange={titrHandle} />
 
 
-<span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>توضیحات</span>رویداد</span>
-
-<ReactQuill  style={{direction:"rtl"}} theme="snow" value={dsc} onChange={dscHandle} placeholder="اینجا بنویسید..."/>
 </div>
+
+
 <div className="btn-g">
 <button className="btn btn-warning"  type="submit">ویرایش</button>
 <Dropdown>
@@ -139,18 +111,12 @@ htmlFor="images" className="drop-container" id="dropcontainer">
           </Dropdown.Menu>
     </Dropdown>
     </div>
-</form>
+
+    </form>
+     </>
+    )
+  };
 
 
 
-</>)
-
-
-
-}
-
-
-
-
-
-export default EventEdit;
+  export default GalleryEdit;

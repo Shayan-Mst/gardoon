@@ -2499,7 +2499,7 @@ background-color: red;
   .slide-manage , .slide-update,
   .anounce-manage , .anounce-update,
   .info-manage , .educal-manage,
-  .news-edit,.event-edit
+  .news-edit,.event-edit,.gallery-edit
   {
 
   padding:2rem 4rem 4rem 4rem;
@@ -2594,7 +2594,8 @@ input[type=file]::file-selector-button {
 .slide-manage .picture-container .img-fluid,
 .anounce-manage .picture-container .img-fluid,
 .news-edit .picture-container .img-fluid,
-.event-edit .picture-container .img-fluid
+.event-edit .picture-container .img-fluid,
+.gallery-edit .picture-container .img-fluid
 
 {
 
@@ -2603,7 +2604,9 @@ input[type=file]::file-selector-button {
   height: 100%;
 }
 
-.news-manage .btn-g , .event-manage .btn-g,.gallery-manage .btn-g,.slide-manage .btn-g,.anounce-manage .btn-g,.info-manage .btn-g,.educal-manage .btn-g,.news-edit .btn-g,.event-edit .btn-g{
+.news-manage .btn-g , .event-manage .btn-g,.gallery-manage .btn-g,.slide-manage .btn-g,.anounce-manage .btn-g,.info-manage .btn-g,.educal-manage .btn-g,.news-edit .btn-g,.event-edit .btn-g
+,.gallery-edit .btn-g
+{
 
   display: flex;
   justify-content: center;
@@ -2617,7 +2620,8 @@ input[type=file]::file-selector-button {
  .info-manage .btn,
  .educal-manage .btn,
  .news-edit .btn,
- .event-edit .btn
+ .event-edit .btn,
+ .gallery-edit .btn
 
  {
 
@@ -2634,7 +2638,8 @@ width: 160px;
  .info-manage .dropdown-toggle::after,
  .educal-manage .dropdown-toggle::after,
  .news-edit .dropdown-toggle::after,
- .event-edit .dropdown-toggle::after
+ .event-edit .dropdown-toggle::after,
+ .gallery-edit .dropdown-toggle::after
 
  {
 
@@ -2649,7 +2654,8 @@ width: 160px;
  .info-manage .dropdown .dropdown-menu,
  .educal-manage .dropdown .dropdown-menu,
  .news-edit .dropdown .dropdown-menu,
- .event-edit .dropdown .dropdown-menu
+ .event-edit .dropdown .dropdown-menu,
+ .gallery-edit .dropdown .dropdown-menu
  {
  
  
@@ -2666,7 +2672,8 @@ width: 160px;
  .info-manage .dropdown .dropdown-menu a,
  .educal-manage .dropdown .dropdown-menu  a,
  .news-edit .dropdown .dropdown-menu a,
- .event-edit .dropdown .dropdown-menu a
+ .event-edit .dropdown .dropdown-menu a,
+ .gallery-edit .dropdown .dropdown-menu a
  {
 
   text-decoration: none;
@@ -2681,7 +2688,9 @@ width: 160px;
  .info-manage .dropdown .dropdown-menu button:hover a,
  .educal-manage .dropdown .dropdown-menu button:hover a,
  .news-edit .dropdown .dropdown-menu button:hover a,
- .event-edit .dropdown .dropdown-menu button:hover a
+ .event-edit .dropdown .dropdown-menu button:hover a,
+ .gallery-edit .dropdown .dropdown-menu button:hover a
+
  {
 
   color: rgb(37,37,37);
