@@ -7,9 +7,9 @@ const SERVER_URL = "http://127.0.0.1:8000"
 export const getAccess = (user) =>{
 
 
-    const url = `${SERVER_URL}/auth/jwt/login`;
+    const url = `${SERVER_URL}/auth/jwt/login/`;
 
-    return axios.post(url,user,{withCredentials:true});
+    return axios.post(url,user);
 }
 
 export const getAllNews = () =>{

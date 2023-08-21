@@ -88,7 +88,7 @@ const [user,setUser] = useState({
       if(inputRef.current['loginpassword'].value.length != 0)  errorRef.current['passerror'].style.display = 'none'
    
 
-      if( inputRef.current['loginpassword'].value.length >= 1 && inputRef.current['loginpassword'].value.length < 8){
+      if( inputRef.current['loginpassword'].value.length >= 1 && inputRef.current['loginpassword'].value.length < 3){
 
          errorRef.current['passerror1'].style.display = 'flex'
       }
@@ -166,13 +166,15 @@ setUser({...user , [event.target.name] : event.target.value})
 
 const handleLoginSubmit = async event => {
 
+   event.preventDefault();
+
    if(inputRef.current['loginpassword'].value.length == 0)  errorRef.current['passerror'].style.display = 'flex'
   
    if(inputRef.current['loginuser'].value.length == 0)  errorRef.current['usererror'].style.display = 'flex'
 
 
   
-   event.preventDefault();
+  
 
    if(user.username != 0 && user.password != 0){
       try {
@@ -180,15 +182,16 @@ const handleLoginSubmit = async event => {
      console.log('submited')
      
      
-         const accessToken = response.data.access_token;
-        const tokenBearer = `Bearer ${accessToken};`
+         const accessToken = response.data.access;
+       const tokenBearer = `Bearer${accessToken}`
 
         //  Do something with the access token (e.g., store it in state, local storage, or a cookie)
-        console.log(accessToken)
-        console.log('Access Token:', tokenBearer);
-       setCookie('accessToken', tokenBearer, { path: '/' });
+        console.log(tokenBearer)
+       
+        setCookie('accessToken', tokenBearer);
+       
    
-       if(response.status == 201){
+       if(response.status == 200){
    
         
          sucRef.current.classList.add('active');
@@ -205,6 +208,7 @@ const handleLoginSubmit = async event => {
       
        } catch (error) {
          console.error('Error logging in:', error);
+         setSuccess(false)
        }
 
    }
@@ -233,11 +237,6 @@ const handleShowPass = () => {
 }
 
 
-useEffect(()=>{
-
-
-   console.log(user)
-})
 
 
 return(
