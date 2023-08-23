@@ -85,7 +85,7 @@ export const createNews = (news) => {
 
 
 
-    const url = `${SERVER_URL}/news`;
+    const url = `${SERVER_URL}/api/info/`;
 
     return axios.post(url,news);
 }

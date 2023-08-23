@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { createNews } from "../../../service/gardoonService";
 
 
 
@@ -16,10 +17,19 @@ const NewsManagement = () => {
 
     const [titr, setTitr] = useState('');
 
-    const [dsc,setDsc] = useState('')
+    const [dsc,setDsc] = useState('');
 
-    const [selectedImage, setSelectedImage] = useState(null);
 
+    const [selectedImage, setSelectedImage] = useState();
+
+    const [news,setNews] = useState({
+
+     title :'',
+     description:'',
+     category:'',
+     image : ''
+
+    })
 
     const [side,setSide] = useState(true)
 
@@ -31,6 +41,7 @@ const NewsManagement = () => {
         if(side == false) page.style.marginRight='5%'
         
         else page.style.marginRight = '15%'
+console.log(news)
         })
 
 
@@ -39,7 +50,7 @@ const NewsManagement = () => {
       
           if (inputValue.length <= 130) {
             setTitr(inputValue);
-           
+            setNews({...news,title:titr});
           }
         };
 
@@ -47,8 +58,16 @@ const NewsManagement = () => {
         
         const handleChangeDsc = (event) => {
           
-          setDsc(event.target.value)
+          setDsc(event.target.value);
+          setNews({...news,description:dsc});
         };
+
+function handleAx(event){
+
+  setSelectedImage(URL.createObjectURL(event.target.files[0]))
+  setNews({...news,image:event.target.files[0]})
+}
+
 
         function handleDragOver(event) {
             event.preventDefault();
@@ -67,12 +86,36 @@ const NewsManagement = () => {
             setIsDragActive(false);
             const fileInput = document.getElementById('images');
             fileInput.files = event.dataTransfer.files;
+            setSelectedImage(fileInput.files);
           }
+
+
+          const handleSubmit = async event =>{
+
+             event.preventDefault();
+             console.log(news);
+
+try{
+
+const response = await createNews(news)
+
+console.log(response.status)
+}
+
+catch(error){
+
+  console.log(error)
+}
+
+
+
+          }
+
 return(<>
 
 <Sidebar setSide = {setSide}/>  
 
-<form className="news-manage">
+<form onSubmit={handleSubmit} className="news-manage">
 
 <span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> خبر</span>
 
@@ -82,8 +125,6 @@ return(<>
 <div className="col-lg-6">
 
 
-    
-
 <label onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -91,17 +132,15 @@ return(<>
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input type="file" id="images" accept="image/*" required/>
+  <input onChange={handleAx} type="file" id="images" accept="image/*"/>
 </label>
-
-
 
   
 </div>
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={sem} alt="mamad"/>
+<img className="img-fluid" src={selectedImage} alt="mamad"/>
 
 </div>
 
@@ -124,33 +163,33 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <div className="d-flex">
 
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label className="form-check-label" htmlFor="flexRadioDefault1">
+  <input   value = "student" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label  className="form-check-label" htmlFor="flexRadioDefault1">
     دانشجویی
   </label>
 </div>
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
-  <label className="form-check-label" htmlFor="flexRadioDefault2">
+  <input  value = "culture" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+  <label  className="form-check-label" htmlFor="flexRadioDefault2">
     فرهنگی و اجتماعی
   </label>
 </div>
 
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label className="form-check-label" htmlFor="flexRadioDefault1">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault3">
     ریاستی
   </label>
 </div>
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
-  <label className="form-check-label" htmlFor="flexRadioDefault2">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault4">
     ورزشی
   </label>
 </div>
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-  <label className="form-check-label" htmlFor="flexRadioDefault1">
+  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault5">
    سایر موضوعات
   </label>
 </div>

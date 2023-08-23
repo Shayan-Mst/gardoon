@@ -173,9 +173,6 @@ const handleLoginSubmit = async event => {
    if(inputRef.current['loginuser'].value.length == 0)  errorRef.current['usererror'].style.display = 'flex'
 
 
-  
-  
-
    if(user.username != 0 && user.password != 0){
       try {
          const response = await getAccess(user)
