@@ -15,7 +15,7 @@ export const getAccess = (user) =>{
 export const getAllNews = () =>{
 
 
-    const url = `${SERVER_URL}/news`;
+    const url = `${SERVER_URL}/api/info/`;
 
     return axios.get(url);
 }

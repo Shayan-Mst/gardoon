@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import semnan2 from './../../../assets/semnan.jpg'
+import { getAllNews } from "../../../service/gardoonService";
 
 
 
@@ -15,6 +16,7 @@ const NewsUpdate = () => {
 
     const [side,setSide] = useState(true)
 
+    const [allNews,setAllNews] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -38,6 +40,28 @@ const NewsUpdate = () => {
 
         })
 
+
+        useEffect(() =>{
+
+        const fetch = async() => {
+
+          try{
+const {data: newsData} = await getAllNews();
+setAllNews(newsData);
+          }
+
+          catch(error){
+console.log(error);
+
+          }
+
+        }
+
+        fetch();
+        console.log(allNews)
+
+
+        },[])
        
 
     return(<>
@@ -61,14 +85,20 @@ const NewsUpdate = () => {
 </div>
 <div className="row">
 
+
+
+  {
+  
+  
+  allNews.map((item) => (
 <div className="col-lg-4">
-<div className="card mt-3">
+<div key={item.id} className="card mt-3">
   <figure className="image-container d-inline-block my-0">
-  <img src={semnan2} className="card-img-top" alt="..."/>
+  <img src={item.image} className="card-img-top" alt="..."/>
    </figure>
   <div className="card-body">
-  <Link className="card-title d-flex">عنوان خبر لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه .</Link>
-    <p className="card-text my-2">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه شتشتتشتششششششششششششششششششششششششششششششششششششششششششششششششششششششششش.</p>
+  <Link className="card-title d-flex">{item.title}</Link>
+    <p className="card-text my-2">{item.description}</p>
     <div className="group mt-4 mx-4 d-flex justify-content-center">
 
 <Link to='/page/admin/news-manage/edit' className="btn btn-warning mx-3">ویرایش</Link>
@@ -81,6 +111,11 @@ const NewsUpdate = () => {
 </div>
 
 </div>
+
+  ))}
+
+
+
 </div>
 
 

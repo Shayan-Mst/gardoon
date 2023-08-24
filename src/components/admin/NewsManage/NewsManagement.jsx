@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { createNews } from "../../../service/gardoonService";
+import { createNews, getNews } from "../../../service/gardoonService";
 
 
 
@@ -27,7 +27,7 @@ const NewsManagement = () => {
      title :'',
      description:'',
      category:'',
-     image : ''
+     image : null
 
     })
 
@@ -62,10 +62,34 @@ console.log(news)
           setNews({...news,description:dsc});
         };
 
-function handleAx(event){
+const handleAx = async (event) => {
 
-  setSelectedImage(URL.createObjectURL(event.target.files[0]))
-  setNews({...news,image:event.target.files[0]})
+  const file = event.target.files[0];
+  setSelectedImage(URL.createObjectURL(file))
+  const base64  = await convertBase64(file);
+  setNews({...news,image: base64});
+
+}
+
+
+const convertBase64 = (file) =>{
+
+
+  return new Promise((resolve,reject) => {
+const fileReader = new FileReader();
+fileReader.readAsDataURL(file)
+
+fileReader.onload = () => {
+
+  resolve(fileReader.result)
+}
+
+fileReader.onerror = (error) =>{
+
+reject(error)
+}
+
+  })
 }
 
 
@@ -95,19 +119,19 @@ function handleAx(event){
              event.preventDefault();
              console.log(news);
 
-try{
+          
+   try{
 
-const response = await createNews(news)
-
-console.log(response.status)
-}
-
-catch(error){
-
-  console.log(error)
-}
-
-
+    const response = await createNews(news)
+    
+    console.log(response.status)
+    }
+    
+    catch(error){
+    
+      console.log(error)
+    }
+    
 
           }
 
@@ -115,7 +139,7 @@ return(<>
 
 <Sidebar setSide = {setSide}/>  
 
-<form onSubmit={handleSubmit} className="news-manage">
+<form  onSubmit={handleSubmit} className="news-manage">
 
 <span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> خبر</span>
 
@@ -163,32 +187,32 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <div className="d-flex">
 
 <div className="form-check m-4">
-  <input   value = "student" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <input   value = "دانشجویی" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
   <label  className="form-check-label" htmlFor="flexRadioDefault1">
     دانشجویی
   </label>
 </div>
 <div className="form-check m-4">
-  <input  value = "culture" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+  <input  value = "فرهنگی و اجتماعی" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
   <label  className="form-check-label" htmlFor="flexRadioDefault2">
     فرهنگی و اجتماعی
   </label>
 </div>
 
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
+  <input value = "ریاستی" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
   <label className="form-check-label" htmlFor="flexRadioDefault3">
     ریاستی
   </label>
 </div>
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"/>
+  <input value = "ورزشی" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"/>
   <label className="form-check-label" htmlFor="flexRadioDefault4">
     ورزشی
   </label>
 </div>
 <div className="form-check m-4">
-  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5"/>
+  <input value = "سایر موضوعات" onChange={e => setNews({...news,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5"/>
   <label className="form-check-label" htmlFor="flexRadioDefault5">
    سایر موضوعات
   </label>
