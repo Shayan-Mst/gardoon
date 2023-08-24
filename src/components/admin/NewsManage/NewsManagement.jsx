@@ -1,11 +1,12 @@
 import { useEffect,useRef,useState } from "react";
-import sem from './../../../assets/semnan.jpg'
 import 'react-quill/dist/quill.snow.css';
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { createNews, getNews } from "../../../service/gardoonService";
-
+import { createNews } from "../../../service/gardoonService";
+import imgPlc from './../../../assets/plc.avif'
+import  Modal  from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button'
 
 
 
@@ -20,7 +21,7 @@ const NewsManagement = () => {
     const [dsc,setDsc] = useState('');
 
 
-    const [selectedImage, setSelectedImage] = useState();
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const [news,setNews] = useState({
 
@@ -33,6 +34,11 @@ const NewsManagement = () => {
 
     const [side,setSide] = useState(true)
 
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleClose = () => setShowModal(false);
+   
    
 
     useEffect(() => {
@@ -119,18 +125,24 @@ reject(error)
              event.preventDefault();
              console.log(news);
 
-          
-   try{
+             if(news.title != '' && news.description != '' && news.category != ''){
+              try{
 
-    const response = await createNews(news)
-    
-    console.log(response.status)
-    }
-    
-    catch(error){
-    
-      console.log(error)
-    }
+                const response = await createNews(news)
+                
+                console.log(response.status)
+                }
+                
+                catch(error){
+                
+                  console.log(error)
+                }
+
+             }
+
+             else setShowModal(true)
+          
+ 
     
 
           }
@@ -164,7 +176,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={selectedImage} alt="mamad"/>
+<img className="img-fluid" src={selectedImage == null ? imgPlc : selectedImage}/>
 
 </div>
 
@@ -236,7 +248,22 @@ htmlFor="images" className="drop-container" id="dropcontainer">
     </div>
 
 
-</form></>)
+</form>
+
+<Modal centered show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>خطا در عملیات</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{color:"red"}}>لطفا فیلد های مورد نظر را پر کنید</Modal.Body>
+        <Modal.Footer>
+          <Button style={{width:"200px"}} variant="dark" onClick={handleClose}>
+            متوجه شدم!
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
+
+</>)
 
 }
 

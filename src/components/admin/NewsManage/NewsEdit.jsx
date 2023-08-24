@@ -1,8 +1,10 @@
 import Sidebar from "../Sidebar";
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
 import sem from './../../../assets/semnan.jpg'
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { gardoonContext } from "../../../context/gardoonContext";
+import { getNews } from "../../../service/gardoonService";
 
 
 
@@ -15,8 +17,47 @@ const NewsEdit = () => {
 
     const [titr, setTitr] = useState('');
 
-    const [dsc,setDsc] = useState('')
+    const [dsc,setDsc] = useState('');
 
+    const {newsId} = useParams();
+
+    const {news,setNews} = useContext(gardoonContext);
+
+    const [newq,setNewq] = useState({
+
+      New : {}
+    });
+
+
+
+
+    useEffect(()=>{
+
+      const fetchData = async () => {
+           
+        try{
+
+            
+         const {data : newData} = await getNews(newsId);
+          
+          setNewq(newData);
+          
+        }
+        catch(err){
+
+            console.log(err.message);
+          
+        }
+
+    
+
+    }
+
+fetchData();
+
+
+
+    },[])
 
     useEffect(() => {
         const page = document.querySelector('.news-edit')
@@ -102,7 +143,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={sem} alt="mamad"/>
+<img className="img-fluid" src={newq.image} alt="mamad"/>
 
 </div>
 
@@ -117,13 +158,48 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span style={{color:"rgb(0,177,106)"}}>تیتر </span>خبر
 </span>
 <span style={{fontSize:"10px"}} className="d-flex justify-content-end">130 / {titr.length}</span>
-<textarea value={titr} onChange={handleChangeTitr} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
+<textarea value={newq.title} onChange={handleChangeTitr} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
 
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-1" style={{color:"rgb(0,177,106)"}}>توضیحات</span>خبر</span>
 
-<textarea value={dsc} onChange={handleChangeDsc}  className="input-admin" placeholder="اینجا بنویسید..."/>
+<textarea value={newq.description} onChange={handleChangeDsc}  className="input-admin" placeholder="اینجا بنویسید..."/>
 </div>
 
+
+<div className="d-flex">
+
+<div className="form-check m-4">
+  <input checked={newq.category == 'دانشجویی'} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <label  className="form-check-label" htmlFor="flexRadioDefault1">
+    دانشجویی
+  </label>
+</div>
+<div className="form-check m-4">
+  <input checked={newq.category == 'فرهنگی و اجتماعی'} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+  <label  className="form-check-label" htmlFor="flexRadioDefault2">
+    فرهنگی و اجتماعی
+  </label>
+</div>
+
+<div className="form-check m-4">
+  <input checked={newq.category == 'ریاستی'}  className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault3">
+    ریاستی
+  </label>
+</div>
+<div className="form-check m-4">
+  <input checked={newq.category == 'ورزشی'} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault4">
+    ورزشی
+  </label>
+</div>
+<div className="form-check m-4">
+  <input checked={newq.category == 'سایر موضوعات'}  className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault5">
+   سایر موضوعات
+  </label>
+</div>
+</div>
 
 
 

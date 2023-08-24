@@ -71,7 +71,7 @@ function App() {
 <Route path = '/page/admin/gallery-manage/update' element={<GalleryUpdate/>}/>
 <Route path = '/page/admin/slide-manage/update' element = {<SlideUpdate/>}/>
 <Route path = '/page/admin/anounce-manage/update' element={<AnounceUpdate/>}/>
-<Route path = '/page/admin/news-manage/edit' element={<NewsEdit/>}/>
+<Route path = '/page/admin/news-manage/edit/:newsId' element={<NewsEdit/>}/>
 <Route path = '/page/admin/event-manage/edit' element={<EventEdit/>}/>
 <Route path='/page/admin/gallery-manage/edit' element={<GalleryEdit/>}/>
 <Route path='/page/admin/slide-manage/edit' element = {<SlideEdit/>}/>

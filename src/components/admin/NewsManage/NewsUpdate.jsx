@@ -3,7 +3,6 @@ import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
-import semnan2 from './../../../assets/semnan.jpg'
 import { getAllNews } from "../../../service/gardoonService";
 
 
@@ -101,7 +100,7 @@ console.log(error);
     <p className="card-text my-2">{item.description}</p>
     <div className="group mt-4 mx-4 d-flex justify-content-center">
 
-<Link to='/page/admin/news-manage/edit' className="btn btn-warning mx-3">ویرایش</Link>
+<Link to={`/page/admin/news-manage/edit/${item.id}`} className="btn btn-warning mx-3">ویرایش</Link>
 
 <button onClick={handleShow} className="btn btn-danger mx-3">حذف</button>
 
