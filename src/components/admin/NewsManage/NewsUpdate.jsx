@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import { getAllNews } from "../../../service/gardoonService";
-
+import imgPlc from './../../../assets/plc.avif'
 
 
 
@@ -46,7 +46,10 @@ const NewsUpdate = () => {
 
           try{
 const {data: newsData} = await getAllNews();
+
 setAllNews(newsData);
+
+
           }
 
           catch(error){
@@ -57,11 +60,16 @@ console.log(error);
         }
 
         fetch();
-        console.log(allNews)
+
 
 
         },[])
        
+
+
+
+
+      
 
     return(<>
     
@@ -90,10 +98,11 @@ console.log(error);
   
   
   allNews.map((item) => (
-<div className="col-lg-4">
-<div key={item.id} className="card mt-3">
+    
+<div key={item.id} className="col-lg-4">
+<div  className="card mt-3">
   <figure className="image-container d-inline-block my-0">
-  <img src={item.image} className="card-img-top" alt="..."/>
+  <img src={item.image != null ? `http://127.0.0.1:8000${item.image}` :imgPlc} className="card-img-top" alt="..."/>
    </figure>
   <div className="card-body">
   <Link className="card-title d-flex">{item.title}</Link>

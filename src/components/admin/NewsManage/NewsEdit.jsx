@@ -41,6 +41,7 @@ const NewsEdit = () => {
          const {data : newData} = await getNews(newsId);
           
           setNewq(newData);
+          console.log(newData)
           
         }
         catch(err){

@@ -14,12 +14,12 @@ import Button from 'react-bootstrap/Button'
 
 const NewsManagement = () => {
 
+
+
+    const inputRef = useRef(null);
+
+
     const [isDragActive, setIsDragActive] = useState(false);
-
-    const [titr, setTitr] = useState('');
-
-    const [dsc,setDsc] = useState('');
-
 
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -47,7 +47,7 @@ const NewsManagement = () => {
         if(side == false) page.style.marginRight='5%'
         
         else page.style.marginRight = '15%'
-console.log(news)
+
         })
 
 
@@ -55,25 +55,22 @@ console.log(news)
           const inputValue = event.target.value;
       
           if (inputValue.length <= 130) {
-            setTitr(inputValue);
-            setNews({...news,title:titr});
+            setNews({...news,title:inputValue});
           }
         };
 
 
         
         const handleChangeDsc = (event) => {
-          
-          setDsc(event.target.value);
-          setNews({...news,description:dsc});
+          setNews({...news,description:event.target.value});
         };
 
 const handleAx = async (event) => {
 
   const file = event.target.files[0];
-  setSelectedImage(URL.createObjectURL(file))
   const base64  = await convertBase64(file);
-  setNews({...news,image: base64});
+  setSelectedImage(base64)
+  setNews({...news,image: file});
 
 }
 
@@ -125,7 +122,11 @@ reject(error)
              event.preventDefault();
              console.log(news);
 
+
              if(news.title != '' && news.description != '' && news.category != ''){
+
+
+            
               try{
 
                 const response = await createNews(news)
@@ -147,11 +148,14 @@ reject(error)
 
           }
 
+
+
+       
 return(<>
 
 <Sidebar setSide = {setSide}/>  
 
-<form  onSubmit={handleSubmit} className="news-manage">
+<form   encType="multipart/form-data"  onSubmit={handleSubmit} className="news-manage">
 
 <span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> خبر</span>
 
@@ -189,12 +193,12 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span style={{color:"rgb(0,177,106)"}}>تیتر </span>خبر
 </span>
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">130 / {titr.length}</span>
-<textarea value={titr} onChange={handleChangeTitr} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
+<span style={{fontSize:"10px"}} className="d-flex justify-content-end">130 / {news.title.length}</span>
+<textarea   ref={inputRef} value={news.title} onChange={handleChangeTitr} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
 
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-1" style={{color:"rgb(0,177,106)"}}>توضیحات</span>خبر</span>
 
-<textarea value={dsc} onChange={handleChangeDsc}  className="input-admin" placeholder="اینجا بنویسید..."/>
+<textarea value={news.description} onChange={handleChangeDsc}  className="input-admin" placeholder="اینجا بنویسید..."/>
 
 <div className="d-flex">
 

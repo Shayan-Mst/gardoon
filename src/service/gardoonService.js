@@ -23,7 +23,7 @@ export const getAllNews = () =>{
 export const getNews = (newsId) =>{
 
 
-    const url = `${SERVER_URL}/news/${newsId}`;
+    const url = `${SERVER_URL}/api/info/?${newsId}`;
 
     return axios.get(url);
 }
@@ -86,8 +86,15 @@ export const createNews = (news) => {
 
 
     const url = `${SERVER_URL}/api/info/`;
+    const formData = new FormData();
+  formData.append('image', news.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
 
-    return axios.post(url,news);
+  formData.append('category',news.category)
+  // Append other form fields if needed
+  formData.append('title', news.title);
+  formData.append('description', news.description);
+
+    return axios.post(url,formData);
 }
 
 
