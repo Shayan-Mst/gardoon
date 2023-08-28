@@ -29,7 +29,7 @@ class InfoApi(APIView):
             return Response(serializer.errors, status=400)
 
     def get(self, request, *args, **kwargs):
-        infoes = Information.objects.all()
+        infoes = Information.objects.order_by('-created')
         serializer = InfoPostSerializer(infoes, many=True)
         return Response(serializer.data)
 
