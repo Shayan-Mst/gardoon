@@ -34,6 +34,10 @@ class InfoApi(APIView):
         return Response(serializer.data)
 
 class InfoDetail(APIView):
+    def get(self, request,pk):
+        info = get_object_or_404(Information ,pk=pk)
+        serializer = InfoPostSerializer(info)
+        return Response(serializer.data)
 
     def put(self , request,pk):
         info = get_object_or_404(Information ,pk=pk)
@@ -50,3 +54,5 @@ class InfoDetail(APIView):
         return Response(status=200)
 
     
+
+
