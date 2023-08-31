@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
-import { getAllNews } from "../../../service/gardoonService";
+import { deletNews, getAllNews } from "../../../service/gardoonService";
 import imgPlc from './../../../assets/plc.avif'
 
 
@@ -67,6 +67,25 @@ console.log(error);
        
 
 
+      /*  const handleDelete = async(newsId) =>{
+try{
+
+const response = await deletNews(newsId)
+
+if(response){
+  const {data: newsData} = await getAllNews();
+  setAllNews(newsData);
+  
+}
+}
+
+catch{
+
+
+}
+
+
+        }*/
 
 
       
@@ -75,7 +94,7 @@ console.log(error);
     
     <Sidebar setSide={setSide}/>
     
-    <form className="news-update">
+    <form  className="news-update">
 
     <span className="d-flex tit mb-4">اخبار<span className="mx-2" style={{color:"rgb(0,177,106)"}}> موجود</span> </span>
 
@@ -136,7 +155,7 @@ console.log(error);
           <Button variant="secondary" onClick={handleClose}>
             خیر
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={''}>
             بله
           </Button>
         </Modal.Footer>

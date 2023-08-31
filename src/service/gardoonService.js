@@ -23,7 +23,7 @@ export const getAllNews = () =>{
 export const getNews = (newsId) =>{
 
 
-    const url = `${SERVER_URL}/api/info/?${newsId}`;
+    const url = `${SERVER_URL}/api/info/${newsId}/`;
 
     return axios.get(url);
 }
@@ -102,18 +102,26 @@ export const updateNews = (news , newsId) => {
 
 
 
-    const url = `${SERVER_URL}/news/${newsId}`;
+    const url = `${SERVER_URL}/api/info/${newsId}/`;
 
-    return axios.put(url , news);
+    const formData = new FormData();
+    formData.append('image', news.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
+  
+    formData.append('category',news.category)
+    // Append other form fields if needed
+    formData.append('title', news.title);
+    formData.append('description', news.description);
+
+    return axios.put(url , formData);
 
 
 }
 
 
-export const deleteContact = (newsId) => {
+export const deletNews = (newsId) => {
 
 
-    const url = `${SERVER_URL}/news/${newsId}`;
+    const url = `${SERVER_URL}/api/info/${newsId}`;
 
     return axios.delete(url);
 }

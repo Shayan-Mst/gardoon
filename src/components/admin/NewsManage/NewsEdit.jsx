@@ -1,10 +1,9 @@
 import Sidebar from "../Sidebar";
 import { useState,useEffect, useContext } from "react";
-import sem from './../../../assets/semnan.jpg'
 import { Link, useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { gardoonContext } from "../../../context/gardoonContext";
-import { getNews } from "../../../service/gardoonService";
+import { getNews, updateNews } from "../../../service/gardoonService";
 
 
 
@@ -15,18 +14,23 @@ const NewsEdit = () => {
 
     const [isDragActive, setIsDragActive] = useState(false);
 
-    const [titr, setTitr] = useState('');
-
-    const [dsc,setDsc] = useState('');
-
     const {newsId} = useParams();
 
     const {news,setNews} = useContext(gardoonContext);
 
-    const [newq,setNewq] = useState({
+    const [selectImg,setSelectImg] = useState(null);
 
-      New : {}
+    const [newq,setNewq] = useState({
+   
+    News:{}
+
     });
+
+    const [updateContain,setUpdateContain] = useState({
+      updated : {}
+    })
+
+    const [modifiedContent,setModifiedContent] = useState({})
 
 
 
@@ -40,13 +44,14 @@ const NewsEdit = () => {
             
          const {data : newData} = await getNews(newsId);
           
-          setNewq(newData);
-          console.log(newData)
+         setNewq(newData);
+         setUpdateContain(newData)
+
           
         }
         catch(err){
 
-            console.log(err.message);
+            console.log(err);
           
         }
 
@@ -60,6 +65,11 @@ fetchData();
 
     },[])
 
+
+    useEffect(() => {
+      console.log(updateContain);
+    }, [updateContain]);
+
     useEffect(() => {
         const page = document.querySelector('.news-edit')
               
@@ -72,22 +82,9 @@ fetchData();
               })
 
 
-              const handleChangeTitr = (event) => {
-                const inputValue = event.target.value;
-            
-                if (inputValue.length <= 130) {
-                  setTitr(inputValue);
-                 
-                }
-              };
+             
       
-      
-              
-              const handleChangeDsc = (event) => {
-                
-                setDsc(event.target.value)
-              };
-
+    
 
               function handleDragOver(event) {
                 event.preventDefault();
@@ -108,15 +105,108 @@ fetchData();
                 fileInput.files = event.dataTransfer.files;
               }
 
+              const handleAx = async(event) => {
 
+                const file = event.target.files[0];
+               const base64  = await convertBase64(file);
+
+                setSelectImg(base64);
+                setUpdateContain({...updateContain,
+                [event.target.name] : file
+                
+                });
+              
+              }
+
+
+              const convertBase64 = (file) =>{
+
+
+                return new Promise((resolve,reject) => {
+              const fileReader = new FileReader();
+              fileReader.readAsDataURL(file)
+              
+              fileReader.onload = () => {
+              
+                resolve(fileReader.result)
+              }
+              
+              fileReader.onerror = (error) =>{
+              
+              reject(error)
+              }
+              
+                })
+              }
+
+
+const onNewsChange = (event) =>{
+
+  setUpdateContain( {
+      ...updateContain,
+      [event.target.name] : event.target.value,
+  
+});
+
+
+  
+  };
+
+const handleUpdate = async(event) =>{
+
+  event.preventDefault();
+  
+  
+
+
+if(newq.title != updateContain.title){
+  
+  modifiedContent['title'] = updateContain.title;
+}
+
+if(newq.description != updateContain.description){
+  
+  modifiedContent['description'] = updateContain.description;
+}
+
+if(newq.category != updateContain.category){
+  
+  modifiedContent['category'] = updateContain.category;
+}
+
+if(updateContain.image instanceof File){
+
+  modifiedContent['image'] = updateContain.image
+}
+  
+  
+
+
+try{
+const {data,status} = await updateNews(
+
+  modifiedContent,newsId
+)
+
+console.log(data)
+}
+catch(error){
+
+console.log(error)
+}
+
+}
+  
 
 
 return(<>
 
 <Sidebar setSide = {setSide}/>  
 
+{Object.keys(newq).length && (
 
-<form className="news-edit">
+
+<form onSubmit={handleUpdate} className="news-edit">
 
 <span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> خبر</span>
 
@@ -134,7 +224,7 @@ return(<>
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input type="file" id="images" accept="image/*" required/>
+  <input name="image" onChange={handleAx} type="file" id="images" accept="image/*"/>
 </label>
 
 
@@ -144,7 +234,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={newq.image} alt="mamad"/>
+<img className="img-fluid" src={selectImg == null ?`http://127.0.0.1:8000${newq.image}`:selectImg} alt="mamad"/>
 
 </div>
 
@@ -158,44 +248,44 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span style={{color:"rgb(0,177,106)"}}>تیتر </span>خبر
 </span>
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">130 / {titr.length}</span>
-<textarea value={newq.title} onChange={handleChangeTitr} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
+<span style={{fontSize:"10px"}} className="d-flex justify-content-end">130 / {}</span>
+<textarea value={updateContain.title} onChange={onNewsChange} name="title" className="input-admin" placeholder="اینجا بنویسید..."></textarea>
 
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-1" style={{color:"rgb(0,177,106)"}}>توضیحات</span>خبر</span>
 
-<textarea value={newq.description} onChange={handleChangeDsc}  className="input-admin" placeholder="اینجا بنویسید..."/>
+<textarea value={updateContain.description} onChange={onNewsChange} name="description"  className="input-admin" placeholder="اینجا بنویسید..."/>
 </div>
 
 
 <div className="d-flex">
 
 <div className="form-check m-4">
-  <input checked={newq.category == 'دانشجویی'} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+  <input  value = "دانشجویی" checked={updateContain.category == 'دانشجویی'} onChange={onNewsChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault1"/>
   <label  className="form-check-label" htmlFor="flexRadioDefault1">
     دانشجویی
   </label>
 </div>
 <div className="form-check m-4">
-  <input checked={newq.category == 'فرهنگی و اجتماعی'} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+  <input  value = "فرهنگی و اجتماعی" checked={updateContain.category == 'فرهنگی و اجتماعی'} onChange={onNewsChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault2"/>
   <label  className="form-check-label" htmlFor="flexRadioDefault2">
     فرهنگی و اجتماعی
   </label>
 </div>
 
 <div className="form-check m-4">
-  <input checked={newq.category == 'ریاستی'}  className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
+  <input value = "ریاستی" checked={updateContain.category == 'ریاستی'} onChange={onNewsChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault3"/>
   <label className="form-check-label" htmlFor="flexRadioDefault3">
     ریاستی
   </label>
 </div>
 <div className="form-check m-4">
-  <input checked={newq.category == 'ورزشی'} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"/>
+  <input  value = "ورزشی" checked={updateContain.category == 'ورزشی'} onChange={onNewsChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault4"/>
   <label className="form-check-label" htmlFor="flexRadioDefault4">
     ورزشی
   </label>
 </div>
 <div className="form-check m-4">
-  <input checked={newq.category == 'سایر موضوعات'}  className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5"/>
+  <input value = "سایر موضوعات" checked={updateContain.category == 'سایر موضوعات'} onChange={onNewsChange}  className="form-check-input" type="radio" name="category" id="flexRadioDefault5"/>
   <label className="form-check-label" htmlFor="flexRadioDefault5">
    سایر موضوعات
   </label>
@@ -223,6 +313,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 
 </form>
+)}
 
 
 
