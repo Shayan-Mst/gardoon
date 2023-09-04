@@ -105,12 +105,13 @@ export const updateNews = (news , newsId) => {
     const url = `${SERVER_URL}/api/info/${newsId}/`;
 
     const formData = new FormData();
-    formData.append('image', news.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
+  typeof  news.image != 'undefined' ?   formData.append('image', news.image) : null // Assuming 'image' is the key for the uploaded file in the 'news' object
   
-    formData.append('category',news.category)
+  typeof news.category != 'undefined' ?  formData.append('category',news.category) : null;
     // Append other form fields if needed
-    formData.append('title', news.title);
-    formData.append('description', news.description);
+  typeof  news.title != 'undefined' ?  formData.append('title', news.title) : null;
+
+  typeof news.description != 'undefined' ?   formData.append('description', news.description) : null 
 
     return axios.put(url , formData);
 
@@ -121,7 +122,7 @@ export const updateNews = (news , newsId) => {
 export const deletNews = (newsId) => {
 
 
-    const url = `${SERVER_URL}/api/info/${newsId}`;
+    const url = `${SERVER_URL}/api/info/${newsId}/`;
 
     return axios.delete(url);
 }

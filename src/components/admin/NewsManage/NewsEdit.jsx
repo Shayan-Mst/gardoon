@@ -30,10 +30,7 @@ const NewsEdit = () => {
       updated : {}
     })
 
-    const [modifiedContent,setModifiedContent] = useState({})
-
-
-
+  
 
     useEffect(()=>{
 
@@ -155,7 +152,7 @@ const onNewsChange = (event) =>{
 const handleUpdate = async(event) =>{
 
   event.preventDefault();
-  
+  const modifiedContent = {}
   
 
 
@@ -180,7 +177,7 @@ if(updateContain.image instanceof File){
 }
   
   
-
+console.log(modifiedContent)
 
 try{
 const {data,status} = await updateNews(
@@ -189,6 +186,7 @@ const {data,status} = await updateNews(
 )
 
 console.log(data)
+console.log(status)
 }
 catch(error){
 

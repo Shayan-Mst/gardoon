@@ -1,5 +1,5 @@
 import Sidebar from "../Sidebar";
-import { useState,useEffect } from "react";
+import { useState,useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
@@ -19,12 +19,24 @@ const NewsUpdate = () => {
 
     const [showModal, setShowModal] = useState(false);
 
+    const [newsId,setNewsId] = useState();
+
+    const buttonRef = useRef();
+
     const handleClose = () => setShowModal(false);
+
     const handleShow = (e) => {
       
+      setNewsId(e.target.value)
       e.preventDefault();
       
-      setShowModal(true)};
+      setShowModal(true)
+
+     
+
+      console.log(newsId)
+    
+    };
 
     useEffect(() => {
 
@@ -67,10 +79,14 @@ console.log(error);
        
 
 
-      /*  const handleDelete = async(newsId) =>{
+       const handleDelete = async(event) =>{
+
+        event.preventDefault();
 try{
 
 const response = await deletNews(newsId)
+
+console.log(response.status)
 
 if(response){
   const {data: newsData} = await getAllNews();
@@ -85,7 +101,7 @@ catch{
 }
 
 
-        }*/
+        }
 
 
       
@@ -94,7 +110,7 @@ catch{
     
     <Sidebar setSide={setSide}/>
     
-    <form  className="news-update">
+    <form   className="news-update">
 
     <span className="d-flex tit mb-4">اخبار<span className="mx-2" style={{color:"rgb(0,177,106)"}}> موجود</span> </span>
 
@@ -130,7 +146,7 @@ catch{
 
 <Link to={`/page/admin/news-manage/edit/${item.id}`} className="btn btn-warning mx-3">ویرایش</Link>
 
-<button onClick={handleShow} className="btn btn-danger mx-3">حذف</button>
+<button  onClick={handleShow} value={item.id} className="btn btn-danger mx-3">حذف</button>
 
 
 </div>
@@ -155,7 +171,7 @@ catch{
           <Button variant="secondary" onClick={handleClose}>
             خیر
           </Button>
-          <Button variant="primary" onClick={''}>
+          <Button onClick={handleDelete} variant="primary">
             بله
           </Button>
         </Modal.Footer>
