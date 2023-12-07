@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { createNews } from "../../../service/gardoonService";
-import imgPlc from './../../../assets/plc.avif'
+
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 
@@ -68,8 +68,8 @@ const NewsManagement = () => {
 const handleAx = async (event) => {
 
   const file = event.target.files[0];
-  const base64  = await convertBase64(file);
-  setSelectedImage(base64)
+ const base64  = await convertBase64(file);
+setSelectedImage(base64)
   setNews({...news,image: file});
 
 }
@@ -79,34 +79,36 @@ const convertBase64 = (file) =>{
 
 
   return new Promise((resolve,reject) => {
-const fileReader = new FileReader();
-fileReader.readAsDataURL(file)
 
-fileReader.onload = () => {
+    const fileReader = new FileReader();
 
-  resolve(fileReader.result)
-}
+    fileReader.readAsDataURL(file);
 
-fileReader.onerror = (error) =>{
 
-reject(error)
-}
+    fileReader.onload = () => {
+
+
+      resolve(fileReader.result)
+
+    }
+
+
+    fileReader.onerror = (error) =>{
+
+
+      reject(error)
+
+    }
 
   })
 }
 
 
-        function handleDragOver(event) {
-            event.preventDefault();
-          }
+          function handleDragOver(event) { event.preventDefault();}
         
-          function handleDragEnter() {
-            setIsDragActive(true);
-          }
+          function handleDragEnter() {setIsDragActive(true);}
         
-          function handleDragLeave() {
-            setIsDragActive(false);
-          }
+          function handleDragLeave() {setIsDragActive(false);}
         
           function handleDrop(event) {
             event.preventDefault();

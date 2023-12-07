@@ -3,8 +3,7 @@ import Sidebar from "../Sidebar"
 import { useState,useEffect,useRef } from "react";
 import sem from './../../../assets/semnan.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
-import ReactQuill from 'react-quill';
-
+import imgPlc from './../../../assets/plc.avif'
 import { Link } from "react-router-dom";
 
 
@@ -16,10 +15,14 @@ const GalleryManagement = () => {
     const [side,setSide] = useState(true);
 
     
-  const [value, setValue] = useState('');
+  const [Gallery, setGallery] = useState({
+    title : '',
+    image:null
+  });
 
   const [isDragActive, setIsDragActive] = useState(false);
 
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const inputRef = useRef(['']);
 
@@ -39,7 +42,7 @@ const GalleryManagement = () => {
 
     const inputValue = event.target.value;
     if (inputValue.length <= 85) {
-      setValue(inputValue);
+      setGallery({...value , title : inputValue});
      
     }
   }
@@ -63,6 +66,47 @@ const GalleryManagement = () => {
     fileInput.files = event.dataTransfer.files;
   }
 
+  
+  
+  
+const handleAx = async (event) => {
+
+const file = event.target.files[0];
+const base64  = await convertBase64(file);
+setSelectedImage(base64)
+setGallery({...Gallery,image: file});
+
+}
+
+
+const convertBase64 = (file) =>{
+
+
+return new Promise((resolve,reject) => {
+
+const fileReader = new FileReader();
+
+fileReader.readAsDataURL(file);
+
+
+fileReader.onload = () => {
+
+
+resolve(fileReader.result)
+
+}
+
+
+fileReader.onerror = (error) =>{
+
+
+reject(error)
+
+}
+
+})
+}
+
 
     return(<>
     
@@ -80,8 +124,6 @@ const GalleryManagement = () => {
 <div className="col-lg-6">
 
 
-    
-
 <label onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -89,17 +131,15 @@ const GalleryManagement = () => {
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input type="file" id="images" accept="image/*" required/>
+  <input onChange={handleAx} type="file" id="images" accept="image/*" />
 </label>
-
-
 
   
 </div>
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={sem} alt="mamad"/>
+<img className="img-fluid" src={selectedImage == null ? imgPlc : selectedImage} alt="mamad"/>
 
 </div>
 
@@ -111,11 +151,9 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر </span>عکس</span>
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">85 / {value.length}</span>
+<span style={{fontSize:"10px"}} className="d-flex justify-content-end">85 / {Gallery.title.length}</span>
 
-<textarea  className="input-admin" type="text" value={value} onChange={handleGallery} />
-
-
+<textarea  className="input-admin" type="text" value={Gallery.title} onChange={handleGallery} />
 
 </div>
 

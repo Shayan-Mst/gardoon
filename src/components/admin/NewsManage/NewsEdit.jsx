@@ -1,9 +1,10 @@
 import Sidebar from "../Sidebar";
 import { useState,useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { gardoonContext } from "../../../context/gardoonContext";
 import { getNews, updateNews } from "../../../service/gardoonService";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -31,6 +32,7 @@ const NewsEdit = () => {
     })
 
   
+    const navigate = useNavigate();
 
     useEffect(()=>{
 
@@ -63,12 +65,11 @@ fetchData();
     },[])
 
 
-    useEffect(() => {
-      console.log(updateContain);
-    }, [updateContain]);
+    
 
     useEffect(() => {
-        const page = document.querySelector('.news-edit')
+
+              const page = document.querySelector('.news-edit')
               
               if(side == false) page.style.marginRight='5%'
               
@@ -79,21 +80,11 @@ fetchData();
               })
 
 
-             
-      
-    
-
-              function handleDragOver(event) {
-                event.preventDefault();
-              }
+              function handleDragOver(event) { event.preventDefault(); }
             
-              function handleDragEnter() {
-                setIsDragActive(true);
-              }
+              function handleDragEnter() {setIsDragActive(true); }
             
-              function handleDragLeave() {
-                setIsDragActive(false);
-              }
+              function handleDragLeave() { setIsDragActive(false);}
             
               function handleDrop(event) {
                 event.preventDefault();
@@ -139,6 +130,8 @@ fetchData();
 
 const onNewsChange = (event) =>{
 
+ 
+
   setUpdateContain( {
       ...updateContain,
       [event.target.name] : event.target.value,
@@ -148,6 +141,21 @@ const onNewsChange = (event) =>{
 
   
   };
+
+const notify = () =>  
+  
+  toast.success('ویرایش با موفقیت انجام شد.', {
+    duration: 4000,
+    position: 'top-center',
+  
+    // Aria
+    ariaProps: {
+      role: 'status',
+      'aria-live': 'polite',
+    },
+  });
+
+
 
 const handleUpdate = async(event) =>{
 
@@ -180,13 +188,20 @@ if(updateContain.image instanceof File){
 console.log(modifiedContent)
 
 try{
-const {data,status} = await updateNews(
+const {status} = await updateNews(
 
   modifiedContent,newsId
 )
 
-console.log(data)
-console.log(status)
+if(status == 201){
+
+
+
+setTimeout(() => {
+  // Code to be executed after 5 seconds
+  navigate('/page/admin/news-manage/update');
+}, 5000);
+}
 }
 catch(error){
 
@@ -225,9 +240,6 @@ htmlFor="images" className="drop-container" id="dropcontainer">
   <input name="image" onChange={handleAx} type="file" id="images" accept="image/*"/>
 </label>
 
-
-
-  
 </div>
 
 <div className="col-lg-6">
@@ -246,8 +258,8 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span style={{color:"rgb(0,177,106)"}}>تیتر </span>خبر
 </span>
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">130 / {}</span>
-<textarea value={updateContain.title} onChange={onNewsChange} name="title" className="input-admin" placeholder="اینجا بنویسید..."></textarea>
+
+<textarea maxLength="130" value={updateContain.title} onChange={onNewsChange} name="title" className="input-admin" placeholder="اینجا بنویسید..."></textarea>
 
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-1" style={{color:"rgb(0,177,106)"}}>توضیحات</span>خبر</span>
 
@@ -287,6 +299,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
   <label className="form-check-label" htmlFor="flexRadioDefault5">
    سایر موضوعات
   </label>
+  
 </div>
 </div>
 
@@ -311,8 +324,9 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 
 </form>
-)}
 
+)}
+<button onClick={notify}>toast!</button>
 
 
 </>)

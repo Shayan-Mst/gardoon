@@ -88,16 +88,19 @@ const response = await deletNews(newsId)
 
 console.log(response.status)
 
-if(response){
+if(response.status == 200){
+  
   const {data: newsData} = await getAllNews();
   setAllNews(newsData);
+  setShowModal(false)
   
 }
 }
 
-catch{
+catch(error){
 
 
+  console.log(error)
 }
 
 

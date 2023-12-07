@@ -2,10 +2,10 @@ import Sidebar from "../Sidebar";
 import sem from './../../../assets/semnan.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState,useEffect } from "react";
-import ReactQuill from 'react-quill';
-
-import { Link } from "react-router-dom";
-
+import { getEvent , updateEvent } from "../../../service/gardoonService";
+import { Link , useNavigate , useParams} from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
+import imgPlc from './../../../assets/plc.avif'
 
 
 
@@ -13,12 +13,23 @@ const EventEdit = () => {
 
     const [side,setSide] = useState(true);
 
-    const [titr, setTitr] = useState('');
-  
-    const [dsc,setDsc] = useState('')
-  
     const [isDragActive, setIsDragActive] = useState(false);
   
+    const {eventId} = useParams();
+
+    const [updateContain,setUpdateContain] = useState({
+      updated : {}
+    })
+    const [Event,setEvent] = useState({
+   
+      events:{}
+  
+      });
+
+      const [selectImg,setSelectImg] = useState(imgPlc);
+  
+    const navigate = useNavigate();
+
 
     useEffect(()=>{
 
@@ -30,30 +41,40 @@ const EventEdit = () => {
     
     
       })
-    
-    
-      const titrHandle = (event) => {
-        const inputValue = event.target.value;
-        if (inputValue.length <= 100) {
-          setTitr(inputValue);
-         
-        }
+
+      useEffect(()=>{
+
+        const fetchData = async () => {
+             
+          try{
+  
+              
+           const {data : newData} = await getEvent(eventId);
+            
+           setNewq(newData);
+           setUpdateContain(newData)
+  
+            
+          }
+          catch(err){
+  
+              console.log(err);
+            
+          }
+  
+      
+  
       }
+  
+  fetchData();
+  
+  
+  
+      },[])
+
+      
     
-    
-      const dscHandle = (event) => {
-    
-       
-          setDsc(event.target.value);
-         
-        
-      }
-    
-
-
-
-
-
+  
 
 
     function handleDragOver(event) {
@@ -76,11 +97,129 @@ const EventEdit = () => {
       }
 
 
+
+      const handleAx = async(event) => {
+
+        const file = event.target.files[0];
+       const base64  = await convertBase64(file);
+
+        setSelectImg(base64);
+        setUpdateContain({...updateContain,
+        [event.target.name] : file
+        
+        });
+      
+      }
+
+
+      const convertBase64 = (file) =>{
+
+
+        return new Promise((resolve,reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      
+      fileReader.onload = () => {
+      
+        resolve(fileReader.result)
+      }
+      
+      fileReader.onerror = (error) =>{
+      
+      reject(error)
+      }
+      
+        })
+      }
+
+      const onEventChange = (event) =>{
+
+        setUpdateContain( {
+            ...updateContain,
+            [event.target.name] : event.target.value,
+        
+      });
+      
+      
+        
+        };
+
+
+
+        const notify = () =>  
+  
+  toast.success('ویرایش با موفقیت انجام شد.', {
+    duration: 4000,
+    position: 'top-center',
+  
+    // Aria
+    ariaProps: {
+      role: 'status',
+      'aria-live': 'polite',
+    },
+  });
+
+
+
+const handleUpdate = async(event) =>{
+
+  event.preventDefault();
+  const modifiedContent = {}
+  
+
+
+if(Event.title != updateContain.title){
+  
+  modifiedContent['title'] = updateContain.title;
+}
+
+if(Event.description != updateContain.description){
+  
+  modifiedContent['description'] = updateContain.description;
+}
+
+if(Event.category != updateContain.category){
+  
+  modifiedContent['category'] = updateContain.category;
+}
+
+if(updateContain.image instanceof File){
+
+  modifiedContent['image'] = updateContain.image
+}
+  
+  
+console.log(modifiedContent)
+
+try{
+const {status} = await updateEvent(
+
+  modifiedContent,eventId
+)
+
+if(status == 201){
+
+
+
+setTimeout(() => {
+  // Code to be executed after 5 seconds
+  navigate('/page/admin/event-manage/update');
+}, 5000);
+}
+}
+catch(error){
+
+console.log(error)
+}
+
+}
+
+
 return(<>
 
 <Sidebar setSide={setSide}/>
    
-<form className="event-edit">
+<form className="event-edit" onSubmit={handleUpdate}>
 
 <span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> رویداد</span>
 
@@ -97,14 +236,14 @@ return(<>
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input type="file" id="images" accept="image/*" required/>
+  <input onChange={handleAx} type="file" id="images" accept="image/*" required/>
 </label>
 
 </div>
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={sem} alt="mamad"/>
+<img className="img-fluid" src={selectImg == null ?`http://127.0.0.1:8000${Event.image}`:selectImg} alt="mamad"/>
 
 </div>
 
@@ -117,15 +256,53 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر </span>رویداد</span>
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">100 / {titr.length}</span>
 
-<textarea  className="input-admin" type="text" value={titr} onChange={titrHandle} />
+
+<textarea maxLength="130" onChange={onEventChange}  className="input-admin" type="text" value={updateContain.title} placeholder="اینجا بنویسید..." />
 
 
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>توضیحات</span>رویداد</span>
 
-<ReactQuill  style={{direction:"rtl"}} theme="snow" value={dsc} onChange={dscHandle} placeholder="اینجا بنویسید..."/>
+<textarea className="input-admin" value={updateContain.description} onChange={onEventChange} placeholder="اینجا بنویسید..."/>
 </div>
+
+
+<div className="d-flex">
+
+<div className="form-check m-4">
+  <input  value = "دانشجویی" checked={updateContain.category == 'دانشجویی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault1"/>
+  <label  className="form-check-label" htmlFor="flexRadioDefault1">
+    دانشجویی
+  </label>
+</div>
+<div className="form-check m-4">
+  <input  value = "فرهنگی و اجتماعی" checked={updateContain.category == 'فرهنگی و اجتماعی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault2"/>
+  <label  className="form-check-label" htmlFor="flexRadioDefault2">
+    فرهنگی و اجتماعی
+  </label>
+</div>
+
+<div className="form-check m-4">
+  <input value = "ریاستی" checked={updateContain.category == 'ریاستی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault3"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault3">
+    ریاستی
+  </label>
+</div>
+<div className="form-check m-4">
+  <input  value = "ورزشی" checked={updateContain.category == 'ورزشی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault4"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault4">
+    ورزشی
+  </label>
+</div>
+<div className="form-check m-4">
+  <input value = "سایر موضوعات" checked={updateContain.category == 'سایر موضوعات'} onChange={onEventChange}  className="form-check-input" type="radio" name="category" id="flexRadioDefault5"/>
+  <label className="form-check-label" htmlFor="flexRadioDefault5">
+   سایر موضوعات
+  </label>
+  
+</div>
+</div>
+
 <div className="btn-g">
 <button className="btn btn-warning"  type="submit">ویرایش</button>
 <Dropdown>

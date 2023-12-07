@@ -128,23 +128,30 @@ export const deletNews = (newsId) => {
 }
 
 
-export const createEvent = (event) => {
+export const createEvent = (Event) => {
 
 
 
-    const url = `${SERVER_URL}/events`;
-
-    return axios.post(url,event);
+    const url = `${SERVER_URL}/Event_API`;
+    const formData = new FormData();
+    formData.append('image', Event.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
+  
+    formData.append('category',Event.category)
+    // Append other form fields if needed
+    formData.append('title', Event.title);
+    formData.append('description', Event.description);
+  
+    return axios.post(url,formData);
 }
 
 
-export const updateEvent = (event , eventId) => {
+export const updateEvent = (Event , eventId) => {
 
 
 
     const url = `${SERVER_URL}/events/${eventId}`;
 
-    return axios.put(url , event);
+    return axios.put(url , Event);
 
 
 }
