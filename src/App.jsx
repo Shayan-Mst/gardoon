@@ -31,6 +31,7 @@ import NewsEdit from './components/admin/NewsManage/NewsEdit'
 import EventEdit from './components/admin/EventManage/EventEdit'
 import GalleryEdit from './components/admin/GalleryManage/GalleryEdit'
 import SlideEdit from './components/admin/SlideManage/SlideEdit'
+import AnounceEdit from './components/admin/AnounceManage/AnounceEdit'
 
 
 
@@ -72,9 +73,10 @@ function App() {
 <Route path = '/page/admin/slide-manage/update' element = {<SlideUpdate/>}/>
 <Route path = '/page/admin/anounce-manage/update' element={<AnounceUpdate/>}/>
 <Route path = '/page/admin/news-manage/edit/:newsId' element={<NewsEdit/>}/>
-<Route path = '/page/admin/event-manage/edit' element={<EventEdit/>}/>
-<Route path='/page/admin/gallery-manage/edit' element={<GalleryEdit/>}/>
-<Route path='/page/admin/slide-manage/edit' element = {<SlideEdit/>}/>
+<Route path = '/page/admin/event-manage/edit/:eventId' element={<EventEdit/>}/>
+<Route path='/page/admin/gallery-manage/edit/:galleryId' element={<GalleryEdit/>}/>
+<Route path='/page/admin/slide-manage/edit/:slideId' element = {<SlideEdit/>}/>
+<Route path = '/page/admin/anounce-manage/edit' element={<AnounceEdit/>}/>
 </Routes>
 
 <Footer/>

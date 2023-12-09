@@ -3,27 +3,30 @@ import { useState,useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { gardoonContext } from "../../../context/gardoonContext";
-import { getSlide, updateSlide } from "../../../service/gardoonService";
+import { getAnounce, getSlide, updateAnounce, updateSlide } from "../../../service/gardoonService";
 import toast, { Toaster } from 'react-hot-toast';
 import imgPlc from './../../../assets/plc.avif'
 
 
 
+const AnounceEdit = () => {
 
 
-const SlideEdit = () => {
+
+
+
 
     const [side,setSide] = useState(true);
 
     const [isDragActive, setIsDragActive] = useState(false);
 
-    const {slideId} = useParams();
+    const {anounceId} = useParams();
 
     const {news,setNews} = useContext(gardoonContext);
 
     const [selectImg,setSelectImg] = useState(imgPlc);
 
-    const [slide,setSlide] = useState({ });
+    const [anounce,setAnounce] = useState({ });
 
     const [updateContain,setUpdateContain] = useState({})
 
@@ -37,11 +40,9 @@ const SlideEdit = () => {
           try{
   
               
-           const {data : newData} = await getSlide(slideId);
+           const {data : newData} = await getAnounce(anounceId);
             
-           setSlide(newData);
-        
-  
+           setAnounce(newData);
             
           }
           catch(err){
@@ -50,15 +51,24 @@ const SlideEdit = () => {
             
           }
   
-      
-  
       }
   
   fetchData();
   
-  
-  
       },[])
+
+
+      useEffect(()=>{
+
+        const page = document.querySelector('.anounce-manage')
+            
+        if(side == false) page.style.marginRight='5%'
+        
+        else page.style.marginRight = '15%'
+    
+    
+      })
+
 
     function handleDragOver(event) { event.preventDefault(); }
             
@@ -86,6 +96,17 @@ const SlideEdit = () => {
     
     }
 
+    const handleFile = async(event) => {
+
+        const file = event.target.files[0];
+    
+        setUpdateContain({...updateContain,
+        [event.target.name] : file
+        
+        });
+      
+      }
+
 
     const convertBase64 = (file) =>{
 
@@ -108,7 +129,7 @@ const SlideEdit = () => {
     }
 
 
-const onSlideChange = (event) =>{
+const onAnounceChange = (event) =>{
 
 
 
@@ -127,17 +148,12 @@ setUpdateContain( {
         event.preventDefault();
         
         
-      
-      
-      
-        
-        
       console.log(updateContain)
       
       try{
-      const {status} = await updateSlide(
+      const {status} = await updateAnounce(
       
-        updateContain,slideId
+        updateContain,anounceId
       )
       
       if(status == 201){
@@ -146,7 +162,7 @@ setUpdateContain( {
       
       setTimeout(() => {
         // Code to be executed after 5 seconds
-        navigate('/page/admin/slide-manage/update');
+        navigate('/page/admin/anounce-manage/update');
       }, 5000);
       }
       }
@@ -159,11 +175,13 @@ setUpdateContain( {
 
     return(<>
     
+    
     <Sidebar setSide={setSide}/>
     
-    <form className="slide-manage" onSubmit={handleUpdate}>
+    <form className="anounce-manage" onSubmit={handleUpdate}>
+    
 
-<span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> اسلاید صفحه اصلی</span>
+    <span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> اطلاعیه</span>
 
 
 <div className="picture-container mb-3 d-flex">
@@ -190,31 +208,38 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={slide.image == null || selectImg != imgPlc ? selectImg : `http://127.0.0.1:8000${slide.image}`} alt="mamad"/>
+<img className="img-fluid" src={anounce.image == null || selectImg != imgPlc ? selectImg : `http://127.0.0.1:8000${slide.image}`} alt="mamad"/>
 
 </div>
 
-
 </div>
+
+<span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> فایل</span> اطلاعیه</span>
+
+
+<label onDragOver={handleDragOver}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+htmlFor="files" className="drop-container mb-3" id="dropcontainer">
+  <span className="drop-title">Drop files here</span>
+  or
+  <input name="file" onChange={handleFile} type="file" id="files" accept="*/*"/>
+</label>
+
 
 <div className="text">
-<span className="d-flex tit mb-4">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> متن</span> اسلاید</span>
+<span className="d-flex tit mb-4">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> متن</span> اطلاعیه</span>
+
+<span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر</span>اطلاعیه</span>
+<span style={{fontSize:"10px"}} className="d-flex justify-content-end">140 / {anounce.length}</span>
+
+<textarea name="title" value={anounce.title} onChange={onAnounceChange} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
 
 
-<span className="d-flex mb-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر </span>اسلاید</span>
+<span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>توضیحات</span>اطلاعیه</span>
 
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">85 / {slide.length}</span>
-
-<textarea name="title" maxLength={85} value={slide.title} onChange={onSlideChange} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
-
-
-<span className="d-flex my-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>توضیح</span>اسلاید</span>
-
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">110 / {slide.length}</span>
-
-<textarea name="description" maxLength={110} value={slide.description} onChange={onSlideChange} className="input-admin" placeholder="اینجا بنویسید..."></textarea>
-
-
+<textarea name="description" className="input-admin" value={anounce.description} onChange={onAnounceChange} placeholder="اینجا بنویسید..."/>
 
 </div>
 
@@ -226,17 +251,21 @@ htmlFor="images" className="drop-container" id="dropcontainer">
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item  as="button"><Link to="/page/admin/slide-manage" >منتشر کردن</Link></Dropdown.Item>
-        <Dropdown.Item as="button"><Link to="/page/admin/slide-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
+        <Dropdown.Item  as="button"><Link to="/page/admin/anounce-manage" >منتشر کردن</Link></Dropdown.Item>
+        <Dropdown.Item as="button"><Link to="/page/admin/anounce-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
           </Dropdown.Menu>
     </Dropdown>
     </div>
-
-
-</form>
-
+      
+        </form> 
+    
     
     </>)
+
+
+
+
 }
 
-export default SlideEdit;
+
+export default AnounceEdit;

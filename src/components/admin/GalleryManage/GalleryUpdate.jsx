@@ -1,19 +1,11 @@
 
-
-
-
-
-
-
-
-
-
 import { useState,useEffect } from "react";
 import Sidebar from "../Sidebar";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import semnan1 from './../../../assets/semnan.jpg'
 import { Link } from "react-router-dom";
+import { deleteGallery, getAllGallery } from "../../../service/gardoonService";
 
 
 
@@ -25,25 +17,91 @@ const GalleryUpdate = () => {
 
     const [showModal, setShowModal] = useState(false);
 
-    const handleClose = () => setShowModal(false);
-    const handleShow = (e) => {
-      
-      e.preventDefault();
-      
-      setShowModal(true)};
+    const [allGallery,setAllGallery] = useState([]);
+
+    const [galleryId,setGalleryId] = useState();
+
 
     useEffect(() => {
 
 
 
 
-        const page = document.querySelector('.gallery-update')
-        
-        if(side == false) page.style.marginRight='5%'
-        
-        else page.style.marginRight = '15%'
+      const page = document.querySelector('.gallery-update')
+      
+      if(side == false) page.style.marginRight='5%'
+      
+      else page.style.marginRight = '15%'
 
-        })
+      })
+
+
+    const handleClose = () => setShowModal(false);
+
+    const handleShow = (e) => {
+      
+      e.preventDefault();
+      setGalleryId(e.target.value)
+      setShowModal(true)};
+      console.log(galleryId);
+
+    
+
+
+        useEffect(() =>{
+
+          const fetch = async() => {
+  
+            try{
+  const {data: newsData} = await getAllGallery();
+  
+  setAllGallery(newsData);
+  
+  
+            }
+  
+            catch(error){
+  console.log(error);
+  
+            }
+  
+          }
+  
+          fetch();
+  
+  
+  
+          },[])
+         
+
+
+          const handleDelete = async(e) =>{
+
+            e.preventDefault();
+    try{
+    
+    const response = await deleteGallery(galleryId)
+    
+    console.log(response.status)
+    
+    if(response.status == 200){
+      
+      const {data: newsData} = await getAllGallery();
+      setAllGallery(newsData);
+      setShowModal(false)
+      
+    }
+    }
+    
+    catch(error){
+    
+    
+      console.log(error)
+    }
+    
+    
+            }
+  
  
 return(<>
 
@@ -68,43 +126,26 @@ return(<>
 <div className="grid py-3">
 <div className="row my-4">
 
-    <div className="col-lg-4">
+{
+  allGallery.map((item) => (
+
+    <div key={item.id} className="col-lg-4">
         <div className="cnt">
         <i onClick={handleShow} className="fa-solid fa-trash"></i>
-       <Link to='/page/admin/gallery-manage/edit'> <i className="fa-solid fa-pen"></i></Link>
-<img className="img-fluid" src={semnan1}/>
+
+       <Link to={`/page/admin/gallery-manage/edit/${item.id}`}> <i className="fa-solid fa-pen"></i></Link>
+
+<img className="img-fluid" src={item.image != null ? `http://127.0.0.1:8000${item.image}` :imgPlc}/>
 
 <span className="g-date">12 اردیبهشت 1402</span>
 <div className="overlay">
-   <div className="image-caption">توضیح درباره عکس از پایین به بالا فقط برای امتحان کردن ساخته شده است و تو انقدر احمق هستی</div>
+   <div className="image-caption">{item.title}</div>
 </div>
 </div>
     </div>
-
-    <div className="col-lg-4">
-    <div className="cnt">
-    <i className="fa-solid fa-trash"></i>
-        <i className="fa-solid fa-pen"></i>
-    <img className="img-fluid" src={semnan1}/>
-    <span className="g-date">12 اردیبهشت 1402</span>
-    <div className="overlay">
-   <div className="image-caption">توضیح درباره عکس از پایین به بالا فقط برای امتحان کردن ساخته شده است و تو انقدر احمق هستی</div>
-</div>
-</div>
-</div>
-
-<div className="col-lg-4">
-    <div className="cnt">
-    <i className="fa-solid fa-trash"></i>
-        <i className="fa-solid fa-pen"></i>
-    <img className="img-fluid" src={semnan1}/>
-    <span className="g-date">12 اردیبهشت 1402</span>
-    <div className="overlay">
-   <div className="image-caption">توضیح درباره عکس از پایین به بالا فقط برای امتحان کردن ساخته شده است و تو انقدر احمق هستی</div>
-</div>
-</div>
-</div>
-
+  ))
+}
+    
 
 </div>
 
@@ -120,7 +161,7 @@ return(<>
           <Button variant="secondary" onClick={handleClose}>
             خیر
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleDelete}>
             بله
           </Button>
         </Modal.Footer>

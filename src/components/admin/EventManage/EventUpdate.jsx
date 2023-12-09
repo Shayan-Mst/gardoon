@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import semnan2 from './../../../assets/semnan.jpg'
+import { deleteEvent, getAllEvents } from "../../../service/gardoonService";
 
 
 
@@ -13,6 +14,9 @@ const EventUpdate = () => {
 
     const [side,setSide] = useState(true);
 
+    const [eventId,setEventId] = useState();
+
+    const [allEvent , setAllEvent] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -20,12 +24,10 @@ const EventUpdate = () => {
     const handleShow = (e) => {
       
       e.preventDefault();
-      
+      setEventId(e.target.value)
       setShowModal(true)};
 
     useEffect(() => {
-
-
 
 
         const page = document.querySelector('.event-update')
@@ -35,6 +37,63 @@ const EventUpdate = () => {
         else page.style.marginRight = '15%'
 
         })
+
+        useEffect(()=>{
+
+          const fetch = async() => {
+  
+            try{
+  const {data: newsData} = await getAllEvents();
+  
+  setAllEvent(newsData);
+  
+  
+            }
+  
+            catch(error){
+  console.log(error);
+  
+            }
+  
+          }
+  
+          fetch();
+  
+        })
+
+
+
+
+
+
+        const handleDelete = async(event) =>{
+
+          event.preventDefault();
+  try{
+  
+  const response = await deleteEvent(eventId)
+  
+  console.log(response.status)
+  
+  if(response.status == 200){
+    
+    const {data: newsData} = await getAllEvents();
+    setAllEvent(newsData);
+    setShowModal(false)
+    
+  }
+  }
+  
+  catch(error){
+  
+  
+    console.log(error)
+  }
+  
+  
+          }
+  
+  
  
     return(<>
     
@@ -59,26 +118,29 @@ const EventUpdate = () => {
 </div>
 <div className="row">
 
-<div className="col-lg-4">
-<div className="card mt-3">
-<figure className="image-container d-inline-block my-0">
-<img src={semnan2} className="card-img-top" alt="..."/>
-</figure>
-<div className="card-body">
-<Link className="card-title d-flex">عنوان خبر لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه .</Link>
-<p className="card-text my-2">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه شتشتتشتششششششششششششششششششششششششششششششششششششششششششششششششششششششششش.</p>
-<div className="group mt-4 mx-4 d-flex justify-content-center">
+{allEvent.map((item) => (
+  <div key={item.id} className="col-lg-4">
+  <div className="card mt-3">
+  <figure className="image-container d-inline-block my-0">
+  <img src={item.image} className="card-img-top" alt="..."/>
+  </figure>
+  <div className="card-body">
+  <Link className="card-title d-flex">{item.title}</Link>
+  <p className="card-text my-2">{item.description}</p>
+  <div className="group mt-4 mx-4 d-flex justify-content-center">
+  
+  <Link to={`/page/admin/event-manage/edit/${item.id}`} className="btn btn-warning mx-3">ویرایش</Link>
+  
+  <button onClick={handleShow} value={item.id} className="btn btn-danger mx-3">حذف</button>
+  
+  
+  </div>
+  </div>
+  </div>
+  
+  </div>
+))}
 
-<Link to='/page/admin/event-manage/edit' className="btn btn-warning mx-3">ویرایش</Link>
-
-<button onClick={handleShow} className="btn btn-danger mx-3">حذف</button>
-
-
-</div>
-</div>
-</div>
-
-</div>
 </div>
 
 
@@ -91,7 +153,7 @@ const EventUpdate = () => {
       <Button variant="secondary" onClick={handleClose}>
         خیر
       </Button>
-      <Button variant="primary" onClick={handleClose}>
+      <Button variant="primary" onClick={handleDelete}>
         بله
       </Button>
     </Modal.Footer>

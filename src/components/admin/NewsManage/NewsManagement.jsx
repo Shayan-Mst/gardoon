@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { createNews } from "../../../service/gardoonService";
-
+import imgPlc from './../../../assets/plc.avif'
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 

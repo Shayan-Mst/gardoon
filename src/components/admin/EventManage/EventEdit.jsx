@@ -17,14 +17,8 @@ const EventEdit = () => {
   
     const {eventId} = useParams();
 
-    const [updateContain,setUpdateContain] = useState({
-      updated : {}
-    })
-    const [Event,setEvent] = useState({
-   
-      events:{}
-  
-      });
+    const [updateContain,setUpdateContain] = useState({})
+    const [Event,setEvent] = useState({});
 
       const [selectImg,setSelectImg] = useState(imgPlc);
   
@@ -51,8 +45,8 @@ const EventEdit = () => {
               
            const {data : newData} = await getEvent(eventId);
             
-           setNewq(newData);
-           setUpdateContain(newData)
+           setEvent(newData);
+         
   
             
           }
@@ -62,13 +56,9 @@ const EventEdit = () => {
             
           }
   
-      
-  
       }
   
   fetchData();
-  
-  
   
       },[])
 
@@ -134,13 +124,15 @@ const EventEdit = () => {
 
       const onEventChange = (event) =>{
 
+        setEvent({...Event,[event.target.name] : event.target.value})
+        
         setUpdateContain( {
             ...updateContain,
             [event.target.name] : event.target.value,
         
       });
       
-      
+     
         
         };
 
@@ -164,37 +156,11 @@ const EventEdit = () => {
 const handleUpdate = async(event) =>{
 
   event.preventDefault();
-  const modifiedContent = {}
-  
-
-
-if(Event.title != updateContain.title){
-  
-  modifiedContent['title'] = updateContain.title;
-}
-
-if(Event.description != updateContain.description){
-  
-  modifiedContent['description'] = updateContain.description;
-}
-
-if(Event.category != updateContain.category){
-  
-  modifiedContent['category'] = updateContain.category;
-}
-
-if(updateContain.image instanceof File){
-
-  modifiedContent['image'] = updateContain.image
-}
-  
-  
-console.log(modifiedContent)
-
+ 
 try{
 const {status} = await updateEvent(
 
-  modifiedContent,eventId
+  updateContain,eventId
 )
 
 if(status == 201){
@@ -213,6 +179,7 @@ console.log(error)
 }
 
 }
+
 
 
 return(<>
@@ -236,14 +203,14 @@ return(<>
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input onChange={handleAx} type="file" id="images" accept="image/*" required/>
+  <input name="image" onChange={handleAx} type="file" id="images" accept="image/*" required/>
 </label>
 
 </div>
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={selectImg == null ?`http://127.0.0.1:8000${Event.image}`:selectImg} alt="mamad"/>
+<img className="img-fluid" src={Event.image == null ?selectImg : `http://127.0.0.1:8000${Event.image}`} alt=""/>
 
 </div>
 
@@ -258,44 +225,44 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر </span>رویداد</span>
 
 
-<textarea maxLength="130" onChange={onEventChange}  className="input-admin" type="text" value={updateContain.title} placeholder="اینجا بنویسید..." />
+<textarea  name="title" maxLength={130} onChange={onEventChange}  className="input-admin" type="text" value={Event.title} placeholder="اینجا بنویسید..." />
 
 
 <span className="d-flex mb-4 mt-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>توضیحات</span>رویداد</span>
 
-<textarea className="input-admin" value={updateContain.description} onChange={onEventChange} placeholder="اینجا بنویسید..."/>
+<textarea  name="description" className="input-admin" value={Event.description} onChange={onEventChange} placeholder="اینجا بنویسید..."/>
 </div>
 
 
 <div className="d-flex">
 
 <div className="form-check m-4">
-  <input  value = "دانشجویی" checked={updateContain.category == 'دانشجویی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault1"/>
+  <input   value = "دانشجویی" checked={Event.category == 'دانشجویی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault1"/>
   <label  className="form-check-label" htmlFor="flexRadioDefault1">
     دانشجویی
   </label>
 </div>
 <div className="form-check m-4">
-  <input  value = "فرهنگی و اجتماعی" checked={updateContain.category == 'فرهنگی و اجتماعی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault2"/>
+  <input  value = "فرهنگی و اجتماعی" checked={Event.category == 'فرهنگی و اجتماعی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault2"/>
   <label  className="form-check-label" htmlFor="flexRadioDefault2">
     فرهنگی و اجتماعی
   </label>
 </div>
 
 <div className="form-check m-4">
-  <input value = "ریاستی" checked={updateContain.category == 'ریاستی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault3"/>
+  <input value = "ریاستی" checked={Event.category == 'ریاستی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault3"/>
   <label className="form-check-label" htmlFor="flexRadioDefault3">
     ریاستی
   </label>
 </div>
 <div className="form-check m-4">
-  <input  value = "ورزشی" checked={updateContain.category == 'ورزشی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault4"/>
+  <input  value = "ورزشی" checked={Event.category == 'ورزشی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault4"/>
   <label className="form-check-label" htmlFor="flexRadioDefault4">
     ورزشی
   </label>
 </div>
 <div className="form-check m-4">
-  <input value = "سایر موضوعات" checked={updateContain.category == 'سایر موضوعات'} onChange={onEventChange}  className="form-check-input" type="radio" name="category" id="flexRadioDefault5"/>
+  <input value = "سایر موضوعات" checked={Event.category == 'سایر موضوعات'} onChange={onEventChange}  className="form-check-input" type="radio" name="category" id="flexRadioDefault5"/>
   <label className="form-check-label" htmlFor="flexRadioDefault5">
    سایر موضوعات
   </label>

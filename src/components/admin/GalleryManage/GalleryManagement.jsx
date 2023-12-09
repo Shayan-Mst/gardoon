@@ -1,13 +1,12 @@
 
 import Sidebar from "../Sidebar"
 import { useState,useEffect,useRef } from "react";
-import sem from './../../../assets/semnan.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
 import imgPlc from './../../../assets/plc.avif'
 import { Link } from "react-router-dom";
-
-
-
+import  Modal  from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button'
+import { createGallery } from "../../../service/gardoonService";
 
 
 const GalleryManagement = () => {
@@ -26,6 +25,12 @@ const GalleryManagement = () => {
 
   const inputRef = useRef(['']);
 
+  const [showModal, setShowModal] = useState(false);
+  
+
+
+  const handleClose = () => setShowModal(false);
+
   useEffect(()=>{
 
     const page = document.querySelector('.gallery-manage')
@@ -41,10 +46,10 @@ const GalleryManagement = () => {
   const handleGallery = (event) => {
 
     const inputValue = event.target.value;
-    if (inputValue.length <= 85) {
-      setGallery({...value , title : inputValue});
+   
+      setGallery({...Gallery , title : inputValue});
      
-    }
+    
   }
 
   function handleDragOver(event) {
@@ -108,13 +113,44 @@ reject(error)
 }
 
 
+const handleSubmit = async e => {
+  
+  e.preventDefault();
+  console.log(Gallery);
+
+
+  if(Gallery.title != '' && Gallery.image != null){
+
+
+    try{
+
+      const response = await createGallery(Gallery)
+      
+      console.log(response.status)
+      }
+      
+      catch(error){
+      
+        console.log(error)
+      }
+
+   }
+
+   else setShowModal(true)
+
+
+  
+  
+  }
+
+
     return(<>
     
     
     
     <Sidebar setSide={setSide}/>
     
-    <form className="gallery-manage">
+    <form className="gallery-manage" onSubmit={handleSubmit}>
 
     <span className="d-flex tit">بارگذاری <span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> گالری</span>
 
@@ -153,7 +189,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <span className="d-flex mb-4" style={{fontSize:"20px"}}><span className="mx-2" style={{color:"rgb(0,177,106)"}}>تیتر </span>عکس</span>
 <span style={{fontSize:"10px"}} className="d-flex justify-content-end">85 / {Gallery.title.length}</span>
 
-<textarea  className="input-admin" type="text" value={Gallery.title} onChange={handleGallery} />
+<textarea maxLength={85}  placeholder="اینجا بنویسید ..."  className="input-admin" type="text" value={Gallery.title} onChange={handleGallery} />
 
 </div>
 
@@ -174,7 +210,18 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 
     </form>
-    
+    <Modal centered show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>خطا در عملیات</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{color:"red"}}>لطفا فیلد های مورد نظر را پر کنید</Modal.Body>
+        <Modal.Footer>
+          <Button style={{width:"200px"}} variant="dark" onClick={handleClose}>
+            متوجه شدم!
+          </Button>
+          
+        </Modal.Footer>
+      </Modal>
     
     </>)
 }

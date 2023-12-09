@@ -4,12 +4,7 @@ import Button from 'react-bootstrap/Button'
 import semnan1 from './../../../assets/semnan.jpg'
 import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
-
-
-
-
-
-
+import { deleteSlide, getAllSlide } from "../../../service/gardoonService";
 
 
 
@@ -19,20 +14,19 @@ const SlideUpdate = () => {
 
     const [side,setSide] = useState(true)
 
-
+const [allSlide,setAllSlide] = useState([])
     const [showModal, setShowModal] = useState(false);
+
+    const [slideId , setSlideId] = useState();
 
     const handleClose = () => setShowModal(false);
     const handleShow = (e) => {
       
       e.preventDefault();
-      
+      setSlideId(e.target.value)
       setShowModal(true)};
 
     useEffect(() => {
-
-
-
 
         const page = document.querySelector('.slide-update')
         
@@ -42,13 +36,62 @@ const SlideUpdate = () => {
 
         })
 
+        useEffect(()=>{
+
+
+          const fetch = async() => {
+  
+            try{
+  const {data: newsData} = await getAllSlide();
+  
+  setAllSlide(newsData);
+  
+  
+            }
+  
+            catch(error){
+  console.log(error);
+  
+            }
+  
+          }
+  
+          fetch();
+  
+        })
+        
+
+        const handleDelete = async(event) =>{
+
+          event.preventDefault();
+  try{
+  
+  const response = await deleteSlide(slideId)
+  
+  console.log(response.status)
+  
+  if(response.status == 200){
+    
+    const {data: newsData} = await getAllSlide();
+    setAllSlide(newsData);
+    setShowModal(false)
+    
+  }
+  }
+  
+  catch(error){
+  
+  
+    console.log(error)
+  }
+  
+  
+          }
 
     return(<>
+
     <Sidebar setSide={setSide}/>
     
-
-
-
 
     <form className="slide-update">
 
@@ -68,29 +111,30 @@ const SlideUpdate = () => {
 
 <div className="grid py-3">
 
-<div className="devi p-1">
+{allSlide.map((item)=>(
+
+<div key={item.id} className="devi p-1">
   
-        <div className="cnt">
-        <i onClick={handleShow} className="fa-solid fa-trash"></i>
-        <i className="fa-solid fa-pen"></i>
-<img className="img-fluid" src={semnan1}/>
+  <div className="cnt">
+  <i value={item.id} onClick={handleShow} className="fa-solid fa-trash"></i>
+  <i className="fa-solid fa-pen"></i>
+<img className="img-fluid" src={item.image}/>
 
 <div className="brief">
-      <Link>توضیح درباره عکس از پایین به بالا فقط برای امتحان کردن ساخته شده است و تو انقدر احمق هستی</Link>
-      <div style={{fontSize:"1rem"}}>
-       <p>
-       اعلام دانشگاه سمنان درباره امروز که اخبار بسیار مهمی را نشر داد
-        
-        </p> 
-      </div>
- </div>
+<Link to={`/page/admin/slide-manage/edit/${item.id}`}>{item.title}</Link>
+<div style={{fontSize:"1rem"}}>
+ <p>
+ {item.description}
+  
+  </p> 
 </div>
-    
-
+</div>
 </div>
 
 
+</div>
 
+))}
 
 
 </div>
@@ -107,7 +151,7 @@ const SlideUpdate = () => {
           <Button variant="secondary" onClick={handleClose}>
             خیر
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleDelete}>
             بله
           </Button>
         </Modal.Footer>

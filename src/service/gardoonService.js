@@ -66,7 +66,7 @@ export const getAnounce = (anounceId) =>{
 export const getAllGallery = () =>{
 
 
-    const url = `${SERVER_URL}/gallery`;
+    const url = `${SERVER_URL}/Gallery_API`;
 
     return axios.get(url);
 }
@@ -80,9 +80,26 @@ export const getGallery = (galleryId) =>{
     return axios.get(url);
 }
 
+export const getAllSlide = () =>{
+
+
+    const url = `${SERVER_URL}/gallery/`;
+
+    return axios.get(url);
+}
+
+export const getSlide = (galleryId) =>{
+
+
+    const url = `${SERVER_URL}/gallery/${galleryId}`;
+
+    return axios.get(url);
+}
+
+
+
 
 export const createNews = (news) => {
-
 
 
     const url = `${SERVER_URL}/api/info/`;
@@ -119,7 +136,7 @@ export const updateNews = (news , newsId) => {
 }
 
 
-export const deletNews = (newsId) => {
+export const deleteNews = (newsId) => {
 
 
     const url = `${SERVER_URL}/api/info/${newsId}/`;
@@ -202,7 +219,14 @@ export const createGallery = (gallery) => {
 
     const url = `${SERVER_URL}/gallery`;
 
-    return axios.post(url,gallery);
+    const formData = new FormData();
+    formData.append('image', gallery.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
+  
+    
+
+    formData.append('title', gallery.title);
+
+    return axios.post(url,formData);
     
 }
 
@@ -223,6 +247,30 @@ export const deleteGallery = (galleryId) => {
 
 
     const url = `${SERVER_URL}/gallery/${galleryId}`;
+
+    return axios.delete(url);
+}
+
+export const createSlide = () => {
+
+
+    const url = `${SERVER_URL}/slide/`;
+
+    return axios.delete(url);
+}
+
+export const updateSlide = (slide,slideId) => {
+
+
+    const url = `${SERVER_URL}/slide/${slideId}`;
+
+    return axios.delete(url,slide);
+}
+
+export const deleteSlide = (slideId) => {
+
+
+    const url = `${SERVER_URL}/slide/${slideId}`;
 
     return axios.delete(url);
 }

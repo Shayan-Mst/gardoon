@@ -1,8 +1,9 @@
 import Sidebar from "../Sidebar";
 import { useState ,useEffect} from "react";
-import semnan1 from './../../../assets/semnan.jpg'
+import imgPlc from './../../../assets/plc.avif'
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Link } from "react-router-dom";
+import { Link,useNavigate,useParams } from "react-router-dom";
+import { getGallery, updateGallery } from "../../../service/gardoonService";
 
 
 
@@ -12,8 +13,11 @@ const GalleryEdit = () => {
 
 
     const [side,setSide] = useState(true);
-    const [titr, setTitr] = useState('');
+   
 
+    const {galleryId} = useParams();
+
+    const [selectImg,setSelectImg] = useState(imgPlc);
     
     useEffect(()=>{
 
@@ -25,6 +29,49 @@ const GalleryEdit = () => {
     
     
       })
+
+
+      const [Gallery,setGallery] = useState({});
+    
+        const [updateContain,setUpdateContain] = useState({})
+    
+        useEffect(()=>{
+
+          console.log(updateContain)
+        },[updateContain])
+      
+        const navigate = useNavigate();
+    
+        useEffect(()=>{
+    
+          const fetchData = async () => {
+               
+            try{
+    
+                
+             const {data : newData} = await getGallery(galleryId);
+              
+             setGallery(newData);
+          
+    
+              
+            }
+            catch(err){
+    
+                console.log(err);
+              
+            }
+    
+        
+    
+        }
+    
+    fetchData();
+    
+    
+    
+        },[])
+    
 
     
     function handleDragOver(event) {
@@ -47,12 +94,80 @@ const GalleryEdit = () => {
       }
 
 
-      const titrHandle = (event) => {
-        const inputValue = event.target.value;
-        if (inputValue.length <= 100) {
-          setTitr(inputValue);
-         
-        }
+      const handleAx = async(event) => {
+
+        const file = event.target.files[0];
+       const base64  = await convertBase64(file);
+
+        setSelectImg(base64);
+        setUpdateContain({...updateContain,
+        image : file
+        
+        });
+
+    
+      
+      }
+
+
+      const convertBase64 = (file) =>{
+
+
+        return new Promise((resolve,reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      
+      fileReader.onload = () => {
+      
+        resolve(fileReader.result)
+      }
+      
+      fileReader.onerror = (error) =>{
+      
+      reject(error)
+      }
+      
+        })
+      }
+
+
+      const onGalleryChange = (e) => {
+
+        
+        
+        setUpdateContain( {
+          ...updateContain,
+          title : e.target.value,
+      
+    });
+        
+      }
+
+
+      const handleUpdate = async(event) =>{
+
+        event.preventDefault();
+        
+      try{
+      const {status} = await updateGallery(
+      
+        updateContain,galleryId
+      )
+      
+      if(status == 201){
+      
+      
+      setTimeout(() => {
+        // Code to be executed after 5 seconds
+        navigate('/page/admin/gallery-manage/update');
+      }, 5000);
+      }
+      }
+      catch(error){
+      
+      console.log(error)
+      }
+      
       }
     
 
@@ -62,7 +177,7 @@ const GalleryEdit = () => {
      <>
     <Sidebar setSide={setSide}/>
 
-<form className="gallery-edit">
+<form className="gallery-edit" onSubmit={handleUpdate}>
 <span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> گالری</span>
 
 
@@ -77,11 +192,11 @@ const GalleryEdit = () => {
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input type="file" id="images" accept="image/*" required/>
+  <input onChange={handleAx} type="file" id="images" accept="image/*"/>
 </label>
 
 
-<img className="img-fluid mx-0 mt-4" src={semnan1} alt="mamad"/>
+<img className="img-fluid mx-0 mt-4" src={Gallery.image == null || selectImg != imgPlc ? selectImg : `http://127.0.0.1:8000${Gallery.image}`} alt=""/>
 
 
 </div>
@@ -90,15 +205,13 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <span className="d-flex tit mb-4">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> متن</span> عکس</span>
 
 
-<span style={{fontSize:"10px"}} className="d-flex justify-content-end">100 / {titr.length}</span>
-
-<textarea  className="input-admin" type="text" value={titr} onChange={titrHandle} />
+<textarea maxLength={85}  name="title"  className="input-admin" type="text" value={Gallery.title} onChange={onGalleryChange} />
 
 
 </div>
 
 
-<div className="btn-g">
+<div className="btn-g"> 
 <button className="btn btn-warning"  type="submit">ویرایش</button>
 <Dropdown>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -106,8 +219,8 @@ htmlFor="images" className="drop-container" id="dropcontainer">
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item  as="button"><Link to="/page/admin/event-manage" >منتشر کردن</Link></Dropdown.Item>
-        <Dropdown.Item as="button"><Link to="/page/admin/event-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
+        <Dropdown.Item  as="button"><Link to="/page/admin/gallery-manage" >منتشر کردن</Link></Dropdown.Item>
+        <Dropdown.Item as="button"><Link to="/page/admin/gallery-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
           </Dropdown.Menu>
     </Dropdown>
     </div>

@@ -3,7 +3,7 @@ import { useState,useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
-import { deletNews, getAllNews } from "../../../service/gardoonService";
+import { deleteNews, getAllNews } from "../../../service/gardoonService";
 import imgPlc from './../../../assets/plc.avif'
 
 
@@ -32,9 +32,6 @@ const NewsUpdate = () => {
       
       setShowModal(true)
 
-     
-
-      console.log(newsId)
     
     };
 
@@ -52,39 +49,37 @@ const NewsUpdate = () => {
         })
 
 
-        useEffect(() =>{
-
-        const fetch = async() => {
-
-          try{
-const {data: newsData} = await getAllNews();
-
-setAllNews(newsData);
+        useEffect(()=>{
 
 
+          const fetch = async() => {
+  
+            try{
+  const {data: newsData} = await getAllNews();
+  
+  setAllNews(newsData);
+  
+  
+            }
+  
+            catch(error){
+  console.log(error);
+  
+            }
+  
           }
-
-          catch(error){
-console.log(error);
-
-          }
-
-        }
-
-        fetch();
-
-
-
-        },[])
-       
-
+  
+          fetch();
+  
+        })
+        
 
        const handleDelete = async(event) =>{
 
         event.preventDefault();
 try{
 
-const response = await deletNews(newsId)
+const response = await deleteNews(newsId)
 
 console.log(response.status)
 

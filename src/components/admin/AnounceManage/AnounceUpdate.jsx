@@ -6,22 +6,17 @@ import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import semnan2 from './../../../assets/semnan.jpg'
-
-
-
-
-
-
-
-
-
-
+import { deleteAnounce, getAllAnounce } from "../../../service/gardoonService";
 
 
 
 const AnounceUpdate = () => {
 
     const [side,setSide] = useState(true);
+    const [allAnounce,setAllAnounce] = useState([])
+    
+
+    const [anounceId , setAnounceId] = useState();
 
 
     const [showModal, setShowModal] = useState(false);
@@ -30,7 +25,7 @@ const AnounceUpdate = () => {
     const handleShow = (e) => {
       
       e.preventDefault();
-      
+      setAnounceId(e.target.value)
       setShowModal(true)};
 
     useEffect(() => {
@@ -45,6 +40,60 @@ const AnounceUpdate = () => {
         else page.style.marginRight = '15%'
 
         })
+
+
+        useEffect(()=>{
+
+
+          const fetch = async() => {
+  
+            try{
+  const {data: newsData} = await getAllAnounce();
+  
+  setAllAnounce(newsData);
+  
+  
+            }
+  
+            catch(error){
+  console.log(error);
+  
+            }
+  
+          }
+  
+          fetch();
+  
+        })
+        
+
+        const handleDelete = async(event) =>{
+
+          event.preventDefault();
+  try{
+  
+  const response = await deleteAnounce(anounceId)
+  
+  console.log(response.status)
+  
+  if(response.status == 200){
+    
+    const {data: newsData} = await getAllAnounce();
+    setAllAnounce(newsData);
+    setShowModal(false)
+    
+  }
+  }
+  
+  catch(error){
+  
+  
+    console.log(error)
+  }
+  
+  
+          }
+
     return(<>
     
     <Sidebar setSide={setSide}/>
@@ -67,25 +116,28 @@ const AnounceUpdate = () => {
 </div>
 <div className="row">
 
-<div className="col-lg-4">
+{allAnounce.map((item)=>(
+  <div key={item.id} className="col-lg-4">
 <div className="card mt-3">
 <figure className="image-container d-inline-block my-0">
-<img src={semnan2} className="card-img-top" alt="..."/>
+<img src={item.image} className="card-img-top" alt="..."/>
 </figure>
 <div className="card-body">
-<Link className="card-title d-flex">عنوان خبر لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه .</Link>
+<Link className="card-title d-flex">{item.title}</Link>
 <div className="group mt-4 mx-4 d-flex justify-content-center">
 
-<Link className="btn btn-warning mx-3">ویرایش</Link>
+<Link to={`/page/admin/anounce-manage/edit/${item.id}`} className="btn btn-warning mx-3">ویرایش</Link>
 
-<button onClick={handleShow} className="btn btn-danger mx-3">حذف</button>
+<button value={item.id} onClick={handleShow} className="btn btn-danger mx-3">حذف</button>
 
-
-</div>
-</div>
-</div>
 
 </div>
+</div>
+</div>
+
+</div>
+))}
+
 </div>
 
 
@@ -98,7 +150,7 @@ const AnounceUpdate = () => {
       <Button variant="secondary" onClick={handleClose}>
         خیر
       </Button>
-      <Button variant="primary" onClick={handleClose}>
+      <Button variant="primary" onClick={handleDelete}>
         بله
       </Button>
     </Modal.Footer>

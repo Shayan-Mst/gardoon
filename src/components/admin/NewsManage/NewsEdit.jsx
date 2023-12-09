@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { gardoonContext } from "../../../context/gardoonContext";
 import { getNews, updateNews } from "../../../service/gardoonService";
 import toast, { Toaster } from 'react-hot-toast';
+import imgPlc from './../../../assets/plc.avif'
 
 
 
@@ -19,7 +20,7 @@ const NewsEdit = () => {
 
     const {news,setNews} = useContext(gardoonContext);
 
-    const [selectImg,setSelectImg] = useState(null);
+    const [selectImg,setSelectImg] = useState(imgPlc);
 
     const [newq,setNewq] = useState({
    
@@ -134,7 +135,7 @@ const onNewsChange = (event) =>{
 
   setUpdateContain( {
       ...updateContain,
-      [event.target.name] : event.target.value,
+      [event.target.name] : event.target.value
   
 });
 
@@ -244,7 +245,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={selectImg == null ?`http://127.0.0.1:8000${newq.image}`:selectImg} alt="mamad"/>
+<img className="img-fluid" src={newq.image == null || selectImg != imgPlc ? selectImg : `http://127.0.0.1:8000${newq.image}`} alt="mamad"/>
 
 </div>
 
