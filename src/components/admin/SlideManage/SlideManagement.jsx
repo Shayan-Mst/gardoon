@@ -106,9 +106,7 @@ setSlide({...slide,[event.target.name] : event.target.value})
           const handleSubmit = async event =>{
 
             event.preventDefault();
-            console.log(slide);
-
-
+           
             if(slide.title != '' && slide.description != '' && slide.image != null){
 
              

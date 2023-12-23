@@ -126,13 +126,7 @@ setUpdateContain( {
 
         event.preventDefault();
         
-        
-      
-      
-      
-        
-        
-      console.log(updateContain)
+     
       
       try{
       const {status} = await updateSlide(

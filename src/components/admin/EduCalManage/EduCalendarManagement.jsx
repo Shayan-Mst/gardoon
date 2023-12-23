@@ -1,6 +1,5 @@
 import Sidebar from "../Sidebar"
 import { useState,useEffect } from "react";
-import ReactQuill from "react-quill";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from "react-router-dom";
 

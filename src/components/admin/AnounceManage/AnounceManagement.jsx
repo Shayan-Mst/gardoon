@@ -13,7 +13,12 @@ const AnounceManagement = () => {
 
     const [side,setSide] = useState(true);
 
-    const [anounce, setAnounce] = useState({});
+    const [anounce, setAnounce] = useState({
+      title:'',
+      description:'',
+      image:null,
+      pdf:null
+    });
   
     const [isDragActive, setIsDragActive] = useState(false);
   

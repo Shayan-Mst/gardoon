@@ -5,7 +5,6 @@ import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
-import semnan2 from './../../../assets/semnan.jpg'
 import { deleteAnounce, getAllAnounce } from "../../../service/gardoonService";
 
 

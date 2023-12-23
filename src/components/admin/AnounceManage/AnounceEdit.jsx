@@ -3,18 +3,13 @@ import { useState,useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { gardoonContext } from "../../../context/gardoonContext";
-import { getAnounce, getSlide, updateAnounce, updateSlide } from "../../../service/gardoonService";
+import { getAnounce, updateAnounce } from "../../../service/gardoonService";
 import toast, { Toaster } from 'react-hot-toast';
 import imgPlc from './../../../assets/plc.avif'
 
 
 
 const AnounceEdit = () => {
-
-
-
-
-
 
     const [side,setSide] = useState(true);
 
@@ -30,7 +25,6 @@ const AnounceEdit = () => {
 
     const [updateContain,setUpdateContain] = useState({})
 
-  
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -131,22 +125,15 @@ const AnounceEdit = () => {
 
 const onAnounceChange = (event) =>{
 
-
-
 setUpdateContain( {
 ...updateContain,
-[event.target.name] : event.target.value
-
-});
-
-
+[event.target.name] : event.target.value});
 
 };
 
     const handleUpdate = async(event) =>{
 
         event.preventDefault();
-        
         
       console.log(updateContain)
       
@@ -157,7 +144,6 @@ setUpdateContain( {
       )
       
       if(status == 201){
-      
       
       
       setTimeout(() => {
@@ -244,7 +230,7 @@ htmlFor="files" className="drop-container mb-3" id="dropcontainer">
 </div>
 
 <div className="btn-g">
-<button className="btn btn-success"  type="submit">انتشار</button>
+<button className="btn btn-warning"  type="submit">ویرایش</button>
 <Dropdown>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
         انتخاب کنید

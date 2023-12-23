@@ -274,3 +274,11 @@ export const deleteSlide = (slideId) => {
 
     return axios.delete(url);
 }
+
+export const createInfo = () => {
+
+
+    const url = `${SERVER_URL}/Info/`;
+
+    return axios.delete(url);
+}
