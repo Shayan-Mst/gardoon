@@ -17,7 +17,9 @@ const EventEdit = () => {
   
     const {eventId} = useParams();
 
-    const [updateContain,setUpdateContain] = useState({})
+    const [updateContain,setUpdateContain] = useState({
+      updated : {}
+    })
     const [Event,setEvent] = useState({});
 
       const [selectImg,setSelectImg] = useState(imgPlc);
@@ -95,9 +97,10 @@ const EventEdit = () => {
 
         setSelectImg(base64);
         setUpdateContain({...updateContain,
-        [event.target.name] : file
+        image : file
         
         });
+        setEvent({...Event,image:null});
       
       }
 
@@ -125,8 +128,8 @@ const EventEdit = () => {
       const onEventChange = (event) =>{
 
         setEvent({...Event,[event.target.name] : event.target.value})
-        
-        setUpdateContain( {
+       
+        setUpdateContain( { 
             ...updateContain,
             [event.target.name] : event.target.value,
         
@@ -186,7 +189,7 @@ return(<>
 
 <Sidebar setSide={setSide}/>
    
-<form className="event-edit" onSubmit={handleUpdate}>
+<form  encType="multipart/form-data" className="event-edit" onSubmit={handleUpdate}>
 
 <span className="d-flex tit">ویرایش<span className="mx-2" style={{color:"rgb(0,177,106)"}}> عکس </span> رویداد</span>
 
@@ -203,7 +206,7 @@ return(<>
 htmlFor="images" className="drop-container" id="dropcontainer">
   <span className="drop-title">Drop files here</span>
   or
-  <input name="image" onChange={handleAx} type="file" id="images" accept="image/*" required/>
+  <input name="image" onChange={handleAx} type="file" id="images" accept="image/*"/>
 </label>
 
 </div>

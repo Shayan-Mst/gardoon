@@ -3,12 +3,6 @@ import Social from './Social';
 
 
 
-
-
-
-
-
-
 const Galler = () => {
 
 

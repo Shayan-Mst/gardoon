@@ -359,7 +359,7 @@
 
 .navbar a {
   height: 100%;
-  width: 12%;
+  width: 13%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -920,6 +920,12 @@ opacity: 0.8;
 
  height: 170px  ;
 }
+
+
+#calendar .search-result{
+
+  height: 120px  ;
+ }
 
 .search-result::after{
 
@@ -5072,6 +5078,17 @@ font-size: 12px;
 }
 
 
+.rmdp-top-class{
 
+  justify-content:center;
+} 
+.rmdp-calendar{
+  width: 100%;
+}
+
+.rmdp-day-picker {
+
+  justify-content: space-evenly;
+}
 
 

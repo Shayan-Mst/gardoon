@@ -24,6 +24,7 @@ const Navbar = () => {
 {location.pathname == '/events' ? <Link id="active">رویداد  ها</Link>:<Link to='/events'>رویداد ها</Link>}
 {location.pathname == '/news' ? <Link id="active">اخبار و مقالات</Link>:<Link to='/news'>اخبار و مقالات</Link> }
 {location.pathname == '/anounce' ? <Link id="active">اطلاعیه ها</Link>:<Link to='/anounce'>اطلاعیه ها</Link> }
+{location.pathname == '/calendar' ? <Link id="active">تقویم رویداد و اخبار</Link>:<Link to='/calendar'>تقویم رویداد ها و اخبار</Link> }
 
 </nav> :null }
 

@@ -32,6 +32,7 @@ import EventEdit from './components/admin/EventManage/EventEdit'
 import GalleryEdit from './components/admin/GalleryManage/GalleryEdit'
 import SlideEdit from './components/admin/SlideManage/SlideEdit'
 import AnounceEdit from './components/admin/AnounceManage/AnounceEdit'
+import Calendars from './components/other pages/Calendar'
 
 
 
@@ -52,6 +53,7 @@ function App() {
 <Route path='/news' element={<News/>}/>
 <Route path='/anounce' element={<Anounces/>}/>
 <Route path='gallery'element={<Gallery/>}/>
+<Route path='/calendar' element={<Calendars/>}/>
 <Route path='/news/:newsId' element={<New/>}/>
 <Route path='/events/:eventId' element={<Event/>}/>
 <Route path = '/gallery/:galleryId' element = {<Galler/>}/>

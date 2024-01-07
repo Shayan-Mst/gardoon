@@ -2,8 +2,7 @@ import { useState,useEffect } from "react";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
-import Button from 'react-bootstrap/Button'
-import semnan2 from './../../../assets/semnan.jpg'
+import Button from 'react-bootstrap/Button';
 import { deleteEvent, getAllEvents } from "../../../service/gardoonService";
 
 
@@ -25,7 +24,9 @@ const EventUpdate = () => {
       
       e.preventDefault();
       setEventId(e.target.value)
-      setShowModal(true)};
+      setShowModal(true)
+      console.log(allEvent)
+    };
 
     useEffect(() => {
 
@@ -122,7 +123,7 @@ const EventUpdate = () => {
   <div key={item.id} className="col-lg-4">
   <div className="card mt-3">
   <figure className="image-container d-inline-block my-0">
-  <img src={item.image} className="card-img-top" alt="..."/>
+  <img src={`http://127.0.0.1:8000${item.image}`} className="card-img-top" alt="..."/>
   </figure>
   <div className="card-body">
   <Link className="card-title d-flex">{item.title}</Link>

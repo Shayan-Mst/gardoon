@@ -31,7 +31,7 @@ export const getNews = (newsId) =>{
 export const getAllEvents = () =>{
 
 
-    const url = `${SERVER_URL}/events`;
+    const url = `${SERVER_URL}/api/event/`;
 
     return axios.get(url);
 }
@@ -40,7 +40,7 @@ export const getAllEvents = () =>{
 export const getEvent = (eventsId) =>{
 
 
-    const url = `${SERVER_URL}/events/${eventsId}`;
+    const url = `${SERVER_URL}/api/event/${eventsId}/`;
 
     return axios.get(url);
 }
@@ -66,7 +66,7 @@ export const getAnounce = (anounceId) =>{
 export const getAllGallery = () =>{
 
 
-    const url = `${SERVER_URL}/Gallery_API`;
+    const url = `${SERVER_URL}/api/gallery/`;
 
     return axios.get(url);
 }
@@ -75,7 +75,7 @@ export const getAllGallery = () =>{
 export const getGallery = (galleryId) =>{
 
 
-    const url = `${SERVER_URL}/gallery/${galleryId}`;
+    const url = `${SERVER_URL}/api/gallery/${galleryId}`;
 
     return axios.get(url);
 }
@@ -149,11 +149,11 @@ export const createEvent = (Event) => {
 
 
 
-    const url = `${SERVER_URL}/Event_API`;
+    const url = `${SERVER_URL}/api/event/`;
     const formData = new FormData();
     formData.append('image', Event.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
   
-    formData.append('category',Event.category)
+    formData.append('category',Event.category);
     // Append other form fields if needed
     formData.append('title', Event.title);
     formData.append('description', Event.description);
@@ -166,9 +166,19 @@ export const updateEvent = (Event , eventId) => {
 
 
 
-    const url = `${SERVER_URL}/events/${eventId}`;
+    const url = `${SERVER_URL}/api/event/${eventId}/`;
 
-    return axios.put(url , Event);
+    const formData = new FormData();
+    typeof  Event.image != 'undefined' ?   formData.append('image', Event.image) : null // Assuming 'image' is the key for the uploaded file in the 'Event' object
+  
+  typeof Event.category != 'undefined' ?  formData.append('category',Event.category) : null;
+    // Append other form fields if needed
+  typeof  Event.title != 'undefined' ?  formData.append('title', Event.title) : null;
+
+  typeof Event.description != 'undefined' ?   formData.append('description', Event.description) : null 
+  
+
+    return axios.put(url , formData);
 
 
 }
@@ -177,7 +187,7 @@ export const updateEvent = (Event , eventId) => {
 export const deleteEvent = (eventId) => {
 
 
-    const url = `${SERVER_URL}/events/${eventId}`;
+    const url = `${SERVER_URL}/api/event/${eventId}/`;
 
     return axios.delete(url);
 }
@@ -217,13 +227,11 @@ export const createGallery = (gallery) => {
 
 
 
-    const url = `${SERVER_URL}/gallery`;
+    const url = `${SERVER_URL}/api/gallery/`;
 
     const formData = new FormData();
     formData.append('image', gallery.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
   
-    
-
     formData.append('title', gallery.title);
 
     return axios.post(url,formData);
@@ -235,7 +243,7 @@ export const updateGallery = (gallery , galleryId) => {
 
 
 
-    const url = `${SERVER_URL}/gallery/${galleryId}`;
+    const url = `${SERVER_URL}/api/gallery/${galleryId}/`;
 
     return axios.put(url , gallery);
 
@@ -246,7 +254,7 @@ export const updateGallery = (gallery , galleryId) => {
 export const deleteGallery = (galleryId) => {
 
 
-    const url = `${SERVER_URL}/gallery/${galleryId}`;
+    const url = `${SERVER_URL}/api/gallery/${galleryId}/`;
 
     return axios.delete(url);
 }
@@ -254,7 +262,7 @@ export const deleteGallery = (galleryId) => {
 export const createSlide = () => {
 
 
-    const url = `${SERVER_URL}/slide/`;
+    const url = `${SERVER_URL}/api/slide/`;
 
     return axios.delete(url);
 }
@@ -262,7 +270,7 @@ export const createSlide = () => {
 export const updateSlide = (slide,slideId) => {
 
 
-    const url = `${SERVER_URL}/slide/${slideId}`;
+    const url = `${SERVER_URL}/api/slide/${slideId}/`;
 
     return axios.delete(url,slide);
 }
@@ -270,7 +278,7 @@ export const updateSlide = (slide,slideId) => {
 export const deleteSlide = (slideId) => {
 
 
-    const url = `${SERVER_URL}/slide/${slideId}`;
+    const url = `${SERVER_URL}/api/slide/${slideId}/`;
 
     return axios.delete(url);
 }

@@ -29,7 +29,7 @@ const NewsUpdate = () => {
       
       setNewsId(e.target.value)
       e.preventDefault();
-      
+      console.log(allNews);
       setShowModal(true)
 
     
