@@ -37,9 +37,9 @@ const GalleryUpdate = () => {
     const handleShow = (e) => {
       
       e.preventDefault();
-     // setGalleryId(e.target.value);
+      setGalleryId(e.target.id);
       setShowModal(true);
-      console.log(allGallery);
+      console.log(galleryId);
     };
     
 
@@ -129,9 +129,9 @@ return(<>
 
     <div key={item.id} className="col-lg-4">
         <div className="cnt">
-        <i onClick={handleShow} value={item.id} className="fa-solid fa-trash"></i>
+        <i onClick={handleShow} id={item.id} className="fa-solid fa-trash" ></i>
 
-       <Link to={`/page/admin/gallery-manage/edit/${item.id}`}> <i className="fa-solid fa-pen"></i></Link>
+       <Link  to={`/page/admin/gallery-manage/edit/${item.id}`}> <i className="fa-solid fa-pen"></i></Link>
 
 <img className="img-fluid" src={item.image != null ? `http://127.0.0.1:8000${item.image}` :imgPlc}/>
 

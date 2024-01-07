@@ -49,7 +49,7 @@ export const getEvent = (eventsId) =>{
 export const getAllAnounce = () =>{
 
 
-    const url = `${SERVER_URL}/anounce`;
+    const url = `${SERVER_URL}/api/notifications/`;
 
     return axios.get(url);
 }
@@ -58,7 +58,7 @@ export const getAllAnounce = () =>{
 export const getAnounce = (anounceId) =>{
 
 
-    const url = `${SERVER_URL}/anounce/${anounceId}`;
+    const url = `${SERVER_URL}/api/notifications/${anounceId}/`;
 
     return axios.get(url);
 }
@@ -75,7 +75,7 @@ export const getAllGallery = () =>{
 export const getGallery = (galleryId) =>{
 
 
-    const url = `${SERVER_URL}/api/gallery/${galleryId}`;
+    const url = `${SERVER_URL}/api/gallery/${galleryId}/`;
 
     return axios.get(url);
 }
@@ -83,15 +83,15 @@ export const getGallery = (galleryId) =>{
 export const getAllSlide = () =>{
 
 
-    const url = `${SERVER_URL}/gallery/`;
+    const url = `${SERVER_URL}/api/slide/`;
 
     return axios.get(url);
 }
 
-export const getSlide = (galleryId) =>{
+export const getSlide = (slideId) =>{
 
 
-    const url = `${SERVER_URL}/gallery/${galleryId}`;
+    const url = `${SERVER_URL}/api/slide/${slideId}/`;
 
     return axios.get(url);
 }
@@ -197,9 +197,17 @@ export const createAnounce = (anounce) => {
 
 
 
-    const url = `${SERVER_URL}/anounce`;
+    const url = `${SERVER_URL}/api/notifications/`;
 
-    return axios.post(url,anounce);
+    const formData = new FormData();
+    formData.append('image', anounce.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
+  
+    formData.append('notif_file',anounce.notif_file);
+    // Append other form fields if needed
+    formData.append('title', anounce.title);
+    formData.append('description', anounce.description);
+
+    return axios.post(url,formData);
 }
 
 
@@ -207,7 +215,7 @@ export const updateAnounce = (anounce , anounceId) => {
 
 
 
-    const url = `${SERVER_URL}/anounce/${anounceId}`;
+    const url = `${SERVER_URL}/api/notifications/${anounceId}/`;
 
     return axios.put(url , anounce);
 
@@ -218,7 +226,7 @@ export const updateAnounce = (anounce , anounceId) => {
 export const deleteAnounce = (anounceId) => {
 
 
-    const url = `${SERVER_URL}/anounce/${anounceId}`;
+    const url = `${SERVER_URL}/api/notifications/${anounceId}/`;
 
     return axios.delete(url);
 }
@@ -259,12 +267,18 @@ export const deleteGallery = (galleryId) => {
     return axios.delete(url);
 }
 
-export const createSlide = () => {
+export const createSlide = (slide) => {
 
 
     const url = `${SERVER_URL}/api/slide/`;
 
-    return axios.delete(url);
+    const formData = new FormData();
+    formData.append('image', slide.image); // Assuming 'image' is the key for the uploaded file in the 'news' object
+  
+    formData.append('title', slide.title);
+    formData.append('description', slide.description);
+
+    return axios.post(url,formData);
 }
 
 export const updateSlide = (slide,slideId) => {
@@ -272,7 +286,7 @@ export const updateSlide = (slide,slideId) => {
 
     const url = `${SERVER_URL}/api/slide/${slideId}/`;
 
-    return axios.delete(url,slide);
+    return axios.put(url,slide);
 }
 
 export const deleteSlide = (slideId) => {

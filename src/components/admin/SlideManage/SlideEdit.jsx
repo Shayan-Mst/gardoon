@@ -118,7 +118,13 @@ setUpdateContain( {
 
 });
 
-
+setSlide( {
+  ...slide,
+  [event.target.name] : event.target.value
+  
+  });
+  
+  
 
 };
 

@@ -119,7 +119,7 @@ const AnounceUpdate = () => {
   <div key={item.id} className="col-lg-4">
 <div className="card mt-3">
 <figure className="image-container d-inline-block my-0">
-<img src={item.image} className="card-img-top" alt="..."/>
+<img src={`http://127.0.0.1:8000${item.image}`} className="card-img-top" alt="..."/>
 </figure>
 <div className="card-body">
 <Link className="card-title d-flex">{item.title}</Link>

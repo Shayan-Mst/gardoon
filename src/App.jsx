@@ -78,7 +78,7 @@ function App() {
 <Route path = '/page/admin/event-manage/edit/:eventId' element={<EventEdit/>}/>
 <Route path='/page/admin/gallery-manage/edit/:galleryId' element={<GalleryEdit/>}/>
 <Route path='/page/admin/slide-manage/edit/:slideId' element = {<SlideEdit/>}/>
-<Route path = '/page/admin/anounce-manage/edit' element={<AnounceEdit/>}/>
+<Route path = '/page/admin/anounce-manage/edit/:anounceId' element={<AnounceEdit/>}/>
 </Routes>
 
 <Footer/>

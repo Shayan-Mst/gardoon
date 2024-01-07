@@ -17,7 +17,7 @@ const AnounceManagement = () => {
       title:'',
       description:'',
       image:null,
-      pdf:null
+      notif_file:null
     });
   
     const [isDragActive, setIsDragActive] = useState(false);
@@ -78,7 +78,7 @@ const AnounceManagement = () => {
                 const handleFile = async (event) => {
       
                   const file = event.target.files[0];
-                  setAnounce({...anounce,pdf: file});
+                  setAnounce({...anounce,notif_file: file});
                 
                 }
                 

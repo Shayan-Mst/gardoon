@@ -25,7 +25,7 @@ const EventUpdate = () => {
       e.preventDefault();
       setEventId(e.target.value)
       setShowModal(true)
-      console.log(allEvent)
+      console.log(eventId)
     };
 
     useEffect(() => {

@@ -140,6 +140,11 @@ const GalleryEdit = () => {
           title : e.target.value,
       
     });
+    setGallery( {
+      ...Gallery,
+      title : e.target.value,
+  
+});
         
       }
 

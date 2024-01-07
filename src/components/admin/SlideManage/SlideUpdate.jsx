@@ -23,7 +23,8 @@ const [allSlide,setAllSlide] = useState([])
     const handleShow = (e) => {
       
       e.preventDefault();
-      setSlideId(e.target.value)
+      setSlideId(e.target.id);
+      console.log(slideId)
       setShowModal(true)};
 
     useEffect(() => {
@@ -116,12 +117,12 @@ const [allSlide,setAllSlide] = useState([])
 <div key={item.id} className="devi p-1">
   
   <div className="cnt">
-  <i value={item.id} onClick={handleShow} className="fa-solid fa-trash"></i>
-  <i className="fa-solid fa-pen"></i>
-<img className="img-fluid" src={item.image}/>
+  <i id={item.id} onClick={handleShow} className="fa-solid fa-trash"></i>
+  <Link to={`/page/admin/slide-manage/edit/${item.id}`}><i className="fa-solid fa-pen"></i></Link>
+<img className="img-fluid" src={`http://127.0.0.1:8000${item.image}`}/>
 
 <div className="brief">
-<Link to={`/page/admin/slide-manage/edit/${item.id}`}>{item.title}</Link>
+<Link >{item.title}</Link>
 <div style={{fontSize:"1rem"}}>
  <p>
  {item.description}

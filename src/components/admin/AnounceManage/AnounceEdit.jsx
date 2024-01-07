@@ -129,6 +129,11 @@ setUpdateContain( {
 ...updateContain,
 [event.target.name] : event.target.value});
 
+
+setAnounce( {
+  ...anounce,
+  [event.target.name] : event.target.value});
+  
 };
 
     const handleUpdate = async(event) =>{
@@ -194,7 +199,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 <div className="col-lg-6">
 
-<img className="img-fluid" src={anounce.image == null || selectImg != imgPlc ? selectImg : `http://127.0.0.1:8000${slide.image}`} alt="mamad"/>
+<img className="img-fluid" src={anounce.image == null || selectImg != imgPlc ? selectImg : `http://127.0.0.1:8000${anounce.image}`} alt="mamad"/>
 
 </div>
 
