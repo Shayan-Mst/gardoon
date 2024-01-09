@@ -19,6 +19,10 @@ const EventUpdate = () => {
 
     const [showModal, setShowModal] = useState(false);
 
+    const [filter , setFilter] = useState([]);
+
+    const [qwuery,setQwuery] = useState("");
+
     const handleClose = () => setShowModal(false);
     const handleShow = (e) => {
       
@@ -47,7 +51,7 @@ const EventUpdate = () => {
   const {data: newsData} = await getAllEvents();
   
   setAllEvent(newsData);
-  
+  setFilter(newsData);
   
             }
   
@@ -60,7 +64,7 @@ const EventUpdate = () => {
   
           fetch();
   
-        })
+        },[])
 
 
 
@@ -80,6 +84,7 @@ const EventUpdate = () => {
     
     const {data: newsData} = await getAllEvents();
     setAllEvent(newsData);
+    setFilter(newsData);
     setShowModal(false)
     
   }
@@ -95,6 +100,31 @@ const EventUpdate = () => {
           }
   
   
+          function searchFunction(){
+
+      
+
+            const filtered = allEvent.filter(
+              (item) =>
+                item.title.toLowerCase().includes(qwuery.toLowerCase()) ||
+                item.description.toLowerCase().includes(qwuery.toLowerCase())
+            );
+            setFilter(filtered);
+          }
+    
+          const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+              searchFunction();
+            }
+          };
+    
+          const handleModalKeyPress = (e) => {
+            if (e.key === 'Enter') {
+              e.stopPropagation(); // Prevent event propagation
+              e.preventDefault();
+              
+            }
+          };
  
     return(<>
     
@@ -110,16 +140,16 @@ const EventUpdate = () => {
 <div style={{height:"44px"}} className="w-100 input-group d-flex">
 
 <div className="input">
-<input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
+<input value={qwuery} onChange={(e) => setQwuery(e.target.value)} className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
 </div>
-<div className="search-icon d-flex justify-content-center align-items-center">
+<div onKeyUp={handleKeyPress} onClick={searchFunction} className="search-icon d-flex justify-content-center align-items-center">
 <i className="fa-solid fa-magnifying-glass"></i>
 
 </div>
 </div>
 <div className="row">
 
-{allEvent.map((item) => (
+{filter.map((item) => (
   <div key={item.id} className="col-lg-4">
   <div className="card mt-3">
   <figure className="image-container d-inline-block my-0">

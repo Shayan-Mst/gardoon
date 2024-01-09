@@ -95,7 +95,7 @@ const AnounceEdit = () => {
         const file = event.target.files[0];
     
         setUpdateContain({...updateContain,
-        [event.target.name] : file
+        notif_file : file
         
         });
       

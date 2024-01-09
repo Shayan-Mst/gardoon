@@ -5,7 +5,7 @@ import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import { Link } from "react-router-dom";
 import { deleteGallery, getAllGallery } from "../../../service/gardoonService";
-
+import moment from 'moment-jalaali';
 
 
 const GalleryUpdate = () => {
@@ -18,6 +18,11 @@ const GalleryUpdate = () => {
     const [allGallery,setAllGallery] = useState([]);
 
     const [galleryId,setGalleryId] = useState();
+
+
+    const [filter , setFilter] = useState([]);
+
+   const [qwuery,setQwuery] = useState("");
 
 
     useEffect(() => {
@@ -54,7 +59,7 @@ const GalleryUpdate = () => {
   const {data: newsData} = await getAllGallery();
   
   setAllGallery(newsData);
-  
+  setFilter(newsData);
   
             }
   
@@ -86,6 +91,7 @@ const GalleryUpdate = () => {
       
       const {data: newsData} = await getAllGallery();
       setAllGallery(newsData);
+      setFilter(newsData)
       setShowModal(false)
       
     }
@@ -99,6 +105,32 @@ const GalleryUpdate = () => {
     
     
             }
+
+            function searchFunction(){
+
+      
+
+              const filtered = allGallery.filter(
+                (item) =>
+                  item.title.toLowerCase().includes(qwuery.toLowerCase())
+                  
+              );
+              setFilter(filtered);
+            }
+      
+            const handleKeyPress = (e) => {
+              if (e.key === 'Enter') {
+                searchFunction();
+              }
+            };
+      
+            const handleModalKeyPress = (e) => {
+              if (e.key === 'Enter') {
+                e.stopPropagation(); // Prevent event propagation
+                e.preventDefault();
+                
+              }
+            };
   
  
 return(<>
@@ -113,9 +145,9 @@ return(<>
 <div style={{height:"44px"}} className="w-100 input-group d-flex">
 
 <div className="input">
-<input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
+<input value={qwuery} onChange={(e) => setQwuery(e.target.value)} className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
 </div>
-<div className="search-icon d-flex justify-content-center align-items-center">
+<div onKeyUp={handleKeyPress} onClick={searchFunction} className="search-icon d-flex justify-content-center align-items-center">
 <i className="fa-solid fa-magnifying-glass"></i>
 
 </div>
@@ -125,7 +157,7 @@ return(<>
 <div className="row my-4">
 
 {
- allGallery.map((item) => (
+ filter.map((item) => (
 
     <div key={item.id} className="col-lg-4">
         <div className="cnt">
@@ -135,7 +167,7 @@ return(<>
 
 <img className="img-fluid" src={item.image != null ? `http://127.0.0.1:8000${item.image}` :imgPlc}/>
 
-<span className="g-date">{item.created}</span>
+<span className="g-date">{moment(item.created).locale('fa').format('YYYY/MM/DD')}</span>
 <div className="overlay">
    <div className="image-caption">{item.title}</div>
 </div>

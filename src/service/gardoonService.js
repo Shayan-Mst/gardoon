@@ -217,7 +217,16 @@ export const updateAnounce = (anounce , anounceId) => {
 
     const url = `${SERVER_URL}/api/notifications/${anounceId}/`;
 
-    return axios.put(url , anounce);
+    const formData = new FormData();
+    typeof  anounce.image != 'undefined' ?   formData.append('image', anounce.image) : null // Assuming 'image' is the key for the uploaded file in the 'anounce' object
+  
+  typeof anounce.notif_file != 'undefined' ?  formData.append('notif_file',anounce.notif_file) : null;
+    // Append other form fields if needed
+  typeof  anounce.title != 'undefined' ?  formData.append('title', anounce.title) : null;
+
+  typeof anounce.description != 'undefined' ?   formData.append('description', anounce.description) : null 
+
+    return axios.put(url , formData);
 
 
 }

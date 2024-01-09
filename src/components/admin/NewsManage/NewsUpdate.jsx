@@ -21,7 +21,9 @@ const NewsUpdate = () => {
 
     const [newsId,setNewsId] = useState();
 
-    const buttonRef = useRef();
+    const [filter , setFilter] = useState([]);
+
+   const [qwuery,setQwuery] = useState("");
 
     const handleClose = () => setShowModal(false);
 
@@ -37,14 +39,13 @@ const NewsUpdate = () => {
 
     useEffect(() => {
 
-
-
-
         const page = document.querySelector('.news-update')
         
         if(side == false) page.style.marginRight='5%'
         
-        else page.style.marginRight = '15%'
+        else page.style.marginRight = '15%';
+
+        
 
         })
 
@@ -58,7 +59,7 @@ const NewsUpdate = () => {
   const {data: newsData} = await getAllNews();
   
   setAllNews(newsData);
-  
+  setFilter(newsData);
   
             }
   
@@ -71,7 +72,7 @@ const NewsUpdate = () => {
   
           fetch();
   
-        })
+        },[])
         
 
        const handleDelete = async(event) =>{
@@ -87,6 +88,7 @@ if(response.status == 200){
   
   const {data: newsData} = await getAllNews();
   setAllNews(newsData);
+  setFilter(newsData);
   setShowModal(false)
   
 }
@@ -102,7 +104,32 @@ catch(error){
         }
 
 
+
+      function searchFunction(){
+
       
+
+        const filtered = allNews.filter(
+          (item) =>
+            item.title.toLowerCase().includes(qwuery.toLowerCase()) ||
+            item.description.toLowerCase().includes(qwuery.toLowerCase())
+        );
+        setFilter(filtered);
+      }
+
+      const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          searchFunction();
+        }
+      };
+
+      const handleModalKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          e.stopPropagation(); // Prevent event propagation
+          e.preventDefault();
+          
+        }
+      };
 
     return(<>
     
@@ -116,10 +143,10 @@ catch(error){
     <div style={{height:"44px"}} className="w-100 input-group d-flex">
   
   <div className="input">
-  <input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
+  <input value={qwuery} onChange={(e) => setQwuery(e.target.value)} className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
   </div>
-  <div className="search-icon d-flex justify-content-center align-items-center">
-<i className="fa-solid fa-magnifying-glass"></i>
+  <div  onKeyUp={handleKeyPress} onClick={searchFunction} className="search-icon d-flex justify-content-center align-items-center">
+<i  className="fa-solid fa-magnifying-glass"></i>
 
 </div>
 </div>
@@ -130,7 +157,7 @@ catch(error){
   {
   
   
-  allNews.map((item) => (
+  filter.map((item) => (
     
 <div key={item.id} className="col-lg-4">
 <div  className="card mt-3">
@@ -160,7 +187,7 @@ catch(error){
 </div>
 
 
-<Modal centered show={showModal} onHide={handleClose}>
+<Modal onKeyDown={handleModalKeyPress} centered show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>حذف کردن اطلاعات</Modal.Title>
         </Modal.Header>

@@ -14,10 +14,16 @@ const SlideUpdate = () => {
 
     const [side,setSide] = useState(true)
 
-const [allSlide,setAllSlide] = useState([])
+    
+    const [allSlide,setAllSlide] = useState([])
+
     const [showModal, setShowModal] = useState(false);
 
     const [slideId , setSlideId] = useState();
+
+    const [filter , setFilter] = useState([]);
+
+   const [qwuery,setQwuery] = useState("");
 
     const handleClose = () => setShowModal(false);
     const handleShow = (e) => {
@@ -46,7 +52,7 @@ const [allSlide,setAllSlide] = useState([])
   const {data: newsData} = await getAllSlide();
   
   setAllSlide(newsData);
-  
+  setFilter(newsData);
   
             }
   
@@ -59,7 +65,7 @@ const [allSlide,setAllSlide] = useState([])
   
           fetch();
   
-        })
+        },[])
         
 
         const handleDelete = async(event) =>{
@@ -75,6 +81,7 @@ const [allSlide,setAllSlide] = useState([])
     
     const {data: newsData} = await getAllSlide();
     setAllSlide(newsData);
+    setFilter(newsData);
     setShowModal(false)
     
   }
@@ -89,6 +96,34 @@ const [allSlide,setAllSlide] = useState([])
   
           }
 
+
+          function searchFunction(){
+
+      
+
+            const filtered = allSlide.filter(
+              (item) =>
+                item.title.toLowerCase().includes(qwuery.toLowerCase()) ||
+                item.description.toLowerCase().includes(qwuery.toLowerCase())
+            );
+            setFilter(filtered);
+          }
+    
+          const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+              searchFunction();
+            }
+          };
+    
+          const handleModalKeyPress = (e) => {
+            if (e.key === 'Enter') {
+              e.stopPropagation(); // Prevent event propagation
+              e.preventDefault();
+              
+            }
+          };
+    
+
     return(<>
 
     <Sidebar setSide={setSide}/>
@@ -102,9 +137,9 @@ const [allSlide,setAllSlide] = useState([])
 <div style={{height:"44px"}} className="w-100 input-group d-flex">
 
 <div className="input">
-<input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
+<input value={qwuery} onChange={(e) => setQwuery(e.target.value)} className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
 </div>
-<div className="search-icon d-flex justify-content-center align-items-center">
+<div onKeyUp={handleKeyPress} onClick={searchFunction} className="search-icon d-flex justify-content-center align-items-center">
 <i className="fa-solid fa-magnifying-glass"></i>
 
 </div>
@@ -112,7 +147,7 @@ const [allSlide,setAllSlide] = useState([])
 
 <div className="grid py-3">
 
-{allSlide.map((item)=>(
+{filter.map((item)=>(
 
 <div key={item.id} className="devi p-1">
   
