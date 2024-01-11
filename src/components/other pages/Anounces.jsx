@@ -53,7 +53,6 @@ return(<>
 
 <option  value="newest">جدیدترین</option>
 <option value="oldest">قدیمی ترین</option>
-<option value="important">مهم ترین</option>
 <option value="seen">پربازدیدترین</option>
 
 </select>

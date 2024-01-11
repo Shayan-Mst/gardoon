@@ -49,7 +49,6 @@ return(
         
         <option  value="newest">جدیدترین</option>
         <option value="oldest">قدیمی ترین</option>
-        <option value="important">مهم ترین</option>
         <option value="seen">پربازدیدترین</option>
         
       </select>
@@ -64,22 +63,15 @@ return(
 <div style={{backgroundColor:"rgb(0,177,106)",color:"white"}} className="d-flex py-2 px-4 ns-heading">طبقه بندی بر اساس</div>
 <form className="py-2 px-4" style={{backgroundColor:"white"}}>
 
-<div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" defaultChecked/>
-      <label className="form-check-label px-2" htmlFor="check2">مهم ترین</label>
-    </div>
-
-
-
 
     <div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" defaultChecked/>
+      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
       <label className="form-check-label px-2" htmlFor="check2">دانشجویی</label>
     </div>
 
 
     <div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" defaultChecked/>
+      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
       <label className="form-check-label px-2" htmlFor="check2">فرهنگی و اجتماعی</label>
     </div>
 

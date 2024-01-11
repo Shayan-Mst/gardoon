@@ -52,7 +52,6 @@ const Events = () => {
 
 <option  value="newest">جدیدترین</option>
 <option value="oldest">قدیمی ترین</option>
-<option value="important">مهم ترین</option>
 <option value="seen">پربازدیدترین</option>
 
 </select>
@@ -70,17 +69,17 @@ const Events = () => {
 
 
 <div className="checkBox my-3 px-4">
-<input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" defaultChecked/>
+<input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
 <label className="form-check-label px-2" htmlFor="check2">درسی</label>
 </div>
 
 <div className="checkBox my-3 px-4">
-<input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" defaultChecked/>
+<input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
 <label className="form-check-label px-2" htmlFor="check2">مذهبی</label>
 </div>
 
 <div className="checkBox my-3 px-4">
-<input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" defaultChecked/>
+<input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
 <label className="form-check-label px-2" htmlFor="check2">فرهنگی و اجتماعی</label>
 </div>
 
