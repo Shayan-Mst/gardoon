@@ -3,6 +3,8 @@ import { Link,useLocation } from 'react-router-dom';
 import semnanLogo from './../../../assets/semnan logo.png'
 import semnan2 from './../../../assets/semnan.jpg'
 import semnan3 from './../../../assets/semn.jpg'
+import { useEffect, useState } from 'react';
+import { getAllEvents } from '../../../service/gardoonService';
 
 
 
@@ -12,6 +14,7 @@ import semnan3 from './../../../assets/semn.jpg'
 
 const Footer = () => {
 
+     const [event,setEvent] = useState([]);
 
 function locationClick(){
 
@@ -21,7 +24,19 @@ function locationClick(){
          
 const location = useLocation();
 
+useEffect(()=>{
 
+const fetch = async()=>{
+
+const {data:eventData} = await getAllEvents();
+setEvent(eventData);
+console.log(event)
+
+}
+
+fetch();
+
+},[])
 
 const shouldNotRender = (
      location.pathname.startsWith('/page/admin')

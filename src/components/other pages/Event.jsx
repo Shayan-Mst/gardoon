@@ -1,9 +1,32 @@
+import { useEffect, useState } from 'react';
 import lamp from './../../assets/lamp.jpg'
 import Comments from './Comments';
 import Social from './Social';
-
+import { getEvent } from '../../service/gardoonService';
+import { useParams } from 'react-router-dom';
+import moment from 'jalali-moment';
 
 const Event  = ()  => {
+
+
+    const {eventId} = useParams()
+
+
+const [event,setEvent] = useState([]);
+
+
+    useEffect(()=>{
+
+const fetch = async()=>{
+
+const {data:eventData} = await getEvent(eventId)
+
+setEvent(eventData)
+
+}
+fetch()
+
+    },[])
 
 return(<>
 
@@ -11,31 +34,21 @@ return(<>
 
 <section className="container single-event my-4">
 <div>
-<span className="d-flex tit m-4">رویداد مسابقات برنامه نویسی کشوری به نمایندگی</span>
+<span className="d-flex tit m-4">{event.title}</span>
 </div>
 <div className="m-4 date-p d-flex">
-    تاریخ ارسال :
-<span className=" mb-2 mx-1">28 بهمن 1402</span>
+    تاریخ انتشار :
+<span className=" mb-2 mx-1">{moment(event.created).format('YYYY/MM/DD')}</span>
 </div>
 
 <div className="img-c">
-<img src={lamp} className="img-fluid"/>
+<img src={`http://127.0.0.1:8000${event.image}`} className="img-fluid"/>
 </div>
 
 
 <div className='dsc m-4 px-4'>
 
-<p>بت‌نام سفر «اربعین»
-پیاده‌روی نجف تا کربلا کاروان بسیج دانشجویی دانشگاه صنعتی امیرکبیر
-کاروان طریق‌القدس ویژه برادران
-لینک ثبت نام برادران:
-https://survey.porsline.ir/s/DGgwhdTf
-برای کسب اطلاعات بیشتر راجع به کاروان برادران: Tariq_bsj
- کاروان لواءالزینب ویژه خواهران
-لینک ثبت نام خواهران:
-https://b۲n.ir/p۹۲۷۷۱
-برای کسب اطلاعات بیشتر راجع به کاروان خواهران: aadmiin_leva_zein_ab
-مهلت ثبت نام تا ۱۱ مرداد
+<p>{event.description}
  </p>
 
 </div>

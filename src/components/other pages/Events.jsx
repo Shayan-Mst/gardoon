@@ -1,9 +1,9 @@
 
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
-import semnan1 from "./../../assets/semnan.jpg"
-
+import moment from "jalali-moment";
+import { getAllEvents } from "../../service/gardoonService";
 
 
 
@@ -11,10 +11,49 @@ const Events = () => {
 
     const [selectedOption, setSelectedOption] = useState('');
 
+    const [event,setEvent] = useState([]);
+
     const handleOptionChange = (event) => {
         
         setSelectedOption(event.target.value);
       };
+
+
+
+
+
+
+
+
+      useEffect(()=>{
+
+
+        const fetch =  async() =>{
+        
+      
+        
+          try{
+        const {data : eventData} = await getAllEvents();
+        setEvent(eventData);
+        
+          }
+          catch(error){
+        
+        console.log(error)
+        
+        
+        
+          }
+        }
+        
+        
+        console.log(event)
+        fetch();
+        
+        
+        
+        
+              },[])
     
 
     return(
@@ -105,22 +144,24 @@ const Events = () => {
 
 <div className="my-3 px-2 d-flex"><span className="px-2">97</span>نتیجه جستجو</div>
 
-<div className="container mb-4 search-result">
+{event.map((item)=>(
+
+<div key={item.id} className="container mb-4 search-result px-4">
 
 <div className="card h-100">
 <div className="card-devide h-100">
 <div className="row h-100">
-<div  className="col-lg-5 d-flex p-0">
-<img src={semnan1} className="img-fluid" alt="..."/>
+<div  className="col-lg-5 d-flex p-0 h-100">
+<img src={`http://127.0.0.1:8000${item.image}`} className="img-fluid w-100" alt="..."/>
 </div>
 
 <div className="col-lg-7 col-sm-12">
 <div className="card-body h-100">
-<Link className="card-title d-flex pb-1 px-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ </Link>
-<p >لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ </p>
+<Link to={`/events/${item.id}`} className="card-title d-flex pb-1 px-0">{item.title}</Link>
+<p >{item.description}</p>
 <div className="date-p ">
 <i style={{marginRight:"1rem"}} className="fa-solid fa-calendar-days"></i>
-<span className=" mb-2 mx-1">28 بهمن 1402</span>
+<span className=" mb-2 mx-1">{moment(item.created).format('YYYY/MM/DD')}</span>
 </div>
 
 </div>
@@ -129,6 +170,11 @@ const Events = () => {
 </div>
 </div>  
 </div>
+
+
+
+))}
+
 
  </div>
 

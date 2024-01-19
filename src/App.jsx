@@ -50,7 +50,7 @@ function App() {
 <Route path='/' element={<MainPage/>}/>
 <Route path='/signin' element={<SignUpIn/>}/>
 <Route path='/events' element={<Events/>}/>
-<Route path='/news' element={<News/>}/>
+<Route exact path='/news' element={<News/>}/>
 <Route path='/anounce' element={<Anounces/>}/>
 <Route path='gallery'element={<Gallery/>}/>
 <Route path='/calendar' element={<Calendars/>}/>

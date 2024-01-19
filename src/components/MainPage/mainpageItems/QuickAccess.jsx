@@ -70,7 +70,7 @@ const QuickAccess = () => {
   </Link>
 
 
-  <Link onMouseEnter={() => setIsHovering('f')} onMouseLeave={()=>setIsHovering(null)} to="">
+  <Link onMouseEnter={() => setIsHovering('f')} onMouseLeave={()=>setIsHovering(null)} to="/gallery">
     <div className="icon">
     <i className={`fa-regular fa-image ${isHovering === 'f'? 'fa-flip':null}`}></i>
     </div>
@@ -78,7 +78,7 @@ const QuickAccess = () => {
   </Link>
 
 
-  <Link onMouseEnter={() => setIsHovering('g')} onMouseLeave={()=>setIsHovering(null)} to="">
+  <Link onMouseEnter={() => setIsHovering('g')} onMouseLeave={()=>setIsHovering(null)} to="/calendar">
     <div className="icon">
     <i className={`fa-solid fa-circle ${isHovering === 'g'? 'fa-beat-fade':null}`}></i>
     </div>

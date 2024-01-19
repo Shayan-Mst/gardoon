@@ -1,7 +1,12 @@
 
 
 
+import { useEffect, useState } from "react";
 import semnan1 from "./../../assets/semnan.jpg"
+import { getAllGallery } from "../../service/gardoonService";
+import moment from "jalali-moment";
+import { useNavigate,Link } from "react-router-dom";
+
 
 
 
@@ -12,9 +17,30 @@ import semnan1 from "./../../assets/semnan.jpg"
 const Gallery = () => {
 
 
+    const [gallery,setGallery] = useState([])
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
 
 
-    return(<>
+    const fetch = async()=>{
+
+
+const {data:galleryData} = await getAllGallery();
+setGallery(galleryData);
+
+    }
+
+
+    fetch();
+
+    },[])
+
+
+
+    return(
+    <>
 
 
     <div id="gallery">
@@ -22,26 +48,22 @@ const Gallery = () => {
 
 <div className="grid m-4 p-3">
 <div className="row m-2">
+{gallery.map((item)=>(
 
-    <div className="col-lg-4">
+
+ <div key={item.id} className="col-lg-4 my-2">
         <div className="cnt">
-<img className="img-fluid" src={semnan1}/>
-<span className="g-date">12 اردیبهشت 1402</span>
+<img className="img-fluid" src={`http://127.0.0.1:8000${item.image}`}/>
+<span className="g-date">{moment(item.created).local('fa').format('YYYY/MM/DD')}</span>
 <div className="overlay">
-   <div className="image-caption">توضیح درباره عکس از پایین به بالا فقط برای امتحان کردن ساخته شده است و تو انقدر احمق هستی</div>
+   <div  className="image-caption"><Link to={`/gallery/${item.id}`} style={{textDecoration:"none",color:"white"}}>{item.title}</Link></div>
 </div>
 </div>
     </div>
 
-    <div className="col-lg-4">
-    <img className="img-fluid" src={semnan1}/>
-    <span className="g-date">12 اردیبهشت 1402</span>
-</div>
 
-<div className="col-lg-4">
-<img className="img-fluid" src={semnan1}/>
-<span className="g-date">12 اردیبهشت 1402</span>
-</div>
+))}
+   
 
 
 </div>

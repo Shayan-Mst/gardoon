@@ -1,9 +1,10 @@
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import semnan1 from "./../../assets/semnan.jpg"
-
+import { getAllAnounce } from "../../service/gardoonService";
+import moment from 'jalali-moment';
 
 
 
@@ -12,10 +13,45 @@ const Anounces = () => {
 
     const [selectedOption, setSelectedOption] = useState('');
 
+    const [anounces,setAnounces] = useState([]);
+
     const handleOptionChange = (event) => {
         
         setSelectedOption(event.target.value);
       };
+
+
+      useEffect(()=>{
+
+
+const fetch =  async() =>{
+
+
+
+
+
+  try{
+const {data : anounceData} = await getAllAnounce();
+setAnounces(anounceData);
+
+  }
+  catch(error){
+
+console.log(error)
+
+
+
+  }
+}
+
+
+console.log(anounces)
+fetch();
+
+
+
+
+      },[])
 
 return(<>
 
@@ -77,21 +113,23 @@ return(<>
 
 <div className="my-3 px-2 d-flex"><span className="px-2">97</span>نتیجه جستجو</div>
 
-<div className="container mb-4 search-result">
 
+{anounces.map((item)=>(
+
+<div key={item.id} className="container mb-4 px-4 search-result">
 <div className="card h-100">
 <div className="card-devide h-100">
 <div className="row h-100">
-<div  className="col-lg-5 d-flex p-0">
-<img src={semnan1} className="img-fluid" alt="..."/>
+<div  className="col-lg-4 d-flex p-0 h-100">
+<img src={`http://127.0.0.1:8000${item.image}`} className="img-fluid w-100" alt="..."/>
 </div>
 
-<div  className="col-lg-7">
+<div  className="col-lg-8">
 <div className="card-body h-100">
-<Link className="card-title d-flex pb-1 px-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ  برگزیده شده از طرف بزرگان</Link>
+<Link to={`/anounce/${item.id}`} className="card-title d-flex pb-1 px-0">{item.title}</Link>
 <div className="date-p ">
 <i style={{marginRight:"1rem"}} className="fa-solid fa-calendar-days"></i>
-<span className=" mb-2 mx-1">28 بهمن 1402</span>
+<span className=" mb-2 mx-1">{moment(item.created).format('YYYY/MM/DD')}</span>
 </div>
 
 </div>
@@ -99,7 +137,12 @@ return(<>
 </div>
 </div>
 </div>  
+
 </div>
+
+))}
+
+
 
  </div>
 
