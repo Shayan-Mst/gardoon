@@ -29,7 +29,7 @@ useEffect(()=>{
 const fetch = async()=>{
 
 const {data:eventData} = await getAllEvents();
-setEvent(eventData);
+setEvent(eventData.slice(0,2));
 console.log(event)
 
 }
@@ -153,25 +153,25 @@ return(
 
 <div style={{width:"80%"}} className='separate my-4'></div>
 
+{event.map((item)=>(
+
+
 <div className='d-flex my-4'>
 
 <div >
 
-     <img className='mb-3' style={{width:"60px",height:"60px" , borderRadius:"50%"}} src={semnan2} alt="" />
+     <img className='mb-3' style={{width:"60px",height:"60px" , borderRadius:"50%"}} src={`http://127.0.0.1:8000${item.image}`} alt="" />
      
-     <span className='d-inline-block mt-2 mx-3' style={{width:"120px",height:"fit-content",textAlign:"justify"}}><Link className='text-decoration-none ' style={{fontSize:"12px"}}>مسابقات برنامه نویسی به نماینگی استاد</Link></span>
+     <span className='d-inline-block mt-2 mx-3' style={{width:"120px",height:"fit-content",textAlign:"justify"}}><Link className='text-decoration-none ' style={{fontSize:"12px"}}>{item.title}</Link></span>
 </div>
 </div>
 
+))}
 
-<div className='d-flex my-4'>
-<div >
 
-     <img className='mb-3' style={{width:"60px",height:"60px" , borderRadius:"50%"}} src={semnan3} alt="" />
-     
-     <span className='d-inline-block mt-2 mx-3' style={{width:"120px",height:"fit-content",textAlign:"justify"}}><Link className='text-decoration-none' style={{fontSize:"12px"}}>مسابقات برنامه نویسی به نماینگی استاد</Link></span>
-</div>
-</div>
+
+
+
 
 </div>
 </div>

@@ -45,7 +45,7 @@ setGallery(galleryData);
 
     <div id="gallery">
     <div style={{backgroundColor:"rgb(0,177,106)",color:"white"}} className="w-100 d-flex my-4 py-2 px-4 ">گالری عکس ها</div>
-
+    
 <div className="grid m-4 p-3">
 <div className="row m-2">
 {gallery.map((item)=>(

@@ -111,7 +111,7 @@ return(<>
 
 <div style={{backgroundColor:"rgb(0,177,106)",color:"white"}} className="d-flex py-2 px-4 ns-heading">نتایج جستجو</div>
 
-<div className="my-3 px-2 d-flex"><span className="px-2">97</span>نتیجه جستجو</div>
+<div className="my-3 px-2 d-flex"><span className="px-2">{anounces.length}</span>نتیجه جستجو</div>
 
 
 {anounces.map((item)=>(

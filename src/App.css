@@ -611,6 +611,12 @@ border-radius: 1px;
 
   color: white;
   line-height: 1.2;
+  --max-lines: 2; 
+  overflow: hidden;
+   
+  display: -webkit-box; 
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--max-lines);
 }
 
 
