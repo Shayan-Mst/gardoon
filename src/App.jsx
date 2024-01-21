@@ -33,11 +33,34 @@ import GalleryEdit from './components/admin/GalleryManage/GalleryEdit'
 import SlideEdit from './components/admin/SlideManage/SlideEdit'
 import AnounceEdit from './components/admin/AnounceManage/AnounceEdit'
 import Calendars from './components/other pages/Calendar'
+import { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
 
 
 
 function App() {
   
+  const [authentic,setAuthenticate] = useState(false);
+  const [coock] = useCookies(['accessToken']);
+  
+
+  useEffect(()=>{
+
+    const allowAccess = () => {
+if (typeof coock['accessToken'] != 'undefined' ) {
+
+  setAuthenticate(true)
+  
+}
+
+    }
+
+
+allowAccess()
+
+console.log(coock['accessToken'])
+
+  },)
 
   return (
     <div className='App'>
@@ -62,23 +85,23 @@ function App() {
 
 
 {/*admin page*/}
-<Route path = '/page/admin/news-manage'element={<NewsManagement/>}/>
-<Route path = '/page/admin/event-manage'element={<EventManagement/>}/>
-<Route path = '/page/admin/gallery-manage' element={<GalleryManagement/>}/>
-<Route path = '/page/admin/slide-manage' element = {<SlideManagement/>}/>
-<Route path = '/page/admin/anounce-manage' element={<AnounceManagement/>}/>
-<Route path = '/page/admin/info-manage' element={<InfoManagement/>}/>
-<Route path = '/page/admin/educal-manage' element={<EduCalendarManagement/>}/>
-<Route path = '/page/admin/news-manage/update' element={<NewsUpdate/>}/>
-<Route path = '/page/admin/event-manage/update' element={<EventUpdate/>}/>
-<Route path = '/page/admin/gallery-manage/update' element={<GalleryUpdate/>}/>
-<Route path = '/page/admin/slide-manage/update' element = {<SlideUpdate/>}/>
-<Route path = '/page/admin/anounce-manage/update' element={<AnounceUpdate/>}/>
-<Route path = '/page/admin/news-manage/edit/:newsId' element={<NewsEdit/>}/>
-<Route path = '/page/admin/event-manage/edit/:eventId' element={<EventEdit/>}/>
-<Route path='/page/admin/gallery-manage/edit/:galleryId' element={<GalleryEdit/>}/>
-<Route path='/page/admin/slide-manage/edit/:slideId' element = {<SlideEdit/>}/>
-<Route path = '/page/admin/anounce-manage/edit/:anounceId' element={<AnounceEdit/>}/>
+<Route  path = '/page/admin/news-manage'  element={authentic?<NewsManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/event-manage'element={authentic?<EventManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/gallery-manage' element={authentic?<GalleryManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/slide-manage' element = {authentic?<SlideManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/anounce-manage' element={authentic?<AnounceManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/info-manage' element={authentic?<InfoManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/educal-manage' element={authentic?<EduCalendarManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/news-manage/update' element={authentic?<NewsUpdate/>:<NotFound/>}/>
+<Route path = '/page/admin/event-manage/update' element={authentic?<EventUpdate/>:<NotFound/>}/>
+<Route path = '/page/admin/gallery-manage/update' element={authentic?<GalleryUpdate/>:<NotFound/>}/>
+<Route path = '/page/admin/slide-manage/update' element = {authentic?<SlideUpdate/>:<NotFound/>}/>
+<Route path = '/page/admin/anounce-manage/update' element={authentic?<AnounceUpdate/>:<NotFound/>}/>
+<Route path = '/page/admin/news-manage/edit/:newsId' element={authentic?<NewsEdit/>:<NotFound/>}/>
+<Route path = '/page/admin/event-manage/edit/:eventId' element={authentic?<EventEdit/>:<NotFound/>}/>
+<Route path='/page/admin/gallery-manage/edit/:galleryId' element={authentic?<GalleryEdit/>:<NotFound/>}/>
+<Route path='/page/admin/slide-manage/edit/:slideId' element = {authentic?<SlideEdit/>:<NotFound/>}/>
+<Route path = '/page/admin/anounce-manage/edit/:anounceId' element={authentic?<AnounceEdit/>:<NotFound/>}/>
 </Routes>
 
 <Footer/>
