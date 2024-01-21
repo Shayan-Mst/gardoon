@@ -142,6 +142,16 @@ setSlide( {
       
       if(status == 201){
       
+        toast.success(' با موفقیت انجام شد.', {
+          duration: 4000,
+          position: 'top-center',
+        
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        });
       
       
       setTimeout(() => {
@@ -235,6 +245,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 
 </form>
 
+<Toaster/>
     
     </>)
 }

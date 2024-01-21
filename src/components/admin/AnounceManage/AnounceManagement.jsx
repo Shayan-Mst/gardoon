@@ -6,6 +6,7 @@ import { createAnounce } from "../../../service/gardoonService";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button';
 import imgPlc from './../../../assets/plc.avif'
+import toast,{ Toaster } from "react-hot-toast";
 
 const AnounceManagement = () => {
 
@@ -126,6 +127,18 @@ const AnounceManagement = () => {
                      const response = await createAnounce(anounce)
                      
                      console.log(response.status)
+                     if (response.status==201) {
+                      toast.success(' با موفقیت انجام شد.', {
+                        duration: 4000,
+                        position: 'top-center',
+                      
+                        // Aria
+                        ariaProps: {
+                          role: 'status',
+                          'aria-live': 'polite',
+                        },
+                      });
+                     }
                      }
                      
                      catch(error){
@@ -241,6 +254,7 @@ htmlFor="files" className="drop-container mb-3" id="dropcontainer">
         </Modal.Footer>
       </Modal>
     
+    <Toaster/>
     
     </>)
 }

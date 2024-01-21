@@ -143,19 +143,8 @@ const onNewsChange = (event) =>{
   
   };
 
-const notify = () =>  
   
-  toast.success('ویرایش با موفقیت انجام شد.', {
-    duration: 4000,
-    position: 'top-center',
-  
-    // Aria
-    ariaProps: {
-      role: 'status',
-      'aria-live': 'polite',
-    },
-  });
-
+ 
 
 
 const handleUpdate = async(event) =>{
@@ -195,6 +184,16 @@ const {status} = await updateNews(
 )
 
 if(status == 201){
+  toast.success('ویرایش با موفقیت انجام شد.', {
+    duration: 4000,
+    position: 'top-center',
+  
+    // Aria
+    ariaProps: {
+      role: 'status',
+      'aria-live': 'polite',
+    },
+  });
 
 
 
@@ -327,7 +326,8 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 </form>
 
 )}
-<button onClick={notify}>toast!</button>
+
+<Toaster/>
 
 
 </>)

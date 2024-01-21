@@ -8,6 +8,8 @@ import { createSlide } from "../../../service/gardoonService";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 
+import toast,{ Toaster } from "react-hot-toast";
+
 const SlideManagement = () => {
 
     
@@ -115,6 +117,21 @@ setSlide({...slide,[event.target.name] : event.target.value})
                const response = await createSlide(slide)
                
                console.log(response.status)
+
+               if(response.status==201){
+
+
+                toast.success(' با موفقیت انجام شد.', {
+                  duration: 4000,
+                  position: 'top-center',
+                
+                  // Aria
+                  ariaProps: {
+                    role: 'status',
+                    'aria-live': 'polite',
+                  },
+                });
+               }
                }
                
                catch(error){
@@ -222,6 +239,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
         </Modal.Footer>
       </Modal>
     
+    <Toaster/>
     
     </>)
 }

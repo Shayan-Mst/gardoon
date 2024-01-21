@@ -7,7 +7,7 @@ import { createNews } from "../../../service/gardoonService";
 import imgPlc from './../../../assets/plc.avif'
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
-
+import toast,{ Toaster } from "react-hot-toast";
 
 
 
@@ -134,6 +134,21 @@ const convertBase64 = (file) =>{
                 const response = await createNews(news)
                 
                 console.log(response.status)
+
+                if(response.status == 201){
+
+                  toast.success('ویرایش با موفقیت انجام شد.', {
+                    duration: 4000,
+                    position: 'top-center',
+                  
+                    // Aria
+                    ariaProps: {
+                      role: 'status',
+                      'aria-live': 'polite',
+                    },
+                  });
+
+                }
                 }
                 
                 catch(error){
@@ -149,6 +164,8 @@ const convertBase64 = (file) =>{
     
 
           }
+
+         
 
 
 
@@ -242,17 +259,18 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 <div className="btn-g">
 <button className="btn btn-success"  type="submit">انتشار</button>
 <Dropdown>
-      <Dropdown.Toggle variant="primary" id="dropdown-basic">
+      <Dropdown.Toggle  variant="primary" id="dropdown-basic">
         انتخاب کنید
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item  as="button"><Link to="/page/admin/news-manage" >منتشر کردن</Link></Dropdown.Item>
+        <Dropdown.Item   as="button"><Link to="/page/admin/news-manage" >منتشر کردن</Link></Dropdown.Item>
         <Dropdown.Item as="button"><Link to="/page/admin/news-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
           </Dropdown.Menu>
     </Dropdown>
     </div>
 
+<Toaster/>
 
 </form>
 

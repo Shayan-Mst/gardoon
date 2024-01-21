@@ -5,7 +5,7 @@ import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import { deleteNews, getAllNews } from "../../../service/gardoonService";
 import imgPlc from './../../../assets/plc.avif'
-
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -33,6 +33,9 @@ const NewsUpdate = () => {
       e.preventDefault();
       console.log(allNews);
       setShowModal(true)
+
+
+      
 
     
     };
@@ -85,6 +88,16 @@ const response = await deleteNews(newsId)
 console.log(response.status)
 
 if(response.status == 200){
+  toast.success('حذف با موفقیت انجام شد.', {
+    duration: 4000,
+    position: 'top-center',
+  
+    // Aria
+    ariaProps: {
+      role: 'status',
+      'aria-live': 'polite',
+    },
+  });
   
   const {data: newsData} = await getAllNews();
   setAllNews(newsData);
@@ -202,6 +215,7 @@ catch(error){
         </Modal.Footer>
       </Modal>
 
+<Toaster/>
     </form>
     
     

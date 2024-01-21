@@ -1,10 +1,8 @@
 
 import { Link,useLocation } from 'react-router-dom';
 import semnanLogo from './../../../assets/semnan logo.png'
-import semnan2 from './../../../assets/semnan.jpg'
-import semnan3 from './../../../assets/semn.jpg'
 import { useEffect, useState } from 'react';
-import { getAllEvents } from '../../../service/gardoonService';
+import { getAllEvents, getInfo } from '../../../service/gardoonService';
 
 
 
@@ -15,6 +13,7 @@ import { getAllEvents } from '../../../service/gardoonService';
 const Footer = () => {
 
      const [event,setEvent] = useState([]);
+     const[info,setInfo] = useState([]);
 
 function locationClick(){
 
@@ -28,9 +27,23 @@ useEffect(()=>{
 
 const fetch = async()=>{
 
-const {data:eventData} = await getAllEvents();
-setEvent(eventData.slice(0,2));
-console.log(event)
+     try{
+
+          const {data:eventData} = await getAllEvents();
+          setEvent(eventData.slice(0,2));
+          const {data : infoSite} = await getInfo();
+          setInfo(infoSite);
+          console.log(event)
+     }
+
+     catch(error){
+
+console.log(error);
+     }
+
+
+
+
 
 }
 
@@ -156,7 +169,7 @@ return(
 {event.map((item)=>(
 
 
-<div className='d-flex my-4'>
+<div key={item.id} className='d-flex my-4'>
 
 <div >
 

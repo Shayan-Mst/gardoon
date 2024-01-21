@@ -207,44 +207,7 @@ function handleMouseLeave() {
         </li>
 
 
-        <li>
-        <i onMouseEnter={() => handleMouseEnter('comment')}
-        onMouseLeave={handleMouseLeave} className="fa-solid fa-comment"></i>
-
-{isHovering && !isOpen && whichElement === 'comment'&&(
-          <div className="description ">
-            <span>مدیریت نظرات</span>
-          </div>
-        )}
-        <Link   className={`label ${location.pathname ==='/page/admin/comment-manage' ? 'active': null}`}>مدیریت نظرات</Link>
-        </li>
-
-     {/*   <li>
-        <i onMouseEnter={() => handleMouseEnter('calendar')}
-        onMouseLeave={handleMouseLeave} className="fa-solid fa-calendar"></i>
-
-{isHovering && !isOpen && whichElement === 'calendar'&&(
-          <div className="description ">
-            <span>مدیریت تقویم</span>
-          </div>
-        )}
-        <Link  className={`label ${location.pathname ==='/page/admin/calendar-manage' ? 'active': null}`}>مدیریت تقویم</Link>
-        </li>*/}
-
-   {/*     <li>
-        <i onMouseEnter={() => handleMouseEnter('visit')}
-onMouseLeave={handleMouseLeave} className="fa-solid fa-eye"></i>
-
-{isHovering && !isOpen && whichElement === 'visit'&&(
-          <div className="description ">
-            <span>مدیریت بازدید</span>
-          </div>
-        )}
-        <Link   className={`label ${location.pathname ==='/page/admin/visit-manage' ? 'active': null}`}>مدیریت بازدید</Link>
-        </li>*/}
-
-
-       
+      
   </ul>
   </div>
 </div>

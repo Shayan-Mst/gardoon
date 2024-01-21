@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import { Link } from "react-router-dom";
 import { createEvent } from "../../../service/gardoonService";
 import imgPlc from './../../../assets/plc.avif'
-
+import toast,{ Toaster } from "react-hot-toast";
 
 
 const EventManagement = () => {
@@ -123,6 +123,19 @@ const handleSubmit = async event => {
      const response = await createEvent(events)
      
      console.log(response.status)
+
+     if (response.status==201) {
+      toast.success('رویداد با موفقیت اضافه شد', {
+        duration: 4000,
+        position: 'top-center',
+      
+        // Aria
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
+     }
      }
      
      catch(error){
@@ -135,6 +148,8 @@ const handleSubmit = async event => {
   else setShowModal(true)
 
 }
+
+
 
 return(
     <>
@@ -247,6 +262,8 @@ htmlFor="images" className="drop-container" id="dropcontainer">
           
         </Modal.Footer>
       </Modal>
+
+      <Toaster/>
     </>
 )
 

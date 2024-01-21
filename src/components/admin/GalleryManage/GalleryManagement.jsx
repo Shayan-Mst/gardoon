@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
 import { createGallery } from "../../../service/gardoonService";
-
+import toast,{ Toaster } from "react-hot-toast";
 
 const GalleryManagement = () => {
 
@@ -127,6 +127,19 @@ const handleSubmit = async e => {
       const response = await createGallery(Gallery)
       
       console.log(response.status)
+
+      if (response.status==201) {
+        toast.success(' با موفقیت انجام شد.', {
+          duration: 4000,
+          position: 'top-center',
+        
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        });
+      }
       }
       
       catch(error){
@@ -223,6 +236,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
         </Modal.Footer>
       </Modal>
     
+    <Toaster/>
     </>)
 }
 

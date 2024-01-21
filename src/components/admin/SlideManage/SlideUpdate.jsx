@@ -1,12 +1,11 @@
 import Sidebar from "../Sidebar";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
-import semnan1 from './../../../assets/semnan.jpg'
 import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteSlide, getAllSlide } from "../../../service/gardoonService";
 
-
+import toast,{ Toaster } from "react-hot-toast";
 
 
 
@@ -78,6 +77,16 @@ const SlideUpdate = () => {
   console.log(response.status)
   
   if(response.status == 200){
+    toast.success(' با موفقیت انجام شد.', {
+      duration: 4000,
+      position: 'top-center',
+    
+      // Aria
+      ariaProps: {
+        role: 'status',
+        'aria-live': 'polite',
+      },
+    });
     
     const {data: newsData} = await getAllSlide();
     setAllSlide(newsData);
@@ -195,6 +204,9 @@ const SlideUpdate = () => {
 
 
 </form>
+
+
+<Toaster/>
     
     </>)
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button';
 import { deleteEvent, getAllEvents } from "../../../service/gardoonService";
-
+import toast,{ Toaster } from "react-hot-toast";
 
 
 
@@ -81,6 +81,17 @@ const EventUpdate = () => {
   console.log(response.status)
   
   if(response.status == 200){
+
+    toast.success('ویرایش با موفقیت انجام شد.', {
+      duration: 4000,
+      position: 'top-center',
+    
+      // Aria
+      ariaProps: {
+        role: 'status',
+        'aria-live': 'polite',
+      },
+    });
     
     const {data: newsData} = await getAllEvents();
     setAllEvent(newsData);
@@ -192,7 +203,7 @@ const EventUpdate = () => {
 
 </form>
 
-    
+    <Toaster/>
     
     
     </>)

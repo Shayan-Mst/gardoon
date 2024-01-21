@@ -1,4 +1,5 @@
-import { useState,useRef } from "react";
+import { useState,useRef, useEffect } from "react";
+import { getEduCal } from "../../../service/gardoonService";
 
 
 
@@ -10,13 +11,40 @@ const TimeLine = () =>{
     
    
     const [step,setStep] = useState(1);
+
+    const [eduCal,setEducal] = useState([]);
+
+    useEffect(()=>{
+
+const fetch = async() =>{
+
+try{
+
+    const {data : eduData} = await getEduCal();
+    setEducal(eduData);
+    
+
+}
+
+catch(error){
+
+    console.log(error)
+}
+
+
+
+}
+
+fetch();
+
+    },[])
    
 
 function timeSwitch(index){
 
     if (index !== step) {
        
-        
+    
        
         const currentActiveDiv = document.querySelector('active');
         if (currentActiveDiv) {

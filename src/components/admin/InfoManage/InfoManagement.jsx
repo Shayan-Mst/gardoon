@@ -9,10 +9,12 @@ const InfoManagement = () => {
     const [side,setSide] = useState(true);
 
     const [info,setInfo] = useState({
-      number:'',
-      address:'',
+      description:'',
+      phone_number:'',
       email:'',
-      description:''
+      address:''
+      
+      
     })
   
 
@@ -21,7 +23,7 @@ const InfoManagement = () => {
     const inputValue = event.target.value;
 
     if (inputValue === '' || regex.test(inputValue) && inputValue.length <= 12) { // check if the input value matches the regular expression
-      setInfo({...info,number:inputValue});
+      setInfo({...info,phone_number:inputValue});
     }
   };
     
@@ -61,8 +63,8 @@ const InfoManagement = () => {
   
     })
   
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+    const handleSubmit = async event => {
+      event.preventDefault();
 
       try{
 

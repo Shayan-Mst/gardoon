@@ -1,7 +1,7 @@
 import Sidebar from "../Sidebar";
 
 import { useState,useEffect } from "react";
-
+import toast,{ Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
@@ -79,6 +79,18 @@ const AnounceUpdate = () => {
   
   if(response.status == 200){
     
+    toast.success(' با موفقیت انجام شد.', {
+      duration: 4000,
+      position: 'top-center',
+    
+      // Aria
+      ariaProps: {
+        role: 'status',
+        'aria-live': 'polite',
+      },
+    });
+
+
     const {data: newsData} = await getAllAnounce();
     setAllAnounce(newsData);
     setFilter(newsData);
@@ -192,7 +204,7 @@ const AnounceUpdate = () => {
     
     
     
-    
+    <Toaster/>
     
     
     

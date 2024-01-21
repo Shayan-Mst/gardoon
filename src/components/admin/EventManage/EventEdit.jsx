@@ -141,20 +141,6 @@ const EventEdit = () => {
 
 
 
-        const notify = () =>  
-  
-  toast.success('ویرایش با موفقیت انجام شد.', {
-    duration: 4000,
-    position: 'top-center',
-  
-    // Aria
-    ariaProps: {
-      role: 'status',
-      'aria-live': 'polite',
-    },
-  });
-
-
 
 const handleUpdate = async(event) =>{
 
@@ -168,7 +154,16 @@ const {status} = await updateEvent(
 
 if(status == 201){
 
-
+  toast.success('ویرایش با موفقیت انجام شد.', {
+    duration: 4000,
+    position: 'top-center',
+  
+    // Aria
+    ariaProps: {
+      role: 'status',
+      'aria-live': 'polite',
+    },
+  });
 
 setTimeout(() => {
   // Code to be executed after 5 seconds
@@ -288,7 +283,7 @@ htmlFor="images" className="drop-container" id="dropcontainer">
     </div>
 </form>
 
-
+<Toaster/>
 
 </>)
 

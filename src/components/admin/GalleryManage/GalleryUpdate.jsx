@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import { Link } from "react-router-dom";
 import { deleteGallery, getAllGallery } from "../../../service/gardoonService";
 import moment from 'moment-jalaali';
-
+import toast,{ Toaster } from "react-hot-toast";
 
 const GalleryUpdate = () => {
 
@@ -88,6 +88,16 @@ const GalleryUpdate = () => {
     console.log(response.status)
     
     if(response.status == 200){
+      toast.success(' با موفقیت انجام شد.', {
+        duration: 4000,
+        position: 'top-center',
+      
+        // Aria
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
       
       const {data: newsData} = await getAllGallery();
       setAllGallery(newsData);
@@ -159,7 +169,7 @@ return(<>
 {
  filter.map((item) => (
 
-    <div key={item.id} className="col-lg-4">
+    <div key={item.id} className="col-lg-4 my-2">
         <div className="cnt">
         <i onClick={handleShow} id={item.id} className="fa-solid fa-trash" ></i>
 
@@ -202,7 +212,7 @@ return(<>
 
 
 
-
+<Toaster/>
 
 
 </>)

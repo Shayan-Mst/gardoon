@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Link,useNavigate,useParams } from "react-router-dom";
 import { getGallery, updateGallery } from "../../../service/gardoonService";
 
-
+import toast,{ Toaster } from "react-hot-toast";
 
 
 
@@ -160,7 +160,16 @@ const GalleryEdit = () => {
       )
       
       if(status == 201){
-      
+        toast.success(' با موفقیت انجام شد.', {
+          duration: 4000,
+          position: 'top-center',
+        
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        });
       
       setTimeout(() => {
         // Code to be executed after 5 seconds
@@ -231,6 +240,8 @@ htmlFor="images" className="drop-container" id="dropcontainer">
     </div>
 
     </form>
+
+    <Toaster/>
      </>
     )
   };

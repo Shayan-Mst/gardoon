@@ -309,7 +309,31 @@ export const deleteSlide = (slideId) => {
 export const createInfo = () => {
 
 
-    const url = `${SERVER_URL}/Info/`;
+    const url = `${SERVER_URL}/api/info_site/`;
 
-    return axios.delete(url);
+    return axios.post(url);
+}
+
+export const getInfo = () =>{
+
+    const url = `${SERVER_URL}/api/info_site/`;
+
+    return axios.get(url);
+
+}
+
+export const createCalEdu = ()=>{
+
+    const url = `${SERVER_URL}/api/calendar_management/`;
+
+    return axios.post(url);
+    
+}
+
+export const getEduCal = ()=>{
+
+    const url = `${SERVER_URL}/api/calendar_management/`;
+
+    return axios.get(url);
+    
 }

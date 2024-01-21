@@ -150,6 +150,16 @@ setAnounce( {
       
       if(status == 201){
       
+        toast.success(' با موفقیت انجام شد.', {
+          duration: 4000,
+          position: 'top-center',
+        
+          // Aria
+          ariaProps: {
+            role: 'status',
+            'aria-live': 'polite',
+          },
+        });
       
       setTimeout(() => {
         // Code to be executed after 5 seconds
@@ -250,7 +260,8 @@ htmlFor="files" className="drop-container mb-3" id="dropcontainer">
       
         </form> 
     
-    
+    <Toaster/>
+
     </>)
 
 
