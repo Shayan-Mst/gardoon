@@ -264,8 +264,8 @@ htmlFor="images" className="drop-container" id="dropcontainer">
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item   as="button"><Link to="/page/admin/news-manage" >منتشر کردن</Link></Dropdown.Item>
-        <Dropdown.Item as="button"><Link to="/page/admin/news-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
+        <Dropdown.Item onClick={(e)=>e.preventDefault()}  as="button"><Link to="/page/admin/news-manage" >منتشر کردن</Link></Dropdown.Item>
+        <Dropdown.Item onClick={(e)=>e.preventDefault()}  as="button"><Link to="/page/admin/news-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
           </Dropdown.Menu>
     </Dropdown>
     </div>

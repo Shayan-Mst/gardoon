@@ -1,14 +1,15 @@
 import React from "react"
 import TopImageSlider from "./mainpageItems/TopImageSlider";
 import ImageGallery from './mainpageItems/ImageGallery'
-import InfoSlider from "./mainpageItems/InfoSlider";
+import InfoSlider from "./mainpageItems/EventMain";
 import TimeLine from "./mainpageItems/TimeLine";
-import EventsMainPage from "./mainpageItems/EventsMainPage";
+import EventsMainPage from "./mainpageItems/Anouncer";
 import NewsMainPage from "./mainpageItems/NewsMainPage";
 import About from "./mainpageItems/About";
 import QuickAccess from "./mainpageItems/QuickAccess";
 import { useState,useEffect,useRef } from "react";
 import Cookies from "js-cookie";
+import Anouncer from "./mainpageItems/Anouncer";
 
 
 const MainPage = () => {
@@ -90,7 +91,7 @@ const MainPage = () => {
 
 {/*section event*/}
 
-<EventsMainPage/>
+<Anouncer/>
 {/*section event*/}
 
 

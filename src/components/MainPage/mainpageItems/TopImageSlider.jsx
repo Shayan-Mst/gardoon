@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import semnan1 from './../../../assets/semnanuni.jpg'
 import semnan2 from './../../../assets/semnan.jpg'
@@ -10,6 +10,7 @@ import './../../../../node_modules/swiper/modules/pagination/pagination.scss';
 import SwiperCore,{  Pagination , EffectFlip,Autoplay , Navigation } from "swiper";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from "react-router-dom";
+import { getAllSlide } from "../../../service/gardoonService";
 
 SwiperCore.use([Autoplay, EffectFlip, Pagination , Navigation]);
 
@@ -17,7 +18,26 @@ SwiperCore.use([Autoplay, EffectFlip, Pagination , Navigation]);
 
 const TopImageSlider = () => {
 
-  
+  const [slider,setSlide] = useState([]);
+
+  useEffect(()=>{
+
+
+const fetch = async() => {
+
+const {data : slideData} = await getAllSlide();
+setSlide(slideData);
+
+}
+
+
+fetch();
+
+  },[])
+
+
+
+
 return(
     <>
 
@@ -32,56 +52,32 @@ return(
       autoplay={{ delay: 7000 }}
     
     >
+
+      {slider.map((item) =>(
+
+
+ 
+<SwiperSlide key={item.id}>
+<div className="brief">
+  <Link>
+ {item.title}
+
+
+  </Link>
+<div style={{fontSize:"1rem"}}>
+ <p>
+ {item.description} 
+  </p> 
+</div>
+</div>
+  <img className="imageSlide" src={`http://127.0.0.1:8000${item.image}`} alt="SEMNAN UNIVERSITY" />
+</SwiperSlide>
+
+
+      ))}
+   
     
-    <SwiperSlide>
-      <div className="brief">
-        <Link>
-        دانشگاه سمنان امروز سال 1402 اعلام کرد
-
-
-        </Link>
-      <div style={{fontSize:"1rem"}}>
-       <p>
-       اعلام دانشگاه سمنان درباره امروز که اخبار بسیار مهمی را نشر داد
-        
-        </p> 
-      </div>
-      </div>
-        <img className="imageSlide" src={semnan1} alt="SEMNAN UNIVERSITY" />
-      </SwiperSlide>
-      <SwiperSlide>
-      <div className="brief">  
-      
-      
-      <Link>دانشگاه سمنان امروز سال 1402 اعلام کرد
-
-          
-</Link>
-
-      <div style={{fontSize:"1rem"}}>
-      <p>
-       اعلام دانشگاه سمنان درباره امروز که اخبار بسیار مهمی را نشر داد
-        
-        </p> 
-      </div>
-      </div>
-        <img className="imageSlide" src={semnan2}  alt="SEMNAN UNIVERSITY" />
-      </SwiperSlide>
-      <SwiperSlide>
-      <div className="brief">  
-      
-      <Link>دانشگاه سمنان امروز سال 1402 اعلام کرد
-
-          
-</Link>
-      <div style={{fontSize:"1rem"}}>
-      <p>
-       اعلام دانشگاه سمنان درباره امروز که اخبار بسیار مهمی را نشر داد
-        
-        </p>   </div>
-      </div>
-        <img className="imageSlide" src={semnan3}  alt="SEMNAN UNIVERSITY" />
-      </SwiperSlide>
+     
     </Swiper>
 
     </div>

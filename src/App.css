@@ -866,6 +866,20 @@ transform: translateY(-3%);
   border-radius: 8px;
 }
 
+.infoMiddleSlider .date-published{
+
+
+  color: #5560bd;
+  background-color: rgba(85, 96, 189, 0.2);
+  border-radius: 8px;
+  padding: .25rem;
+  font-size:10px;
+  justify-content:end;
+  position:absolute;
+  left:1rem;
+  bottom:1rem;
+}
+
 
 .ns-heading{
 
@@ -1286,8 +1300,8 @@ align-items: center;
 
 .infoMiddleSlider .card{
 
-  min-height: 350px;
-  height: 400px;
+  min-height: 250px;
+  height: 320px;
   width: 90%;
   transition: all .3s ease-in-out;
   box-shadow:  2px 2px 10px  #888888;
@@ -1303,7 +1317,7 @@ align-items: center;
 
 
 .card-img-top{
-  aspect-ratio:  3/2;
+  aspect-ratio:  4/2;
 }
 
 
@@ -1681,13 +1695,11 @@ text-align: justify;
 }
 
 #event{
-  position: absolute;
+
   z-index: 1;
-  margin: 0;
-  top: 0;
   max-width: 30%;
-  height:80%;
-  padding: 20px;
+  max-height:100px !important;
+  padding: 15px;
   background-color: rgba(0, 177, 106, 0.9);
   border-radius: 8px;
 
@@ -1727,21 +1739,20 @@ text-align: justify;
 
 .event-title{
 
-  width: 70%;
-  height: 30%;
+  width: 100%;
   position: relative;
-display: inline-block;
+  display: inline-block;
 }
 
 .event-title h5{
 
 
-  font-size: 1rem;
+  font-size: 14px;
   text-align: justify;
   color: white;
   font-weight:bolder;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Adjust this value to control the number of visible lines */
+  -webkit-line-clamp: 1; /* Adjust this value to control the number of visible lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1780,13 +1791,14 @@ display: inline-block;
   border-radius: 6px;
   transition: width .5s ease-in-out;
   width: 70px;
+  
  
 
 }
 
 .section-three .more a:hover{
 
-width: 100px;
+width:90px;
 }
 
 /*section 3*/
