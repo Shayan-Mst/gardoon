@@ -283,17 +283,22 @@ class InfoSitePostSerializer(serializers.ModelSerializer):
         }
 
 class InfoSiteApi(APIView):
-    def post(self, request, *args, **kwargs):
-        serializer = InfoSitePostSerializer(data=request.data)
+    # has_posted = False  # Class-level variable to track whether the post method has been called
+    # def post(self, request, *args, **kwargs):
+    #     if self.has_posted:
+    #         return Response({'error': 'Already posted'}, status=400)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        else:
-            return Response(serializer.errors, status=400)
+    #     serializer = InfoSitePostSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         self.has_posted = True  # Set the flag to True after successfully saving
+    #         return Response(serializer.data, status=201)
+    #     else:
+    #         return Response(serializer.errors, status=400)
+            
 
     def get(self, request, *args, **kwargs):
-        info_site = InfoSite.objects.order_by('-created')
+        info_site = InfoSite.objects.get_or_create(pk=1)
         serializer = InfoSitePostSerializer(info_site, many=True)
         return Response(serializer.data)
 
@@ -340,17 +345,8 @@ class CalendarManagementPostSerializer(serializers.ModelSerializer):
         }
 
 class CalendarManagementApi(APIView):
-    def post(self, request, *args, **kwargs):
-        serializer = CalendarManagementPostSerializer(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        else:
-            return Response(serializer.errors, status=400)
-
     def get(self, request, *args, **kwargs):
-        calendar_management = CalendarManagement.objects.order_by('-created')
+        calendar_management = CalendarManagement.objects.get_or_create(pk=1)
         serializer = CalendarManagementPostSerializer(calendar_management, many=True)
         return Response(serializer.data)
 
