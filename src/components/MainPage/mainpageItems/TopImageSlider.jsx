@@ -1,9 +1,5 @@
 
 import React, { useEffect, useState } from "react";
-
-import semnan1 from './../../../assets/semnanuni.jpg'
-import semnan2 from './../../../assets/semnan.jpg'
-import semnan3 from './../../../assets/semn.jpg'
 import './../../../../node_modules/swiper/swiper.scss';
 import './../../../../node_modules/swiper/modules/navigation/navigation.scss';
 import './../../../../node_modules/swiper/modules/pagination/pagination.scss';

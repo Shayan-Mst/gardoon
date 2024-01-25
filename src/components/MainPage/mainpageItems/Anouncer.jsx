@@ -19,7 +19,7 @@ const Anouncer = () => {
 
       const{data:anounceData} = await getAllAnounce();
 setAnounce(anounceData)
-console.log(eventData)
+
 
     }
 

@@ -1,35 +1,21 @@
 import Sidebar from "../Sidebar"
+
 import { useState,useEffect } from "react";
+
 import Dropdown from 'react-bootstrap/Dropdown';
+
 import { Link } from "react-router-dom";
-import { createCalEdu } from "../../../service/gardoonService";
 
+import { getEduCal, updateEduCal } from "../../../service/gardoonService";
 
+import toast,{ Toaster } from "react-hot-toast";
 
 const EduCalendarManagement = () => {
 
     const [side,setSide] = useState(true);
 
 
-    const [eduCal,setEducal] = useState([{
-name1:"",
-description1:"",
-
-name2:"",
-description2:"",
-
-name3:"",
-description3:"",
-
-name4:"",
-description4:"",
-
-name5:"",
-description5:""
-
-
-
-    }])
+    const [eduCal,setEducal] = useState([])
 
    
 
@@ -49,6 +35,24 @@ description5:""
         console.log(eduCal)
 
         })
+
+
+      useEffect(()=>{
+
+        const fetch = async() => {
+
+
+          const {data: calendarGuid} = await getEduCal();
+
+          setEducal(calendarGuid);
+        }
+        
+
+fetch();
+
+
+
+      },[])
       
       
         const valueHandle1 = (event) =>{
@@ -152,9 +156,24 @@ description5:""
 
 try{
 
-  const response = await createCalEdu(eduCal);
+  const response = await updateEduCal(eduCal);
 
   console.log(response.status)
+
+  if(response.data = 201){
+    toast.success('رویداد با موفقیت اضافه شد', {
+      duration: 4000,
+      position: 'top-center',
+    
+      // Aria
+      ariaProps: {
+        role: 'status',
+        'aria-live': 'polite',
+      },
+    });
+
+
+  }
 
 }
 
@@ -268,7 +287,7 @@ console.log(error);
 
 
     </form>
-    
+    <Toaster/>
     
     </>)
 }

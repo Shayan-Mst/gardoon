@@ -3,9 +3,7 @@ import TopImageSlider from "./mainpageItems/TopImageSlider";
 import ImageGallery from './mainpageItems/ImageGallery'
 import InfoSlider from "./mainpageItems/EventMain";
 import TimeLine from "./mainpageItems/TimeLine";
-import EventsMainPage from "./mainpageItems/Anouncer";
 import NewsMainPage from "./mainpageItems/NewsMainPage";
-import About from "./mainpageItems/About";
 import QuickAccess from "./mainpageItems/QuickAccess";
 import { useState,useEffect,useRef } from "react";
 import Cookies from "js-cookie";

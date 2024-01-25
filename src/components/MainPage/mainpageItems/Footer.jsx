@@ -33,7 +33,7 @@ const fetch = async()=>{
           setEvent(eventData.slice(0,2));
           const {data : infoSite} = await getInfo();
           setInfo(infoSite);
-          console.log(event)
+        
      }
 
      catch(error){
@@ -74,23 +74,25 @@ return(
 <span style={{width:"200px",height:"100px"}} className='d-flex mt-4 i'>
      <span style={{textAlign:"justify",fontSize:"13px",wordSpacing:'normal'}}>
 
+{info.description}
 
-     ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-     </span>
+      </span>
 </span>
 <div className='mt-4 d-flex '>
 <i style={{color:'rgb(0,177,106)',paddingTop:'3px'}} className="fa-solid fa-phone"/>
-<span style={{fontSize:"13px"}} className='px-3'>023-10020030</span>
+<span style={{fontSize:"13px"}} className='px-3'>{info.phone_number}</span>
 </div>
 
 <div className='mt-3 d-flex'>
 <i style={{color:'rgb(0,177,106)',paddingTop:'3px'}} className="fa-solid fa-envelope"/>
-<span style={{fontSize:"13px"}} className='px-3'>example@email.com</span>
+<span style={{fontSize:"13px"}} className='px-3'>{info.email}</span>
 </div>
 
 <div className='mt-3 d-flex'>
 <i onClick={locationClick} style={{color:'rgb(0,177,106)',paddingTop:'3px',cursor:"pointer"}} className="fa-solid fa-location-dot"/>
-<span onClick={locationClick} style={{wordSpacing:"2px",fontSize:"13px",cursor:"pointer",textAlign:"justify"}} className='px-3 '> سمنان ، بعد از میدان استاندارد روبروی پارک سوکان</span>
+<span onClick={locationClick} style={{wordSpacing:"2px",fontSize:"13px",cursor:"pointer",textAlign:"justify"}} className='px-3 '>
+     {info.address}
+</span>
 </div>
 
 

@@ -31,7 +31,7 @@ const handleActive = (which) =>{
     if( which == 1 ) setShow('anounce');
     else if( which == 2 ) setShow('event');
     else if( which == 3 ) setShow('comment');
-console.log(newsId)
+
 
 }
 

@@ -1,10 +1,10 @@
-import {  useEffect, useRef, useState  } from "react";
+import {  useRef, useState  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import { getAccess } from "../../../service/gardoonService";
-import  Modal from "react-bootstrap/Modal";
-import Success from "../../success";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+  
 
 
 
@@ -22,8 +22,7 @@ const [emailActive, setEmailActive] = useState(false);
 const [icon, setIcon] = useState('eye-on');
 const [cookies, setCookie] = useCookies([]);
 const navigate = useNavigate();
-const [showModal, setShowModal] = useState(false);
-const [success,setSuccess] = useState(false);
+
 
 
 //states for inputs 
@@ -176,23 +175,33 @@ const handleLoginSubmit = async event => {
    if(user.username != 0 && user.password != 0){
       try {
          const response = await getAccess(user)
-     console.log('submited')
+   
      
      
          const accessToken = response.data.access;
        const tokenBearer = `Bearer${accessToken}`
 
         //  Do something with the access token (e.g., store it in state, local storage, or a cookie)
-        console.log(tokenBearer)
+       
        
         setCookie('accessToken', tokenBearer);
-       
+      
    
        if(response.status == 200){
    
-        
-         sucRef.current.classList.add('active');
-         setSuccess(true);
+         
+         toast.success('ورود موفقیت آمیز بود !', {
+            position: "bottom-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            
+         
+            });
 
 
          setTimeout(() => {
@@ -204,8 +213,8 @@ const handleLoginSubmit = async event => {
        }
       
        } catch (error) {
-         console.error('Error logging in:', error);
-         setSuccess(false)
+       
+         console.log(error)
        }
 
    }
@@ -235,7 +244,6 @@ const handleShowPass = () => {
 
 
 
-
 return(
  <>
  
@@ -251,12 +259,6 @@ return(
             <div className="heading">
                <h2>گردون</h2>
                <p style={{color:"rgb(0,177,106)"}}>دانشگاه سمنان</p>
-            </div>
-
-            <div  className="success-msg">
-               <p ref={sucRef}>ثبت نام با موفقیت انجام شد!</p>
-               {success && <Success/>}
-               
             </div>
    </div>
 
@@ -331,14 +333,21 @@ return(
 
  </div>
 
+<ToastContainer 
+position="bottom-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
 
+/>
 
- <Modal centered show={showModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>حذف کردن اطلاعات</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>آیا مطمئن هستید که میخواهید آن را پاک کنید؟</Modal.Body>
-      </Modal>
+ 
  
  </>
 

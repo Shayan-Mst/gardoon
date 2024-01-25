@@ -306,27 +306,63 @@ export const deleteSlide = (slideId) => {
     return axios.delete(url);
 }
 
-export const createInfo = () => {
+export const updateInfo = (info,infoId) => {
 
 
-    const url = `${SERVER_URL}/api/info_site/`;
+    const url = `${SERVER_URL}/api/info_site/${infoId}/`;
 
-    return axios.post(url);
+    const formData = new FormData();
+    typeof  info.description != 'undefined' ?   formData.append('description', info.description) : null // Assuming 'image' is the key for the uploaded file in the 'anounce' object
+  
+  typeof info.email != 'undefined' ?  formData.append('email',info.email) : null;
+    // Append other form fields if needed
+  typeof  info.phone_number != 'undefined' ?  formData.append('phone_number', info.phone_number) : null;
+
+  typeof info.address != 'undefined' ?   formData.append('address', info.address) : null 
+
+
+    return axios.put(url,formData);
 }
 
 export const getInfo = () =>{
 
-    const url = `${SERVER_URL}/api/info_site/`;
+    const url = `${SERVER_URL}/api/info_site/1/`;
 
     return axios.get(url);
 
 }
 
-export const createCalEdu = ()=>{
+export const updateEduCal = (educal)=>{
 
-    const url = `${SERVER_URL}/api/calendar_management/`;
+    const url = `${SERVER_URL}/api/calendar_management/1/`;
 
-    return axios.post(url);
+    const formData = new FormData();
+
+  typeof  educal.name1 != 'undefined' ?   formData.append('name1', educal.name1) : null // Assuming 'image' is the key for the uploaded file in the 'anounce' object
+  
+  typeof educal.description1 != 'undefined' ?  formData.append('description1',educal.description1) : null;
+    // Append other form fields if needed
+  typeof  educal.name2 != 'undefined' ?  formData.append('name2', educal.name2) : null;
+
+  typeof educal.description2 != 'undefined' ?   formData.append('description2', educal.description2) : null 
+
+  typeof educal.name3 != 'undefined' ?  formData.append('name3',educal.name3) : null;
+  
+
+  typeof  educal.description3 != 'undefined' ?   formData.append('description3', educal.description3) : null // Assuming 'image' is the key for the uploaded file in the 'anounce' object
+  
+   // Append other form fields if needed
+  typeof  educal.name4 != 'undefined' ?  formData.append('name4', educal.name4) : null;
+
+  typeof educal.description4 != 'undefined' ?   formData.append('description4', educal.description4) : null 
+
+  typeof  educal.nam5 != 'undefined' ?  formData.append('nam5', educal.nam5) : null;
+
+  typeof educal.description5 != 'undefined' ?   formData.append('description5', educal.description5) : null 
+
+
+
+    return axios.put(url,formData);
     
 }
 

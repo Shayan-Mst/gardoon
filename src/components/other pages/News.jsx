@@ -39,8 +39,7 @@ const News = () => {
           }
         }
         
-        
-        console.log(news)
+      
         fetch();
         
         

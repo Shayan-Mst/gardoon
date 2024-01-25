@@ -27,9 +27,6 @@ const Anounces = () => {
 const fetch =  async() =>{
 
 
-
-
-
   try{
 const {data : anounceData} = await getAllAnounce();
 setAnounces(anounceData);
@@ -45,7 +42,6 @@ console.log(error)
 }
 
 
-console.log(anounces)
 fetch();
 
 

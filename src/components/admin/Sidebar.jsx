@@ -190,7 +190,7 @@ function handleMouseLeave() {
             <span>ویرایش اطلاعات</span>
           </div>
         )}
-        <Link to='/page/admin/info-manage'  className={`label ${location.pathname.startsWith('/page/admin/info-manage') ? 'active': null}`}>ویرایش اطلاعات </Link>
+        <Link to='/page/admin/info-manage/1/'  className={`label ${location.pathname.startsWith('/page/admin/info-manage') ? 'active': null}`}>ویرایش اطلاعات </Link>
         </li>
 
 

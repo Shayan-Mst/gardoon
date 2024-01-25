@@ -63,7 +63,7 @@ const Comments = ({setShow}) => {
      setComments({...comments , name : name});
      setComments({...comments , email : email});
      setComments({...comments , cm : comment});
-      console.log(comments)
+     
     } else {
       // Display an error message or take appropriate action
       console.log("Please verify the CAPTCHA");

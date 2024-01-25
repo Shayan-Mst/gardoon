@@ -90,7 +90,7 @@ console.log(coock['accessToken'])
 <Route path = '/page/admin/gallery-manage' element={authentic?<GalleryManagement/>:<NotFound/>}/>
 <Route path = '/page/admin/slide-manage' element = {authentic?<SlideManagement/>:<NotFound/>}/>
 <Route path = '/page/admin/anounce-manage' element={authentic?<AnounceManagement/>:<NotFound/>}/>
-<Route path = '/page/admin/info-manage' element={authentic?<InfoManagement/>:<NotFound/>}/>
+<Route path = '/page/admin/info-manage/:infoId' element={authentic?<InfoManagement/>:<NotFound/>}/>
 <Route path = '/page/admin/educal-manage' element={authentic?<EduCalendarManagement/>:<NotFound/>}/>
 <Route path = '/page/admin/news-manage/update' element={authentic?<NewsUpdate/>:<NotFound/>}/>
 <Route path = '/page/admin/event-manage/update' element={authentic?<EventUpdate/>:<NotFound/>}/>

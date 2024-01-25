@@ -47,7 +47,6 @@ const Events = () => {
         }
         
         
-        console.log(event)
         fetch();
         
         

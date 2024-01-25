@@ -1,4 +1,4 @@
-import { useState,useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getEduCal } from "../../../service/gardoonService";
 
 
@@ -68,7 +68,7 @@ function timeSwitch(index){
         <ul>
 <li  onClick={() => timeSwitch(1)} className={` ${step === 1 ? 'active': null}`} >
 <div className="step-inner">
-  انتخاب واحد
+{eduCal.name1}
 </div>
 </li>
 <li  onClick={() => timeSwitch(2)} className={` ${step === 2 ? 'active': ''}`}>

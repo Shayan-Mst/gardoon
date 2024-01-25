@@ -1,8 +1,5 @@
 
 import { Link } from 'react-router-dom';
-import et1 from './../../../assets/et1.jpg'
-import et2 from './../../../assets/et2.png'
-import et3 from './../../../assets/et3.jpg'
 import './../../../../node_modules/swiper/swiper.scss';
 import './../../../../node_modules/swiper/modules/navigation/navigation.scss';
 import './../../../../node_modules/swiper/modules/pagination/pagination.scss';
@@ -31,7 +28,7 @@ useEffect(()=>{
 
     const{data:eventData} = await getAllEvents();
 setEvent(eventData)
-console.log(eventData)
+
 
   }
 
