@@ -1,6 +1,5 @@
 import { useEffect, useState , useRef } from "react"
 import Sidebar from "../Sidebar"
-import sem from './../../../assets/semnan.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
 import  Modal  from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button'
@@ -27,7 +26,7 @@ const EventManagement = () => {
 
    })
 
-  const inputRef = useRef(['']);
+
 
   const [showModal, setShowModal] = useState(false);
 
@@ -220,9 +219,9 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 </div>
 
 <div className="form-check m-4">
-  <input value = "ریاستی" onChange={e => setEvents({...events,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
+  <input value = "مذهبی" onChange={e => setEvents({...events,category:e.target.value})} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"/>
   <label className="form-check-label" htmlFor="flexRadioDefault3">
-    ریاستی
+    مذهبی
   </label>
 </div>
 

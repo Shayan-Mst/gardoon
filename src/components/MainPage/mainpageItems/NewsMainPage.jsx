@@ -78,7 +78,7 @@ fetch();
   <figcaption className="d-flex justify-content-center align-items-center image-caption">توضیح</figcaption>
   </figure>
   <div className="card-body">
-  <Link className="card-title d-flex"> 
+  <Link to={`/news/${item.id}`} className="card-title d-flex"> 
   {item.title}
        </Link>
     <p className="card-text my-4">
@@ -100,13 +100,13 @@ fetch();
   {news.slice(2,5).map((item)=>(
 
 
-<div className="card-devide">
+<div key={item.id} className="card-devide">
 
 
 <img src={`http://127.0.0.1:8000${item.image}`} className="card-img" alt="..."/>
   
  <div className="card-body">
-  <Link className="card-title d-flex py-3 px-0">
+  <Link to={`/news/${item.id}`} className="card-title d-flex py-3 px-0">
     {item.title}
   </Link>
   <span className=" mt-4 mx-2">{moment(item.created).format('YYYY/MM/DD')}</span>

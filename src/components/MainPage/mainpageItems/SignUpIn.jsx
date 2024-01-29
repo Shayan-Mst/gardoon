@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import { getAccess } from "../../../service/gardoonService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-  
+
 
 
 
@@ -25,6 +25,7 @@ const navigate = useNavigate();
 
 
 
+
 //states for inputs 
 
 const [user,setUser] = useState({
@@ -42,7 +43,7 @@ const [user,setUser] = useState({
   const inputRef = useRef([null]);
   const errorRef = useRef([null]);
   const iconRef = useRef();
-  const sucRef = useRef();
+
 
 
  
@@ -91,7 +92,7 @@ const [user,setUser] = useState({
 
          errorRef.current['passerror1'].style.display = 'flex'
       }
-     if(inputRef.current['loginpassword'].value.length >= 8) {errorRef.current['passerror1'].style.display = 'none'}
+     if(inputRef.current['loginpassword'].value.length >= 6) {errorRef.current['passerror1'].style.display = 'none'}
      
    
     
@@ -160,8 +161,7 @@ setUser({...user , [event.target.name] : event.target.value})
 
  }
 
-
-
+ 
 
 const handleLoginSubmit = async event => {
 
@@ -173,50 +173,58 @@ const handleLoginSubmit = async event => {
 
 
    if(user.username != 0 && user.password != 0){
-      try {
-         const response = await getAccess(user)
-   
-     
-     
-         const accessToken = response.data.access;
-       const tokenBearer = `Bearer${accessToken}`
 
-        //  Do something with the access token (e.g., store it in state, local storage, or a cookie)
-       
-       
-        setCookie('accessToken', tokenBearer);
       
-   
-       if(response.status == 200){
-   
-         
-         toast.success('ورود موفقیت آمیز بود !', {
-            position: "bottom-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            
-         
-            });
 
 
-         setTimeout(() => {
-            // Code to be executed after 5 seconds
-            navigate('/page/admin/news-manage');
-          }, 5000);
-   
+         try {
+            const response = await getAccess(user)
+      
         
-       }
+        
+            const accessToken = response.data.access;
+          const tokenBearer = `Bearer${accessToken}`
+   
+           //  Do something with the access token (e.g., store it in state, local storage, or a cookie)
+          
+          
+           setCookie('accessToken', tokenBearer);
+         
       
-       } catch (error) {
-       
-         console.log(error)
-       }
+          if(response.status == 200){
+      
+            
+            toast.success('ورود موفقیت آمیز بود !', {
+               position: "bottom-right",
+               autoClose: 4000,
+               hideProgressBar: false,
+               closeOnClick: true,
+               pauseOnHover: true,
+               draggable: true,
+               progress: undefined,
+               theme: "light",
+               
+            
+               });
+   
+   
+            setTimeout(() => {
+               // Code to be executed after 5 seconds
+               navigate('/page/admin/news-manage');
+             }, 5000);
+      
+           
+          }
+         
+          } catch (error) {
+          
+            console.log(error)
+          }
+   
+      
 
+     
+     
    }
 
    
@@ -278,10 +286,12 @@ return(
                   <div className="form-group">
                      <label className={passwordActive ? 'active' : null} htmlFor="loginPassword">رمزعبور</label>
                      <input onChange={onUserChange} disabled ={loginForm ? false : true} ref={el => inputRef.current['loginpassword'] = el} onFocus={handlePasswordFocus} onBlur={handlePasswordBlur} type={type} name="password" id="loginPassword" />
-                     <span ref={el => errorRef.current['passerror1'] = el} className="mt-2">نام کاربری نمیتواند کمتر از 8 کاراکتر باشد</span>
+                     <span ref={el => errorRef.current['passerror1'] = el} className="mt-2">نام کاربری نمیتواند کمتر از 6 کاراکتر باشد</span>
                      <span ref={el => errorRef.current['passerror'] = el} className="mt-2">لطفا رمزعبور را پر کنید</span>
                      <i ref={iconRef} onClick={handleShowPass} className="fa-solid fa-eye"/>
                   </div>
+                
+                 
       
                   <div className="CTA">
                      <button  type="submit">ورود</button>

@@ -14,6 +14,8 @@ const TimeLine = () =>{
 
     const [eduCal,setEducal] = useState([]);
 
+    
+
     useEffect(()=>{
 
 const fetch = async() =>{
@@ -22,7 +24,8 @@ try{
 
     const {data : eduData} = await getEduCal();
     setEducal(eduData);
-    
+ 
+  
 
 }
 
@@ -39,6 +42,7 @@ fetch();
 
     },[])
    
+
 
 function timeSwitch(index){
 
@@ -68,28 +72,38 @@ function timeSwitch(index){
         <ul>
 <li  onClick={() => timeSwitch(1)} className={` ${step === 1 ? 'active': null}`} >
 <div className="step-inner">
-{eduCal.name1}
+{eduCal.slice(0,1).map((item)=>(
+    item.name1
+))}
 </div>
 </li>
 <li  onClick={() => timeSwitch(2)} className={` ${step === 2 ? 'active': ''}`}>
 <div className="step-inner">
-    حذف و اضافه
+{eduCal.slice(0,1).map((item)=>(
+    item.name2
+))}
 </div>
 </li>
 <li  onClick={() => timeSwitch(3)} className={` ${step === 3 ? 'active': ''}`}>
 <div className="step-inner">
-   شروع کلاس ها
+{eduCal.slice(0,1).map((item)=>(
+    item.name3
+))}
 </div>
 </li>
 <li  onClick={() => timeSwitch(4)} className={` ${step === 4 ? 'active': ''}`}>
 <div className="step-inner">
-   شروع امتحانات
+{eduCal.slice(0,1).map((item)=>(
+    item.name4
+))}
 </div>
 </li>
 
 <li  onClick={() => timeSwitch(5)} className={` ${step === 5 ? 'active': ''}`}>
 <div className="step-inner">
-     پایان امتحانات
+{eduCal.slice(0,1).map((item)=>(
+    item.name5
+))}
 </div>
 </li>
 
@@ -117,60 +131,76 @@ function timeSwitch(index){
 
 
     <div id="progress-content-section">
-        <div className={`section-content ${step == 1 ? 'active':''}`}>
-            <h2>
-                انتخاب واحد
-            </h2>
-            <p>
-            ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه.
-       
-            ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه.
-            </p>
-        </div>
+        {eduCal.slice(0,1).map((item)=>(
+
+<div className={`section-content ${step == 1 ? 'active':''}`}>
+
+<h2>
+{item.name1}
+</h2>
+<p>
+    {item.description1}
+</p>
+</div>
+        ))}
+      
 
 
 
 
-        <div className={`section-content ${step == 2 ? 'active':''}`}>
-            <h2>
-                حذف و اضافه
-            </h2>
-            <p>
-            ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه.   
-            </p>
-        </div>
+      {eduCal.slice(0,1).map((item)=>(
+
+<div className={`section-content ${step == 2 ? 'active':''}`}>
+
+<h2>
+{item.name2}
+</h2>
+<p>
+    {item.description2}
+</p>
+</div>
+        ))}
 
 
+{eduCal.slice(0,1).map((item)=>(
 
-        <div className={`section-content ${step == 3 ? 'active':''}`}>
-            <h2>
-                شروع کلاس ها
-            </h2>
-            <p>
-            ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه.
-            </p>
-        </div>
+<div className={`section-content ${step == 3 ? 'active':''}`}>
+
+<h2>
+{item.name3}
+</h2>
+<p>
+    {item.description3}
+</p>
+</div>
+        ))}
+
+{eduCal.slice(0,1).map((item)=>(
+
+<div className={`section-content ${step == 4 ? 'active':''}`}>
+
+<h2>
+{item.name4}
+</h2>
+<p>
+    {item.description4}
+</p>
+</div>
+        ))}
 
 
-        <div className={`section-content ${step == 4 ? 'active':''}`}>
-            <h2>
-                شروع امتحانات
-            </h2>
-            <p>
-            ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه.
-            </p>
-        </div>
+{eduCal.slice(0,1).map((item)=>(
 
+<div className={`section-content ${step == 5 ? 'active':''}`}>
 
-
-        <div className={`section-content ${step == 5 ? 'active':''}`}>
-            <h2>
-                پایان امتحانات
-            </h2>
-            <p>
-            ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه.
-            </p>
-        </div>
+<h2>
+{item.name5}
+</h2>
+<p>
+    {item.description5}
+</p>
+</div>
+        ))}
     </div>
 </div>
 

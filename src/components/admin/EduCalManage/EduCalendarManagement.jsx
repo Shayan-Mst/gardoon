@@ -273,16 +273,7 @@ console.log(error);
 
 <div className="btn-g">
 <button className="btn btn-success"  type="submit">انتشار</button>
-<Dropdown>
-      <Dropdown.Toggle variant="primary" id="dropdown-basic">
-        انتخاب کنید
-      </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-        <Dropdown.Item  as="button"><Link to="/page/admin/anounce-manage" >منتشر کردن</Link></Dropdown.Item>
-        <Dropdown.Item as="button"><Link to="/page/admin/anounce-manage/update" >ویرایش و حذف</Link></Dropdown.Item>
-          </Dropdown.Menu>
-    </Dropdown>
     </div>
 
 

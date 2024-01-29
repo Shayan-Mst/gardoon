@@ -1,5 +1,4 @@
 import Sidebar from "../Sidebar";
-import sem from './../../../assets/semnan.jpg'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState,useEffect } from "react";
 import { getEvent , updateEvent } from "../../../service/gardoonService";
@@ -248,17 +247,12 @@ htmlFor="images" className="drop-container" id="dropcontainer">
 </div>
 
 <div className="form-check m-4">
-  <input value = "ریاستی" checked={Event.category == 'ریاستی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault3"/>
+  <input value = "مذهبی" checked={Event.category == 'مذهبی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault3"/>
   <label className="form-check-label" htmlFor="flexRadioDefault3">
-    ریاستی
+    مذهبی
   </label>
 </div>
-<div className="form-check m-4">
-  <input  value = "ورزشی" checked={Event.category == 'ورزشی'} onChange={onEventChange} className="form-check-input" type="radio" name="category" id="flexRadioDefault4"/>
-  <label className="form-check-label" htmlFor="flexRadioDefault4">
-    ورزشی
-  </label>
-</div>
+
 <div className="form-check m-4">
   <input value = "سایر موضوعات" checked={Event.category == 'سایر موضوعات'} onChange={onEventChange}  className="form-check-input" type="radio" name="category" id="flexRadioDefault5"/>
   <label className="form-check-label" htmlFor="flexRadioDefault5">

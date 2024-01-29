@@ -5,6 +5,8 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import DateObject from "react-date-object";
 import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getInfo } from "../../../service/gardoonService";
 
 
 
@@ -15,6 +17,7 @@ import { useLocation } from "react-router-dom";
 const TopBar = () => {
 
 
+   const [infoSite,setInfoSite] = useState([]);
    const date = new DateObject({ calendar: persian, locale: persian_fa })
    const location = useLocation()
 
@@ -22,6 +25,21 @@ const TopBar = () => {
    const shouldNotRender = (
       location.pathname.startsWith('/page/admin')
   )
+
+  useEffect(()=>{
+
+
+  const fetch = async()=>{
+
+   const {data:infoData} = await getInfo();
+
+   setInfoSite(infoData);
+
+  }
+
+fetch();
+
+  },[])
 
    
 return(
@@ -36,11 +54,11 @@ return(
 
    <i className="fa-solid fa-phone"></i>
 
-   <small>023-10020030</small>
+   <small>{infoSite.phone_number}</small>
 
    <i className="fa-solid fa-envelope"></i>
 
-   <small>example@email.com</small>
+   <small>{infoSite.email}</small>
 
 </div>
 

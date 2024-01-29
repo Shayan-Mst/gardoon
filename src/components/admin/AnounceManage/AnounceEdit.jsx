@@ -2,7 +2,6 @@ import Sidebar from "../Sidebar";
 import { useState,useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { gardoonContext } from "../../../context/gardoonContext";
 import { getAnounce, updateAnounce } from "../../../service/gardoonService";
 import toast, { Toaster } from 'react-hot-toast';
 import imgPlc from './../../../assets/plc.avif'
@@ -16,8 +15,6 @@ const AnounceEdit = () => {
     const [isDragActive, setIsDragActive] = useState(false);
 
     const {anounceId} = useParams();
-
-    const {news,setNews} = useContext(gardoonContext);
 
     const [selectImg,setSelectImg] = useState(imgPlc);
 

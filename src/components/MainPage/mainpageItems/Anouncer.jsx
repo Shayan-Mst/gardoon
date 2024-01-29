@@ -59,7 +59,7 @@ Aos.init({
   <div className="row pt-4">
 {anounce.slice(0,6).map((item)=>(
 
-<div id="event" className="m-4 d-block" data-aos="flip-right"  >
+<div key={item.id} id="event" className="m-4 d-block" data-aos="flip-right"  >
 
 <div className="event-title ">
 <h5 style={{fontSize:"14px"}}>{item.title}</h5>
@@ -68,11 +68,11 @@ Aos.init({
 <div className="d-flex">
 
 <div style={{alignItems:"center"}} className="d-flex more mx-4 mt-4">
-<Link style={{fontSize:"12px",width:"90px"}} className="py-2 px-3 text-decoration-none ">{moment(item.created).format('YYYY/MM/DD')}</Link>
+<Link  style={{fontSize:"12px",width:"90px"}} className="py-2 px-3 text-decoration-none ">{moment(item.created).format('YYYY/MM/DD')}</Link>
 </div>
 
 <div className="d-flex   more mx-4 mt-4">
-<Link className="py-2 px-3 text-decoration-none "><i className="fa-solid fa-arrow-left"></i></Link>
+<Link to={`/anounce/${item.id}`} className="py-2 px-3 text-decoration-none "><i className="fa-solid fa-arrow-left"></i></Link>
 </div>
 
 </div>

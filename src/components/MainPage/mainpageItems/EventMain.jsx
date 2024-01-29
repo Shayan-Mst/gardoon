@@ -88,7 +88,7 @@ Aos.init({
 
       {event.slice(0,6).map((item)=>(
 
-<SwiperSlide className='px-4' >
+<SwiperSlide key={item.id} className='px-4' >
       
 <div className="card ">
 
@@ -97,7 +97,7 @@ Aos.init({
 
 <div className="card-body">
 
-<Link className="card-title d-flex">
+<Link to={`/events/${item.id}`} className="card-title d-flex">
 {item.title}
 </Link>
 <span className="d-flex  mt-4 date-published">{moment(item.created).format('YYYY/MM/DD')}</span>

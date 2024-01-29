@@ -1,7 +1,6 @@
 
 import { useState , useEffect } from "react";
 import { Link } from "react-router-dom";
-import semnan1 from "./../../assets/semnan.jpg"
 import { getAllNews } from "../../service/gardoonService";
 import moment from "jalali-moment";
 
@@ -10,9 +9,22 @@ const News = () => {
 
     const [selectedOption, setSelectedOption] = useState('');
 
+    const [filter , setFilter] = useState([]);
+
+    const [qwuery,setQwuery] = useState("");
+
+
     const handleOptionChange = (event) => {
         
         setSelectedOption(event.target.value);
+
+        if(event.target.value = 'oldest'){
+
+          setFilter(news.reverse())
+          
+                  }
+          
+                 else setFilter(news)
       };
 
       const [news,setNews] = useState([]);
@@ -28,6 +40,7 @@ const News = () => {
           try{
         const {data : newsData} = await getAllNews();
         setNews(newsData);
+        setFilter(newsData)
         
           }
           catch(error){
@@ -46,6 +59,43 @@ const News = () => {
         
         
               },[])
+
+
+              useEffect(()=>{
+
+                if(qwuery.length ==0){
+                
+                  setFilter(news);
+                }
+                
+                
+                              },[qwuery])
+                
+                
+                           const sortBy = (ctg) =>{
+                
+               
+              
+                  setFilter(news.filter((element)=>element.category == ctg))
+                
+                
+                
+                           }
+
+
+                           function searchFunction(){
+
+      
+
+                            const filtered = news.filter(
+                              (item) =>
+                                item.title.toLowerCase().includes(qwuery.toLowerCase()) ||
+                                item.description.toLowerCase().includes(qwuery.toLowerCase())
+                            );
+                            setFilter(filtered);
+                          
+                                 
+                                }
 return(
     <>
     <div id="News" className="container p-4">
@@ -57,9 +107,9 @@ return(
 <div style={{height:"44px"}} className="w-100 input-group d-flex">
   
   <div className="input">
-  <input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
+  <input value={qwuery} onChange={(e) => setQwuery(e.target.value)} className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
   </div>
-  <div className="search-icon d-flex justify-content-center align-items-center">
+  <div onClick={searchFunction} className="search-icon d-flex justify-content-center align-items-center">
 <i className="fa-solid fa-magnifying-glass"></i>
 
 </div>
@@ -81,7 +131,7 @@ return(
         
         <option  value="newest">جدیدترین</option>
         <option value="oldest">قدیمی ترین</option>
-        <option value="seen">پربازدیدترین</option>
+       
         
       </select>
      
@@ -97,23 +147,23 @@ return(
 
 
     <div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
+      <input onChange={(e) => sortBy(e.target.value)} type="radio" className="form-check-input" id="check2" name="group" value="دانشجویی" />
       <label className="form-check-label px-2" htmlFor="check2">دانشجویی</label>
     </div>
 
 
     <div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
+      <input onChange={(e) => sortBy(e.target.value)} type="radio" className="form-check-input" id="check2" name="group" value="فرهنگی و اجتماعی" />
       <label className="form-check-label px-2" htmlFor="check2">فرهنگی و اجتماعی</label>
     </div>
 
     <div className=" mb-3 checkBox">
-      <input type="checkbox" className="form-check-input" id="check1" name="option1" value="something"/>
+      <input onChange={(e) => sortBy(e.target.value)} type="radio" className="form-check-input" id="check1" name="group" value="ریاستی"/>
       <label className="form-check-label px-2" htmlFor="check1">ریاستی</label>
     </div>
 
     <div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
+      <input onChange={(e) => sortBy(e.target.value)} type="radio" className="form-check-input" id="check2" name="group" value="ورزشی" />
       <label className="form-check-label px-2" htmlFor="check2">ورزشی</label>
     </div>
 
@@ -121,7 +171,7 @@ return(
 
 
     <div className="checkBox mb-3 ">
-      <input type="checkbox" className="form-check-input" id="check2" name="option1" value="something" />
+      <input onChange={(e) => sortBy(e.target.value)} type="radio" className="form-check-input" id="check2" name="group" value="سایر موضوعات" />
       <label className="form-check-label px-2" htmlFor="check2">سایر موضوعات</label>
     </div>
 
@@ -144,8 +194,8 @@ return(
 
 <div style={{backgroundColor:"rgb(0,177,106)",color:"white"}} className="d-flex py-2 px-4 ns-heading">نتایج جستجو</div>
 
-<div className="my-3 px-2 d-flex"><span className="px-2">{news.length}</span>نتیجه جستجو</div>
-{news.map((item)=>(
+<div className="my-3 px-2 d-flex"><span className="px-2">{filter.length}</span>نتیجه جستجو</div>
+{filter.map((item)=>(
 
 <div key={item.id} className="container mb-4 search-result px-4">
 

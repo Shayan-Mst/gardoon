@@ -1,12 +1,11 @@
 
 
-import ed from "./../../../assets/ed.jfif"
-import homework from "./../../../assets/homework.jpg"
+
 import earth from "./../../../assets/earth.jpg"
 import lamp from "./../../../assets/lamp.jpg"
 import laptop from "./../../../assets/laptop.jpg"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Aos from "aos"
 import SwiperCore,{  Navigation , EffectFlip, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,12 +14,14 @@ import moment from "jalali-moment"
 
 SwiperCore.use([Navigation, EffectFlip,Pagination ]);
 
-const EventEnd = () => {
+const imageGallery = () => {
 
 
 const [gallery,setGallery] = useState([]);
 
 const [galleryHolder,setGalleryHolder] = useState([]);
+
+const navigate = useNavigate();
 
 useEffect(()=>{
 
@@ -45,6 +46,11 @@ Aos.init({
   },[])
 
   
+  const headToLink = (id) => {
+
+
+navigate(`/gallery/${id}`);
+  }
 
 
 return(
@@ -71,9 +77,9 @@ return(
 
 {gallery.slice(0,1).map((item)=>(
 
-<div className="col-lg-8 col-sm-12 col-md-12">
+<div  key={item.id} className="col-lg-8 col-sm-12 col-md-12">
    <div className="cnt">
-<img className="img-fluid" src={`http://127.0.0.1:8000${item.image}`} alt='...'/>
+<img onClick={() => headToLink(item.id)} className="img-fluid" src={`http://127.0.0.1:8000${item.image}`} alt='...'/>
 <span className="g-date">{moment(item.created).format('YYYY/MM/DD')}</span>
 <div className="overlay">
    <div className="image-caption">{item.title}</div>
@@ -91,10 +97,10 @@ return(
 
 {gallery.slice(1,2).map((I)=>(
 
-<div className="col-lg-4 col-md-12">
+<div  key={I.id} className="col-lg-4 col-md-12">
 
 <div style={{height:"176px", marginBottom:"2%"}} className="cnt">
-<img className="img-fluid" src={`http://127.0.0.1:8000${I.image}`} alt='...'/>
+<img onClick={() => headToLink(I.id)} className="img-fluid" src={`http://127.0.0.1:8000${I.image}`} alt='...'/>
 <span className="g-date">{moment(I.created).format('YYYY/MM/DD')}</span>
 <div className="overlay">
 <div className="image-caption">
@@ -107,9 +113,9 @@ return(
 
 {gallery.slice(2,3).map((item)=>(
 
-<div className="col-lg-12 col-md-12">
+<div  key={item.id} className="col-lg-12 col-md-12">
 <div style={{height:"176px",width:"100%",marginTop:"1.5rem"}} className="cnt">
-<img className="img-fluid" src={`http://127.0.0.1:8000${item.image}`} alt='...'/>
+<img onClick={() => headToLink(item.id)} className="img-fluid" src={`http://127.0.0.1:8000${item.image}`} alt='...'/>
 <span className="g-date">{moment(item.created).format('YYYY/MM/DD')}</span>
 <div className="overlay">
 <div className="image-caption">
@@ -130,9 +136,9 @@ return(
 
 {gallery.slice(3,6).map((item)=>(
 
-<div className="col-lg-4 col-md-6 h-100">
+<div  key={item.id} className="col-lg-4 col-md-6 h-100">
 <div className="cnt">
-<img className="img-fluid" src={`http://127.0.0.1:8000${item.image}`} alt='...'/>
+<img onClick={() => headToLink(item.id)} className="img-fluid" src={`http://127.0.0.1:8000${item.image}`} alt='...'/>
 <span className="g-date">{moment(item.created).format('YYYY/MM/DD')}</span>
 <div className="overlay">
 <div className="image-caption">{item.title}</div>
@@ -212,4 +218,4 @@ return(
 
 }
 
-export default EventEnd;
+export default imageGallery;

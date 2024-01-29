@@ -56,9 +56,8 @@ if (typeof coock['accessToken'] != 'undefined' ) {
     }
 
 
-allowAccess()
+allowAccess();
 
-console.log(coock['accessToken'])
 
   },)
 
@@ -75,7 +74,7 @@ console.log(coock['accessToken'])
 <Route path='/events' element={<Events/>}/>
 <Route exact path='/news' element={<News/>}/>
 <Route path='/anounce' element={<Anounces/>}/>
-<Route path='gallery'element={<Gallery/>}/>
+<Route path='/gallery'element={<Gallery/>}/>
 <Route path='/calendar' element={<Calendars/>}/>
 <Route path='/news/:newsId' element={<New/>}/>
 <Route path='/events/:eventId' element={<Event/>}/>

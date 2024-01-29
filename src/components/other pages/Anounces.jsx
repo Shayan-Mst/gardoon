@@ -15,9 +15,21 @@ const Anounces = () => {
 
     const [anounces,setAnounces] = useState([]);
 
+    const [filter , setFilter] = useState([]);
+
+    const [qwuery,setQwuery] = useState("");
+
     const handleOptionChange = (event) => {
         
         setSelectedOption(event.target.value);
+
+        if(event.target.value = 'oldest'){
+
+          setFilter(anounces.reverse())
+          
+                  }
+          
+                 else setFilter(anounces)
       };
 
 
@@ -30,6 +42,7 @@ const fetch =  async() =>{
   try{
 const {data : anounceData} = await getAllAnounce();
 setAnounces(anounceData);
+setFilter(anounceData)
 
   }
   catch(error){
@@ -48,6 +61,30 @@ fetch();
 
 
       },[])
+      useEffect(()=>{
+
+        if(qwuery.length ==0){
+        
+          setFilter(anounces);
+        }
+        
+        
+                      },[qwuery])
+
+
+      function searchFunction(){
+
+      
+
+        const filtered = anounces.filter(
+          (item) =>
+            item.title.toLowerCase().includes(qwuery.toLowerCase()) ||
+            item.description.toLowerCase().includes(qwuery.toLowerCase())
+        );
+        setFilter(filtered);
+      
+             
+            }
 
 return(<>
 
@@ -61,9 +98,9 @@ return(<>
 <div style={{height:"44px"}} className="w-100 input-group d-flex">
 
 <div className="input">
-<input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
+<input value={qwuery} onChange={(e) => setQwuery(e.target.value)} className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
 </div>
-<div className="search-icon d-flex justify-content-center align-items-center">
+<div onClick={searchFunction} className="search-icon d-flex justify-content-center align-items-center">
 <i className="fa-solid fa-magnifying-glass"></i>
 
 </div>
@@ -85,7 +122,7 @@ return(<>
 
 <option  value="newest">جدیدترین</option>
 <option value="oldest">قدیمی ترین</option>
-<option value="seen">پربازدیدترین</option>
+
 
 </select>
 
@@ -107,10 +144,10 @@ return(<>
 
 <div style={{backgroundColor:"rgb(0,177,106)",color:"white"}} className="d-flex py-2 px-4 ns-heading">نتایج جستجو</div>
 
-<div className="my-3 px-2 d-flex"><span className="px-2">{anounces.length}</span>نتیجه جستجو</div>
+<div className="my-3 px-2 d-flex"><span className="px-2">{filter.length}</span>نتیجه جستجو</div>
 
 
-{anounces.map((item)=>(
+{filter.map((item)=>(
 
 <div key={item.id} className="container mb-4 px-4 search-result">
 <div className="card h-100">

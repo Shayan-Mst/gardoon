@@ -1,5 +1,4 @@
 
-import earth from "./../../assets/earth.jpg"
 import {  Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import lamp from "./../../assets/lamp.jpg"
@@ -102,14 +101,9 @@ return(<>
     <p>
   {news.description}
 
-    </p>
-
-
-    
+    </p>   
 </div>
  
- 
-
 </div>
 
 
@@ -117,18 +111,7 @@ return(<>
 
 <div className="side-access">
 
-<div style={{height:"44px"}} className="w-100 input-group d-flex">
-  
-  <div className="input">
-  <input className="py-2 px-4 w-100" type="search" id="search-input" name="search" placeholder="جستجو ..."/>
-  </div>
-  <div className="search-icon d-flex justify-content-center align-items-center">
-<i className="fa-solid fa-magnifying-glass"></i>
-
-</div>
-</div>
-
-<span className="d-flex fs-6 my-4 mx-2 py-2">اخبار تازه</span>
+<span className="d-flex fs-6 my-4 mx-2 py-2">اخبار</span>
 
 <ul className="px-1">
 
